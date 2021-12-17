@@ -1,19 +1,16 @@
 import { Card } from "react-bootstrap"
 
 
-export const Product = () => {
+export const Product = ({ nombre, descripcion, precio, img }) => {
     return (
         <Card>
-            <Card.Img variant="top" src="https://m.media-amazon.com/images/I/31oEszTc67L.jpg" />
+            <Card.Img variant="top" src={img} />
             <Card.Body>
-                <Card.Title>Card title</Card.Title>
-                <Card.Text>
-                    This is a longer card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit longer.
-                </Card.Text>
+                <Card.Title>{nombre.charAt(0).toUpperCase() + nombre.slice(1)}</Card.Title>
+                <Card.Text>{descripcion.charAt(0).toUpperCase() + descripcion.slice(1)}</Card.Text>
             </Card.Body>
             <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
+                <small className="text-muted">Precio: {precio}</small>
             </Card.Footer>
         </Card>
     )

@@ -2,7 +2,7 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
 
 export const TopBar = () => {
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar sticky="top" bg="light" expand="lg">
             <Container>
                 <Navbar.Brand href="#home">E-commerce</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
