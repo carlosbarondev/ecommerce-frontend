@@ -17,26 +17,34 @@ const MyTextInput = ({ label, ...props }) => {
 };
 
 
-export const LoginScreen = () => {
+export const RegisterScreen = () => {
 
     const navigate = useNavigate();
 
-    const handleRegister = () => {
-        navigate("/registro");
+    const handleLogin = () => {
+        navigate("/login");
     }
 
     return (
         <div className='auth-main'>
             <Formik
                 initialValues={{
+                    nombre: '',
                     email: '',
                     password: '',
+                    password2: '',
                 }}
                 validationSchema={Yup.object({
+                    nombre: Yup.string()
+                        .max(15, 'Must be 15 characters or less')
+                        .required('Required'),
                     email: Yup.string()
                         .email('Invalid email address')
                         .required('Required'),
                     password: Yup.string()
+                        .max(20, 'Must be 20 characters or less')
+                        .required('Required'),
+                    password2: Yup.string()
                         .max(20, 'Must be 20 characters or less')
                         .required('Required'),
                 })}
@@ -49,7 +57,14 @@ export const LoginScreen = () => {
             >
                 <Form className="auth-box-container d-grid gap-2 border rounded">
 
-                    <h1>Iniciar sesión</h1>
+                    <h1>Crear cuenta</h1>
+
+                    <MyTextInput
+                        label="Nombre"
+                        name="nombre"
+                        type="text"
+                        placeholder="¿Cuál es tu nombre?"
+                    />
 
                     <MyTextInput
                         label="E-mail"
@@ -65,14 +80,21 @@ export const LoginScreen = () => {
                         placeholder="Contraseña"
                     />
 
+                    <MyTextInput
+                        label="Confirma tu contraseña"
+                        name="password2"
+                        type="text"
+                        placeholder="Contraseña"
+                    />
+
                     <Button type="submit" variant="primary" size="lg">Crear cuenta</Button>
                     <div className="position-relative my-2">
                         <hr />
                         <p className="position-absolute top-50 start-50 translate-middle bg-white px-3">
-                            ¿Eres nuevo cliente?
+                            Ya tengo una cuenta
                         </p>
                     </div>
-                    <Button type="button" variant="outline-primary" size="lg" onClick={handleRegister}>Crear cuenta</Button>
+                    <Button type="button" variant="outline-primary" size="lg" onClick={handleLogin}>Iniciar sesión</Button>
                 </Form>
             </Formik>
         </div>
