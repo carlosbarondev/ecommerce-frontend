@@ -1,7 +1,9 @@
 import { Formik, Form, useField } from 'formik';
 import { Button, FormControl, FormGroup, FormLabel, FormText } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { startLogin } from '../../actions/auth';
 
 const MyTextInput = ({ label, ...props }) => {
     const [field, meta] = useField(props);
@@ -19,10 +21,15 @@ const MyTextInput = ({ label, ...props }) => {
 
 export const LoginScreen = () => {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleRegister = () => {
         navigate("/registro");
+    }
+
+    const handleLogin = (values) => {
+        dispatch(startLogin(values.email, values.password));
     }
 
     return (
@@ -40,12 +47,7 @@ export const LoginScreen = () => {
                         .max(20, 'Must be 20 characters or less')
                         .required('Required'),
                 })}
-                onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 400);
-                }}
+                onSubmit={handleLogin}
             >
                 <Form className="auth-box-container d-grid gap-2 border rounded">
 
@@ -65,7 +67,7 @@ export const LoginScreen = () => {
                         placeholder="Contraseña"
                     />
 
-                    <Button type="submit" variant="primary" size="lg">Crear cuenta</Button>
+                    <Button type="submit" variant="primary" size="lg">Iniciar sesión</Button>
                     <div className="position-relative my-2">
                         <hr />
                         <p className="position-absolute top-50 start-50 translate-middle bg-white px-3">

@@ -1,7 +1,12 @@
 import { Formik, Form, useField } from 'formik';
 import { Button, FormControl, FormGroup, FormLabel, FormText } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import * as Yup from 'yup';
+
+import { startRegister } from '../../actions/auth';
+
 
 const MyTextInput = ({ label, ...props }) => {
     const [field, meta] = useField(props);
@@ -19,10 +24,18 @@ const MyTextInput = ({ label, ...props }) => {
 
 export const RegisterScreen = () => {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleLogin = () => {
         navigate("/login");
+    }
+
+    const handleRegister = ({ nombre, email, password, password2 }) => {
+        if (password !== password2) {
+            return Swal.fire('Error', 'Las contraseñas no coinciden', 'error');
+        }
+        dispatch(startRegister(nombre, email, password));
     }
 
     return (
@@ -48,12 +61,7 @@ export const RegisterScreen = () => {
                         .max(20, 'Must be 20 characters or less')
                         .required('Required'),
                 })}
-                onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 400);
-                }}
+                onSubmit={handleRegister}
             >
                 <Form className="auth-box-container d-grid gap-2 border rounded">
 

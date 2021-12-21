@@ -1,13 +1,14 @@
+import { useDispatch } from "react-redux";
 import { Container, Nav, Navbar, NavDropdown, Button, Form, FormControl } from "react-bootstrap"
-import { useNavigate } from "react-router-dom";
+
+import { startLogout } from "../../actions/auth";
 
 export const TopBar = () => {
 
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogout = () => {
-        // dispatch(startLogout());
-        navigate("/login");
+        dispatch(startLogout());
     }
 
     return (
