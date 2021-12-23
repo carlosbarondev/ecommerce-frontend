@@ -2,13 +2,6 @@ import { types } from "../types/types"
 import { fetchSinToken } from "../helpers/fetch"
 
 
-export const productAdd = (product) => {
-    return {
-        type: types.productAdd,
-        payload: product
-    }
-}
-
 export const productsStartLoad = () => {
     return async (dispatch) => { //Tarea asincrona
         try {
@@ -25,5 +18,12 @@ const productsLoaded = (products) => {
     return {
         type: types.productsLoaded,
         payload: products
+    }
+}
+
+export const productSetActive = (product) => {
+    return {
+        type: types.productSetActive,
+        payload: product
     }
 }

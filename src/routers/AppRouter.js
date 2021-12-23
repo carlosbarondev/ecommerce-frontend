@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from "react-redux"
 
 import { RegisterScreen } from "../components/auth/RegisterScreen"
 import { LoginScreen } from "../components/auth/LoginScreen"
-import { ProductsScreen } from "../components/products/ProductsScreen"
+import { MainScreen } from "../components/main/MainScreen"
 import { startChecking } from "../actions/auth"
 import { PublicRoute } from "./PublicRoute"
 import { PrivateRoute } from "./PrivateRoute"
+
 
 export const AppRouter = () => {
 
@@ -44,11 +45,11 @@ export const AppRouter = () => {
                     }
                 />
                 <Route
-                    path="/"
+                    path="/*"
                     element=
                     {
                         <PrivateRoute isAutenticated={!!uid}>
-                            <ProductsScreen />
+                            <MainScreen />
                         </PrivateRoute>
                     }
                 />

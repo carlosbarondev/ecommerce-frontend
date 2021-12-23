@@ -1,11 +1,14 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Container, Nav, Navbar, NavDropdown, Button, Form, FormControl } from "react-bootstrap"
 
 import { startLogout } from "../../actions/auth";
+import { Link } from "react-router-dom";
 
 export const TopBar = () => {
 
     const dispatch = useDispatch();
+
+    const { carrito } = useSelector(state => state.cart);
 
     const handleLogout = () => {
         dispatch(startLogout());
@@ -14,7 +17,12 @@ export const TopBar = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Container fluid>
-                <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+                <Link
+                    className="navbar-brand"
+                    to="/"
+                >
+                    Ecommerce
+                </Link>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
@@ -52,6 +60,12 @@ export const TopBar = () => {
                         </Button>
                     </Form>
                 </Navbar.Collapse>
+                <Link to="/" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                    <span className="fa-layers fa-fw fa-3x hv">
+                        <i className="fa-solid fa-cart-shopping"></i>
+                        <span className="fa-layers-counter" style={{ background: 'Tomato', fontSize: '60px' }}>{carrito.length}</span>
+                    </span>
+                </Link>
             </Container>
         </Navbar>
     )
