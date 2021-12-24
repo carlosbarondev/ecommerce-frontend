@@ -25,6 +25,10 @@ export const cartReducer = (state = initialState, action) => {
                     ...state,
                 }
             }
+        case types.cartClear:
+            return {
+                carrito: []
+            }
         default:
             return state;
     }

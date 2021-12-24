@@ -33,3 +33,5 @@ export const productAdd = (product, productIndex) => {
         payload: { product, productIndex }
     }
 }
+
+export const cartClear = () => ({ type: types.cartClear })

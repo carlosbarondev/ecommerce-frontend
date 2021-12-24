@@ -17,7 +17,7 @@ export const MainScreen = () => {
 
                     <Route path="productos/:ProductoId" element={<ProductScreen />} />
 
-                    <Route path="/*" element={<Products />} />
+                    <Route path="/" element={<Products />} />
 
                 </Routes>
 

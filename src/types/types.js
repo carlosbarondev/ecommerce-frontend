@@ -6,8 +6,10 @@ export const types = {
 
     productsLoaded: '[product] Loaded',
     productSetActive: '[product] Set Active',
+    productsClear: '[product] Logout',
 
     cartInit: '[cart] Init cart',
     cartAdd: '[cart] Add cart',
+    cartClear: '[cart] Logout',
 
 }

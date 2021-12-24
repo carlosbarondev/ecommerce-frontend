@@ -18,10 +18,11 @@ export const Canvas = ({ show, setShow }) => {
                     carrito.length > 0
                         ?
                         <div className="mb-4 d-grid gap-2">
-                            <h3>TOTAL: 100 €</h3>
+                            <h3>TOTAL: {carrito.reduce((n, { unidades, producto }) => n + unidades * producto.precio, 0)} €</h3>
                             <Button className="mt-1" variant="warning" size="lg" onClick={handleClose}>
                                 Realizar Pedido
                             </Button>
+                            <hr />
                         </div>
                         : null
                 }
@@ -44,6 +45,7 @@ export const Canvas = ({ show, setShow }) => {
                                         <li className="list-group-item"><b>Precio: </b>{cart.unidades * cart.producto.precio} €</li>
                                     </ul>
                                 </div>
+                                <hr />
                             </div>
                         ))
                         :

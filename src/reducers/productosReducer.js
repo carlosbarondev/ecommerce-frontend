@@ -21,6 +21,12 @@ export const productosReducer = (state = initialState, action) => {
                 total: action.payload.total,
                 productos: [...action.payload.productos]
             }
+        case types.productsClear:
+            return {
+                total: 0,
+                productos: [],
+                productoActivo: null
+            }
         default:
             return state;
     }

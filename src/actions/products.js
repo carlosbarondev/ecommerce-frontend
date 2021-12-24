@@ -27,3 +27,5 @@ export const productSetActive = (product) => {
         payload: product
     }
 }
+
+export const productsClear = () => ({ type: types.productsClear })

@@ -2,6 +2,8 @@ import Swal from 'sweetalert2';
 
 import { types } from '../types/types';
 import { fetchConToken, fetchSinToken } from '../helpers/fetch';
+import { productsClear } from './products';
+import { cartClear } from './cart';
 
 
 export const startLogin = (correo, password) => {
@@ -84,6 +86,8 @@ export const startLogout = () => {
         localStorage.clear();
 
         dispatch(logout());
+        dispatch(productsClear());
+        dispatch(cartClear());
 
     }
 
