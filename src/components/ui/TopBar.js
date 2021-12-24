@@ -1,16 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown, Button, Form, FormControl } from "react-bootstrap"
 
-import { startLogout } from "../../actions/auth";
 import { Canvas } from "./Canvas";
+import { startLogout } from "../../actions/auth";
+import { cartInit } from "../../actions/cart";
 
 export const TopBar = () => {
 
     const dispatch = useDispatch();
+    const { uid } = useSelector(state => state.auth);
 
-    const { carrito } = useSelector(state => state.cart);
+    useEffect(() => { // Restaura el carrito de compras al recargar el navegador
+        const oldUid = localStorage.getItem('uid');
+        if (oldUid === uid) {
+            const oldCart = JSON.parse(localStorage.getItem('carrito'));
+            if (oldCart)
+                dispatch(cartInit(oldCart));
+        }
+    }, [dispatch, uid]);
+
+    const carro = useSelector(state => state.cart);
+    const { carrito } = carro;
+
+    useEffect(() => { // Guarda el carrito de compras al recargar el navegador
+        localStorage.setItem('carrito', JSON.stringify(carro));
+        localStorage.setItem('uid', uid);
+    }, [carro, uid]);
 
     const handleLogout = () => {
         dispatch(startLogout());

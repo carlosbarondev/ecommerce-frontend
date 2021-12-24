@@ -8,6 +8,10 @@ const initialState = {
 export const cartReducer = (state = initialState, action) => {
 
     switch (action.type) {
+        case types.cartInit:
+            return {
+                carrito: action.payload
+            }
         case types.cartAdd:
             if (action.payload.productIndex === -1) {
                 return {

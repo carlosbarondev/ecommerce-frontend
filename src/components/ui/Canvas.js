@@ -43,8 +43,6 @@ export const Canvas = ({ show, setShow }) => {
                                         <li className="list-group-item"><b>Unidades: </b>{cart.unidades}</li>
                                         <li className="list-group-item"><b>Precio: </b>{cart.unidades * cart.producto.precio} €</li>
                                     </ul>
-                                    <h5 className="mt-3">Characters</h5>
-                                    <p>{cart.producto.nombre}</p>
                                 </div>
                             </div>
                         ))

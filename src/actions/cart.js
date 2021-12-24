@@ -1,6 +1,13 @@
 import { types } from "../types/types"
 
 
+export const cartInit = (carro) => {
+    return {
+        type: types.cartInit,
+        payload: carro.carrito
+    }
+}
+
 export const productStartAdd = (product) => {
     return (dispatch, getState) => {
         const { carrito } = getState().cart;
