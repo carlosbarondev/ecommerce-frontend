@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-import { productAdd } from "../../actions/cart";
+import { productStartAdd } from "../../actions/cart";
 
 
 export const ProductScreen = () => {
@@ -26,7 +26,7 @@ export const ProductScreen = () => {
     }
 
     const handleCart = () => {
-        dispatch(productAdd(productoActivo));
+        dispatch(productStartAdd(productoActivo));
     }
 
     return (

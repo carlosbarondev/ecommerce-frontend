@@ -96,7 +96,7 @@ export const RegisterScreen = () => {
                     />
 
                     <Button type="submit" variant="primary" size="lg">Crear cuenta</Button>
-                    <div className="position-relative my-2">
+                    <div className="position-relative my-2 text-center">
                         <hr />
                         <p className="position-absolute top-50 start-50 translate-middle bg-white px-3">
                             Ya tengo una cuenta
