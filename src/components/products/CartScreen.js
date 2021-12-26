@@ -1,10 +1,17 @@
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Button, Card, CloseButton, Col, Image, Row } from "react-bootstrap"
 
 
 export const CartScreen = () => {
 
     const { carrito } = useSelector(state => state.cart);
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("/pago");
+    }
 
     return (
         <Row className="mt-5">
@@ -93,7 +100,7 @@ export const CartScreen = () => {
                     <Card.Body className="text-center">
                         <Card.Title>{carrito.reduce((n, { unidades, producto }) => n + unidades * producto.precio, 0)} €</Card.Title>
                         <div className="mt-4 d-grid gap-2">
-                            <Button className="mt-1" variant="warning" size="lg" >
+                            <Button className="mt-1" variant="warning" size="lg" onClick={handleClick}>
                                 Realizar Pedido
                             </Button>
                         </div>
