@@ -16,6 +16,11 @@
     padding: 25px;
 }
 
+.checkbox-address-container {
+    width: 600px;
+    padding: 25px;
+}
+
 .hv:hover {
     border: 1px solid #000;
 }

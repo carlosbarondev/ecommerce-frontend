@@ -8,7 +8,7 @@ import { MainScreen } from "../components/main/MainScreen"
 import { startChecking } from "../actions/auth"
 import { PublicRoute } from "./PublicRoute"
 import { PrivateRoute } from "./PrivateRoute"
-import { Checkout } from "../components/products/Checkout"
+import { Checkout } from "../components/checkout/Checkout"
 
 
 export const AppRouter = () => {
@@ -46,7 +46,7 @@ export const AppRouter = () => {
                     }
                 />
                 <Route
-                    path="/pago"
+                    path="pago"
                     element=
                     {
                         <PrivateRoute isAutenticated={!!uid}>

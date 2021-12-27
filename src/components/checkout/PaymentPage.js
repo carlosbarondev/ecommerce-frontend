@@ -3,14 +3,14 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
 
-import "./Checkout.css";
-import { CheckoutForm } from "./CheckoutForm";
+import "./PaymentPage.css";
+import { PaymentPageForm } from "./PaymentPageForm";
 import { fetchSinToken } from "../../helpers/fetch";
 
 
 const stripePromise = loadStripe("pk_test_Dt4ZBItXSZT1EzmOd8yCxonL");
 
-export const Checkout = () => {
+export const PaymentPage = () => {
 
     const [clientSecret, setClientSecret] = useState("");
 
@@ -30,12 +30,14 @@ export const Checkout = () => {
     };
 
     return (
-        <div className="App">
-            {clientSecret && (
-                <Elements options={options} stripe={stripePromise}>
-                    <CheckoutForm />
-                </Elements>
-            )}
+        <div className="all">
+            <div className="Checkout">
+                {clientSecret && (
+                    <Elements options={options} stripe={stripePromise}>
+                        <PaymentPageForm />
+                    </Elements>
+                )}
+            </div>
         </div>
     )
 }
