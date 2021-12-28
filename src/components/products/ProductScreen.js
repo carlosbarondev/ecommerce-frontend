@@ -29,6 +29,11 @@ export const ProductScreen = () => {
         dispatch(productStartAdd(productoActivo));
     }
 
+    const handleBuy = () => {
+        dispatch(productStartAdd(productoActivo));
+        navigate("/carrito");
+    }
+
     return (
         <div className="row mt-5">
             <div className="col-4">
@@ -59,7 +64,7 @@ export const ProductScreen = () => {
                     <Button variant="outline-dark" size="lg" onClick={handleCart}>
                         Añadir al carrito
                     </Button>
-                    <Button className="mt-1" variant="warning" size="lg">
+                    <Button className="mt-1" variant="warning" size="lg" onClick={handleBuy}>
                         Comprar
                     </Button>
                 </div>

@@ -16,17 +16,15 @@ export const Products = () => {
     }, [dispatch]);
 
     return (
-        <>
-            <Row xs={1} sm={2} md={4} lg={8} xl={16} className="g-0">
-                {
-                    productos.map(producto => (
-                        <Product
-                            key={producto._id}
-                            {...producto}
-                        />
-                    ))
-                }
-            </Row>
-        </>
+        <Row xs={1} sm={2} md={4} lg={8} xl={16} className="g-0">
+            {
+                productos.map(producto => (
+                    <Product
+                        key={producto._id}
+                        {...producto}
+                    />
+                ))
+            }
+        </Row>
     )
 }

@@ -1,9 +1,11 @@
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import { Button, FormControl, FormGroup, FormLabel, FormText } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
-import { startRegister } from '../../actions/auth';
+import { fetchConToken } from '../../helpers/fetch';
 
 
 const MyTextInput = ({ label, ...props }) => {
@@ -19,13 +21,20 @@ const MyTextInput = ({ label, ...props }) => {
     );
 };
 
+const Formulario = ({ uid, setStep }) => {
 
-export const ShippingAddress = () => {
+    const handleRegister = async ({ nombre, telefono, direccion, poblacion, codigo }) => {
 
-    const dispatch = useDispatch();
+        const newDireccion = { nombre, telefono, direccion, poblacion, codigo };
+        const resp = await fetchConToken(`usuarios/direccion/${uid}`, newDireccion, 'POST');
+        const body = await resp.json();
 
-    const handleRegister = ({ nombre, telefono, direccion, poblacion, codigo }) => {
-        //dispatch(startRegister(nombre, telefono, direccion, poblacion, codigo));
+        if (body.msg) { // Si hay errores
+            Swal.fire('Error', body.msg, 'error');
+        } else {
+            setStep(3);
+        }
+
     }
 
     return (
@@ -41,18 +50,18 @@ export const ShippingAddress = () => {
                 validationSchema={Yup.object({
                     nombre: Yup.string()
                         .max(15, 'Must be 15 characters or less')
-                        .required('Required'),
+                        .required('Requerido'),
                     telefono: Yup.number()
-                        .max(20, 'Must be 20 characters or less')
-                        .required('Required'),
+                        .test('len', 'El teléfono debe tener 9 números', val => val && val.toString().length === 9)
+                        .required('Requerido'),
                     direccion: Yup.string()
-                        .required('Required'),
+                        .required('Requerido'),
                     poblacion: Yup.string()
                         .max(20, 'Must be 20 characters or less')
-                        .required('Required'),
+                        .required('Requerido'),
                     codigo: Yup.number()
-                        .max(20, 'Must be 20 characters or less')
-                        .required('Required'),
+                        .test('len', 'El código debe tener 5 números', val => val && val.toString().length === 5)
+                        .required('Requerido'),
                 })}
                 onSubmit={handleRegister}
             >
@@ -64,14 +73,14 @@ export const ShippingAddress = () => {
                         label="Nombre"
                         name="nombre"
                         type="text"
-                        placeholder="¿Cuál es tu nombre?"
+                        placeholder="Nombre*"
                     />
 
                     <MyTextInput
                         label="Teléfono"
                         name="telefono"
                         type="number"
-                        placeholder="Teléfono"
+                        placeholder="Teléfono*"
                     />
 
                     <h3>Dirección de envío</h3>
@@ -79,21 +88,21 @@ export const ShippingAddress = () => {
                         label="Dirección"
                         name="direccion"
                         type="text"
-                        placeholder="Dirección"
+                        placeholder="Dirección*"
                     />
 
                     <MyTextInput
                         label="Población"
                         name="poblacion"
                         type="text"
-                        placeholder="Población"
+                        placeholder="Población*"
                     />
 
                     <MyTextInput
                         label="Código postal"
                         name="codigo"
                         type="number"
-                        placeholder="Código postal"
+                        placeholder="Código postal*"
                     />
 
                     <Button type="submit" variant="primary" size="lg">Guardar dirección</Button>
@@ -101,5 +110,34 @@ export const ShippingAddress = () => {
                 </Form>
             </Formik>
         </div>
+    );
+}
+
+export const ShippingAddress = ({ setStep }) => {
+
+    const { uid } = useSelector(state => state.auth);
+    const [body, setBody] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const resp = await fetchConToken(`usuarios/direccion/${uid}`);
+            const { direccion } = await resp.json();
+            setBody(direccion);
+        }
+        fetchData();
+    }, [uid]);
+
+    return (
+        <>
+            {
+                (body.length === 0 &&
+                    <Formulario uid={uid} setStep={setStep} />)
+                || (body.length > 0 &&
+                    body.map(address => (
+                        <h5 key={address._id} >{address.direccion}</h5>
+                    ))
+                )
+            }
+        </>
     );
 };

@@ -47,7 +47,7 @@ export const Checkout = () => {
             </Stepper>
             {
                 (step === 2 &&
-                    <ShippingAddress />)
+                    <ShippingAddress setStep={setStep} />)
                 || (step === 3 &&
                     <PaymentPage />)
                 || (step === 4 &&

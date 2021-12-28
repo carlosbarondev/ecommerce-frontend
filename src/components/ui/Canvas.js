@@ -42,10 +42,10 @@ export const Canvas = ({ show, setShow }) => {
                                     <img
                                         src={cart.producto.img}
                                         alt={cart.producto.nombre}
-                                        className="img-thumbnail animate__animated animate__fadeInLeft"
+                                        className="img-thumbnail"
                                     />
                                 </div>
-                                <div className="col-8 animate__animated animate__fadeIn">
+                                <div className="col-8">
                                     <h3>{cart.producto.nombre}</h3>
                                     <ul className="list-group list-group-flush">
                                         <li className="list-group-item"><b>Unidades: </b>{cart.unidades}</li>
