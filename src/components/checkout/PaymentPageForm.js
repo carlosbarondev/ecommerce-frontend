@@ -13,6 +13,7 @@ export const PaymentPageForm = () => {
 
     const [message, setMessage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [visible, setVisible] = useState("hidden");
 
     useEffect(() => {
         if (!stripe) {
@@ -78,9 +79,13 @@ export const PaymentPageForm = () => {
         setIsLoading(false);
     };
 
+    const visibleForm = () => {
+        setVisible("visible");
+    }
+
     return (
-        <form id="payment-form" onSubmit={handleSubmit}>
-            <PaymentElement id="payment-element" />
+        <form id="payment-form" onSubmit={handleSubmit} style={{ visibility: visible }}>
+            <PaymentElement id="payment-element" onReady={visibleForm} />
             <button disabled={isLoading || !stripe || !elements} id="submit">
                 <span id="button-text">
                     {isLoading ? <div className="spinner" id="spinner"></div> : "Confirmar pago"}
@@ -89,5 +94,5 @@ export const PaymentPageForm = () => {
             {/* Show any error or success messages */}
             {message && <div id="payment-message">{message}</div>}
         </form>
-    )
+    );
 }

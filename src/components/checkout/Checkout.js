@@ -11,6 +11,7 @@ export const Checkout = () => {
     const navigate = useNavigate();
 
     const [step, setStep] = useState(2);
+    const [direccion, setDireccion] = useState();
 
     return (
         <>
@@ -47,11 +48,11 @@ export const Checkout = () => {
             </Stepper>
             {
                 (step === 2 &&
-                    <ShippingAddress setStep={setStep} />)
+                    <ShippingAddress setStep={setStep} setDireccion={setDireccion} />)
                 || (step === 3 &&
-                    <PaymentPage />)
+                    <PaymentPage setStep={setStep} setDireccion={direccion} />)
                 || (step === 4 &&
-                    <PaymentPage />)
+                    <h5>Resumen</h5>)
             }
         </>
     )

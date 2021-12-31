@@ -1,24 +1,30 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
-
 import "./PaymentPage.css";
 import { PaymentPageForm } from "./PaymentPageForm";
-import { fetchSinToken } from "../../helpers/fetch";
+import { fetchConToken } from "../../helpers/fetch";
+
+// Make sure to call loadStripe outside of a component’s render to avoid
+// recreating the Stripe object on every render.
+// This is your test publishable API key.
+const stripePromise = loadStripe("pk_test_51JjACUBNBMvlMZgl6YSlm52dTf2fLJ0doW3CJsCyC9EToMpj6ZuYcjrarK6T8gIh8cI5LX6dkUCRCl9AlMgdRaVi00bGKhZ0cO");
 
 
-const stripePromise = loadStripe("pk_test_Dt4ZBItXSZT1EzmOd8yCxonL");
+export const PaymentPage = ({ setDireccion }) => {
 
-export const PaymentPage = () => {
+    const { uid, correo } = useSelector(state => state.auth)
 
     const [clientSecret, setClientSecret] = useState("");
 
     useEffect(() => {
-        fetchSinToken("pagos/create-payment-intent", { items: [{ id: "xl-tshirt" }] }, 'POST')
+        // Create PaymentIntent as soon as the page loads
+        fetchConToken(`pagos/${uid}`, { correo, setDireccion, items: [{ id: "xl-tshirt" }] }, 'POST')
             .then((res) => res.json())
             .then((data) => setClientSecret(data.clientSecret));
-    }, []);
+    }, [uid, correo, setDireccion]);
 
     const appearance = {
         theme: 'stripe',
@@ -39,5 +45,5 @@ export const PaymentPage = () => {
                 )}
             </div>
         </div>
-    )
+    );
 }

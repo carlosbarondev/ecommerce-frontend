@@ -19,7 +19,8 @@ export const startLogin = (correo, password) => {
 
             dispatch(login({
                 uid: body.usuario._id,
-                nombre: body.usuario.nombre
+                nombre: body.usuario.nombre,
+                correo: body.usuario.correo
             }));
         } else {
             Swal.fire('Error', body.msg, 'error');
@@ -45,8 +46,9 @@ export const startRegister = (nombre, correo, password) => {
             localStorage.setItem('token-init-date', new Date().getTime());
 
             dispatch(login({
-                uid: body._id,
-                nombre: body.nombre
+                uid: body.usuario._id,
+                nombre: body.usuario.nombre,
+                correo: body.usuario.correo
             }));
         } else {
             Swal.fire('Error', body.msg, 'error');
@@ -68,7 +70,8 @@ export const startChecking = () => {
 
             dispatch(login({
                 uid: body.uid,
-                nombre: body.nombre
+                nombre: body.nombre,
+                correo: body.correo
             }));
         } else {
             dispatch(checkingFinish());
