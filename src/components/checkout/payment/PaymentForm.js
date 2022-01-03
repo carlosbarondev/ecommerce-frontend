@@ -6,7 +6,7 @@ import {
 } from "@stripe/react-stripe-js";
 
 
-export const PaymentPageForm = () => {
+export const PaymentForm = () => {
 
     const stripe = useStripe();
     const elements = useElements();
@@ -61,9 +61,9 @@ export const PaymentPageForm = () => {
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                return_url: "http://localhost:3000",
+                return_url: "http://localhost:3000/pago",
             },
-        });
+        }).then(localStorage.setItem('step', 4));
 
         // This point will only be reached if there is an immediate error when
         // confirming the payment. Otherwise, your customer will be redirected to

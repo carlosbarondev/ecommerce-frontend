@@ -1,5 +1,7 @@
 export const types = {
 
+    uiChange: '[ui] Change stepper',
+
     authLogin: '[auth] Login',
     authCheckingFinish: '[auth] Finish checking login state',
     authLogout: '[auth] Logout',

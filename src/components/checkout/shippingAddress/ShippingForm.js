@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
-import { Button, FormControl, FormGroup, FormLabel, FormText } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
-import { fetchConToken } from '../../helpers/fetch';
+import { fetchConToken } from '../../../helpers/fetch';
+import { Button, FormControl, FormGroup, FormLabel, FormText } from 'react-bootstrap';
 
 
 const MyTextInput = ({ label, ...props }) => {
@@ -21,7 +19,7 @@ const MyTextInput = ({ label, ...props }) => {
     );
 };
 
-const Formulario = ({ uid, setStep, setDireccion }) => {
+export const ShippingForm = ({ uid, setdireccion, direccionesenvio, setdireccionesenvio }) => {
 
     const handleRegister = async ({ direccion, nombre, telefono }) => {
 
@@ -32,8 +30,8 @@ const Formulario = ({ uid, setStep, setDireccion }) => {
         if (body.msg) { // Si hay errores
             Swal.fire('Error', body.msg, 'error');
         } else {
-            setDireccion({ direccion, nombre, telefono });
-            setStep(3);
+            setdireccion(body.envio[body.envio.length - 1]);
+            setdireccionesenvio([...direccionesenvio, body.envio[body.envio.length - 1]]);
         }
 
     }
@@ -145,34 +143,3 @@ const Formulario = ({ uid, setStep, setDireccion }) => {
         </div>
     );
 }
-
-export const ShippingAddress = ({ setStep, setDireccion }) => {
-
-    const { uid } = useSelector(state => state.auth);
-    const [checking, setChecking] = useState(false);
-    const [direccionesEnvio, setDireccionesEnvio] = useState([]);
-
-    useEffect(() => {
-        async function fetchData() {
-            const resp = await fetchConToken(`usuarios/envio/${uid}`);
-            const { envio } = await resp.json();
-            setDireccionesEnvio(envio);
-            setChecking(true);
-        }
-        fetchData();
-    }, [uid]);
-
-    return (
-        <>
-            {
-                (checking && direccionesEnvio.length === 0 &&
-                    <Formulario uid={uid} setStep={setStep} setDireccion={setDireccion} />)
-                || (checking && direccionesEnvio.length > 0 &&
-                    direccionesEnvio.map(direccion => (
-                        <h5 key={direccion._id}>{direccion.direccion.poblacion}</h5>
-                    ))
-                )
-            }
-        </>
-    );
-};
