@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
     PaymentElement,
     useStripe,
     useElements
 } from "@stripe/react-stripe-js";
 
+import { stepChange } from "../../../actions/ui";
+
 
 export const PaymentForm = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const stripe = useStripe();
     const elements = useElements();
@@ -61,9 +68,10 @@ export const PaymentForm = () => {
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                return_url: "http://localhost:3000/pago",
+                //return_url: "http://localhost:3000/cart/summary",
             },
-        }).then(localStorage.setItem('step', 4));
+            redirect: 'if_required'
+        }).then(dispatch(stepChange(4))).then(navigate("/cart/summary"));
 
         // This point will only be reached if there is an immediate error when
         // confirming the payment. Otherwise, your customer will be redirected to

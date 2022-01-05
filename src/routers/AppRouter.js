@@ -4,53 +4,61 @@ import { useDispatch, useSelector } from "react-redux"
 
 import { RegisterScreen } from "../components/auth/RegisterScreen"
 import { LoginScreen } from "../components/auth/LoginScreen"
-import { MainScreen } from "../components/main/MainScreen"
+import { CartScreen } from "../components/cart/CartScreen"
+import { CartRouter } from "./CartRouter"
+import { HomeRouter } from "./HomeRouter"
+
 import { startChecking } from "../actions/auth"
-import { PublicRoute } from "./PublicRoute"
+import { cartInit } from "../actions/cart"
 import { PrivateRoute } from "./PrivateRoute"
-import { Checkout } from "../components/checkout/Checkout"
 
 
 export const AppRouter = () => {
 
     const dispatch = useDispatch();
-    const { checking, uid } = useSelector(state => state.auth)
+    const { checking, uid } = useSelector(state => state.auth);
 
-    useEffect(() => { // Guarda la autenticación al recargar el navegador
+    useEffect(() => { // Restaura la autenticación al recargar el navegador
         dispatch(startChecking())
     }, [dispatch]);
 
-    if (checking) {
-        return (<h5>Espere...</h5>);
-    }
+    useEffect(() => { // Restaura el carrito de compras al recargar el navegador
+        const oldCart = JSON.parse(localStorage.getItem('carrito'));
+        if (oldCart)
+            dispatch(cartInit(oldCart));
+    }, [dispatch]);
 
     return (
+        !checking &&
         <BrowserRouter>
             <Routes>
                 <Route
                     path="registro"
                     element=
                     {
-                        <PublicRoute isAutenticated={!!uid}>
-                            <RegisterScreen />
-                        </PublicRoute>
+                        <RegisterScreen />
                     }
                 />
                 <Route
                     path="login"
                     element=
                     {
-                        <PublicRoute isAutenticated={!!uid}>
-                            <LoginScreen />
-                        </PublicRoute>
+                        <LoginScreen />
                     }
                 />
                 <Route
-                    path="pago"
+                    path="cart"
                     element=
                     {
-                        <PrivateRoute isAutenticated={!!uid}>
-                            <Checkout />
+                        <CartScreen />
+                    }
+                />
+                <Route
+                    path="cart/*"
+                    element=
+                    {
+                        <PrivateRoute isAuthenticated={!!uid}>
+                            <CartRouter />
                         </PrivateRoute>
                     }
                 />
@@ -58,9 +66,7 @@ export const AppRouter = () => {
                     path="/*"
                     element=
                     {
-                        <PrivateRoute isAutenticated={!!uid}>
-                            <MainScreen />
-                        </PrivateRoute>
+                        <HomeRouter />
                     }
                 />
             </Routes>

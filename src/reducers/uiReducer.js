@@ -2,12 +2,12 @@ import { types } from "../types/types";
 
 
 const initialState = {
-    step: 2,
+    step: 2
 }
 
 export const uiReducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.uiChange:
+        case types.stepChange:
             return {
                 ...state,
                 step: action.payload,

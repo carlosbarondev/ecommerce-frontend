@@ -11,7 +11,7 @@ export const Canvas = ({ show, setShow }) => {
     const handleClose = () => setShow(false);
 
     const handleClick = () => {
-        navigate("/carrito");
+        navigate("/cart");
         handleClose();
     }
 
@@ -25,7 +25,7 @@ export const Canvas = ({ show, setShow }) => {
                     carrito.length > 0
                         ?
                         <div className="mb-4 d-grid gap-2">
-                            <h3>TOTAL: {carrito.reduce((n, { unidades, producto }) => n + unidades * producto.precio, 0)} €</h3>
+                            <h3>TOTAL: {carrito.reduce((n, { unidades, producto }) => n + unidades * producto.precio, 0).toFixed(2)} €</h3>
                             <Button className="mt-1" variant="warning" size="lg" onClick={handleClick}>
                                 Realizar Pedido
                             </Button>

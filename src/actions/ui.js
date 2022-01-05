@@ -1,9 +1,9 @@
 import { types } from "../types/types"
 
 
-export const uiChange = (step) => {
+export const stepChange = (step) => {
     return {
-        type: types.uiChange,
+        type: types.stepChange,
         payload: step,
     }
 }

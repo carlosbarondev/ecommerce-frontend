@@ -1,9 +1,10 @@
+import { useSelector } from 'react-redux';
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
+import { Button, FormControl, FormGroup, FormLabel, FormText, Form as FormRB } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
 import { fetchConToken } from '../../../helpers/fetch';
-import { Button, FormControl, FormGroup, FormLabel, FormText } from 'react-bootstrap';
 
 
 const MyTextInput = ({ label, ...props }) => {
@@ -19,7 +20,9 @@ const MyTextInput = ({ label, ...props }) => {
     );
 };
 
-export const ShippingForm = ({ uid, setdireccion, direccionesenvio, setdireccionesenvio }) => {
+export const ShippingForm = () => {
+
+    const { uid } = useSelector(state => state.auth);
 
     const handleRegister = async ({ direccion, nombre, telefono }) => {
 
@@ -28,10 +31,24 @@ export const ShippingForm = ({ uid, setdireccion, direccionesenvio, setdireccion
         const body = await resp.json();
 
         if (body.msg) { // Si hay errores
+
             Swal.fire('Error', body.msg, 'error');
+
         } else {
-            setdireccion(body.envio[body.envio.length - 1]);
-            setdireccionesenvio([...direccionesenvio, body.envio[body.envio.length - 1]]);
+
+            const id = document.querySelector("input[name=checkbox2]:checked").id;
+
+            if (id) {
+
+                const resp = await fetchConToken(`usuarios/facturacion/${uid}`, direccion, 'POST');
+                const body = await resp.json();
+
+                if (body.msg) { // Si hay errores
+                    Swal.fire('Error', body.msg, 'error');
+                }
+
+            }
+
         }
 
     }
@@ -77,7 +94,6 @@ export const ShippingForm = ({ uid, setdireccion, direccionesenvio, setdireccion
             >
                 <Form className="checkbox-address-container d-grid gap-2 border rounded">
 
-                    <h1>Añadir dirección de envío</h1>
                     <h3>Datos personales</h3>
                     <MyTextInput
                         label="Nombre"
@@ -136,10 +152,25 @@ export const ShippingForm = ({ uid, setdireccion, direccionesenvio, setdireccion
                         placeholder="Provincia*"
                     />
 
+                    <div key="checkbox-default" className="mb-3">
+                        <FormRB.Check
+                            type="checkbox"
+                            id="checkbox1"
+                            name="checkbox1"
+                            label="Establecer esta dirección como predeterminada (para futuras compras)"
+                        />
+                        <FormRB.Check
+                            type="checkbox"
+                            id="checkbox2"
+                            name="checkbox2"
+                            label="Usar mismos datos de envío para la facturación"
+                        />
+                    </div>
+
                     <Button type="submit" variant="primary" size="lg">Guardar dirección</Button>
 
                 </Form>
             </Formik>
-        </div>
+        </div >
     );
 }

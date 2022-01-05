@@ -2,7 +2,6 @@ import Swal from 'sweetalert2';
 
 import { types } from '../types/types';
 import { fetchConToken, fetchSinToken } from '../helpers/fetch';
-import { productsClear } from './products';
 import { cartClear } from './cart';
 
 
@@ -16,7 +15,7 @@ export const startLogin = (correo, password) => {
         if (!body.msg) { // Cuando hay errores se retorna msg
             localStorage.setItem('token', body.token);
             localStorage.setItem('token-init-date', new Date().getTime());
-
+            localStorage.setItem('uid', body.usuario._id);
             dispatch(login({
                 uid: body.usuario._id,
                 nombre: body.usuario.nombre,
@@ -89,7 +88,6 @@ export const startLogout = () => {
         localStorage.clear();
 
         dispatch(logout());
-        dispatch(productsClear());
         dispatch(cartClear());
 
     }

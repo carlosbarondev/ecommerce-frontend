@@ -1,22 +1,13 @@
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom"
-import { Card } from "react-bootstrap"
-import { productSetActive } from "../../actions/products";
+import { Link } from "react-router-dom";
+import { Card } from "react-bootstrap";
 
 
 export const Product = (children) => {
 
-    // const url = nombre.split(' ').join('');
-
     const { _id, nombre, descripcion, precio, img } = children;
-    const dispatch = useDispatch();
-
-    const handleClick = () => {
-        dispatch(productSetActive(children));
-    }
 
     return (
-        <Link to={`productos/${_id}`} style={{ color: 'inherit', textDecoration: 'inherit' }} onClick={handleClick}>
+        <Link to={`${_id}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
             <Card className="col animate__animated animate__fadeIn">
                 <Card.Img variant="top" src={img} />
                 <Card.Body>

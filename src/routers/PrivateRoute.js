@@ -1,13 +1,12 @@
 import { Navigate, useLocation } from "react-router-dom";
 
 
-export const PrivateRoute = ({ isAutenticated, children }) => {
+export const PrivateRoute = ({ isAuthenticated, children }) => {
 
     const { pathname, search } = useLocation();
-
     localStorage.setItem('lastPath', pathname + search);
 
-    return isAutenticated
+    return isAuthenticated
         ? children
-        : <Navigate to="/login" />
+        : <Navigate to="/login" replace={true} />
 }

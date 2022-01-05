@@ -1,41 +1,31 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown, Button, Form, FormControl } from "react-bootstrap"
 
 import { Canvas } from "./Canvas";
 import { startLogout } from "../../actions/auth";
-import { cartInit } from "../../actions/cart";
 
 export const TopBar = () => {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const { uid } = useSelector(state => state.auth);
-
-    useEffect(() => { // Restaura el carrito de compras al recargar el navegador
-        const oldUid = localStorage.getItem('uid');
-        if (oldUid === uid) {
-            const oldCart = JSON.parse(localStorage.getItem('carrito'));
-            if (oldCart)
-                dispatch(cartInit(oldCart));
-        }
-    }, [dispatch, uid]);
-
     const carro = useSelector(state => state.cart);
     const { carrito } = carro;
 
     useEffect(() => { // Guarda el carrito de compras al recargar el navegador
         localStorage.setItem('carrito', JSON.stringify(carro));
-        localStorage.setItem('uid', uid);
-    }, [carro, uid]);
+    }, [carro]);
+
+    const [show, setShow] = useState(false);
+    const handleShow = () => setShow(true);
 
     const handleLogout = () => {
         dispatch(startLogout());
+        navigate("/");
     }
-
-    const [show, setShow] = useState(false);
-
-    const handleShow = () => setShow(true);
 
     const getUnidades = () => { // Suma las unidades de los productos del carrito
         if (carrito.length > 0) {
@@ -85,13 +75,23 @@ export const TopBar = () => {
                                 aria-label="Search"
                             />
                             <Button variant="outline-success">Search</Button>
-                            <Button
-                                variant="danger"
-                                onClick={handleLogout}
-                            >
-                                Identificate
-                            </Button>
                         </Form>
+                        {
+                            (!!uid &&
+                                <Button
+                                    variant="danger"
+                                    onClick={handleLogout}
+                                >
+                                    Cerrar sesion
+                                </Button>)
+                            || (!uid &&
+                                <Button
+                                    variant="danger"
+                                    onClick={() => navigate("/login", { replace: true })}
+                                >
+                                    Identificate
+                                </Button>)
+                        }
                     </Navbar.Collapse>
                     <span className="fa-layers fa-fw fa-3x hv" onClick={handleShow}>
                         <i className="fa-solid fa-cart-shopping"></i>

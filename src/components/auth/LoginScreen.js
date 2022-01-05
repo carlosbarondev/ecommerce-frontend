@@ -1,8 +1,9 @@
-import { Formik, Form, useField } from 'formik';
-import { Button, FormControl, FormGroup, FormLabel, FormText } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
+import { Button, FormControl, FormGroup, FormLabel, FormText } from 'react-bootstrap';
+
 import { startLogin } from '../../actions/auth';
 
 const MyTextInput = ({ label, ...props }) => {
@@ -28,8 +29,10 @@ export const LoginScreen = () => {
         navigate("/registro");
     }
 
-    const handleLogin = (values) => {
-        dispatch(startLogin(values.email, values.password));
+    const handleLogin = async (values) => {
+        await dispatch(startLogin(values.email, values.password));
+        const lastPath = localStorage.getItem('lastPath');
+        navigate(lastPath, { replace: true });
     }
 
     return (

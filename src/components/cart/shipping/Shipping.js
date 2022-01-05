@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { fetchConToken } from '../../../helpers/fetch';
 
-import { Shippings } from './Shippings';
+import { ShippingList } from './ShippingList';
 import { ShippingForm } from './ShippingForm';
 
 
-export const ShippingAddress = ({ setdireccion }) => {
+export const Shipping = () => {
 
     const { uid } = useSelector(state => state.auth);
-    const [checking, setChecking] = useState(false);
     const [direccionesEnvio, setDireccionesEnvio] = useState([]);
+    const [checking, setChecking] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -20,18 +20,15 @@ export const ShippingAddress = ({ setdireccion }) => {
             setChecking(true);
         }
         fetchData();
-        return () => {
-            setDireccionesEnvio([]);
-        };
     }, [uid]);
 
     return (
         <>
             {
                 (checking && direccionesEnvio.length === 0 &&
-                    <ShippingForm uid={uid} setdireccion={setdireccion} direccionesenvio={direccionesEnvio} setdireccionesenvio={setDireccionesEnvio} />)
+                    <ShippingForm />)
                 || (checking && direccionesEnvio.length > 0 &&
-                    <Shippings uid={uid} setdireccion={setdireccion} direccionesenvio={direccionesEnvio} setdireccionesenvio={setDireccionesEnvio} />)
+                    <ShippingList />)
             }
         </>
     );
