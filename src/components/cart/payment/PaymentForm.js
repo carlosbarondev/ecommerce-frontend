@@ -1,19 +1,12 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import {
     PaymentElement,
     useStripe,
     useElements
 } from "@stripe/react-stripe-js";
 
-import { stepChange } from "../../../actions/ui";
-
 
 export const PaymentForm = () => {
-
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const stripe = useStripe();
     const elements = useElements();
@@ -68,10 +61,9 @@ export const PaymentForm = () => {
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                //return_url: "http://localhost:3000/cart/summary",
+                return_url: "http://localhost:3000/summary",
             },
-            redirect: 'if_required'
-        }).then(dispatch(stepChange(4))).then(navigate("/cart/summary"));
+        });
 
         // This point will only be reached if there is an immediate error when
         // confirming the payment. Otherwise, your customer will be redirected to
@@ -92,15 +84,17 @@ export const PaymentForm = () => {
     }
 
     return (
-        <form id="payment-form" onSubmit={handleSubmit} style={{ visibility: visible }}>
-            <PaymentElement id="payment-element" onReady={visibleForm} />
-            <button disabled={isLoading || !stripe || !elements} id="submit">
-                <span id="button-text">
-                    {isLoading ? <div className="spinner" id="spinner"></div> : "Confirmar pago"}
-                </span>
-            </button>
-            {/* Show any error or success messages */}
-            {message && <div id="payment-message">{message}</div>}
-        </form>
+        <>
+            <form id="payment-form" onSubmit={handleSubmit} style={{ visibility: visible }}>
+                <PaymentElement id="payment-element" onReady={visibleForm} />
+                <button disabled={isLoading || !stripe || !elements} id="submit">
+                    <span id="button-text">
+                        {isLoading ? <div className="spinner" id="spinner"></div> : "Confirmar pago"}
+                    </span>
+                </button>
+                {/* Show any error or success messages */}
+                {message && <div id="payment-message">{message}</div>}
+            </form>
+        </>
     );
 }

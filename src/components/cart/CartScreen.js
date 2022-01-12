@@ -10,7 +10,7 @@ export const CartScreen = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("shipping");
+        navigate("/shipping");
     }
 
     return (
@@ -49,7 +49,7 @@ export const CartScreen = () => {
                             </div>
                         </Card.Header>
                         <Card.Header as="h5" className="enable-card-header">
-                            <div className="row align-items-center text-center">
+                            <div className="row align-items-center">
                                 <Card.Text>
                                     Artículo
                                 </Card.Text>
@@ -60,14 +60,14 @@ export const CartScreen = () => {
                         carrito.map(cart => (
                             <Card key={cart.producto._id}>
                                 <Card.Body>
-                                    <div className="row align-items-center text-center">
+                                    <div className="row align-items-center">
                                         <div className="col-md-2 col-sm-2">
                                             <Image src={cart.producto.img} fluid />
                                         </div>
                                         <div className="col-md-3 col-sm-10">
                                             <Card.Title>{cart.producto.nombre}</Card.Title>
                                         </div>
-                                        <div className="col-md-2 col-sm-3">
+                                        <div className="col-md-2 col-sm-3 text-center">
                                             <Card.Text className="disable-card-precio">
                                                 {cart.producto.precio} €
                                             </Card.Text>
@@ -79,7 +79,7 @@ export const CartScreen = () => {
                                                 <button style={{ height: "30px", width: "30px", marginRight: "auto" }}>+</button>
                                             </div>
                                         </div>
-                                        <div className="col-md-2 col-sm-3">
+                                        <div className="col-md-2 col-sm-3 text-center">
                                             <Card.Text>
                                                 <span className="enable-span">Total:&nbsp;</span>{(cart.producto.precio * cart.unidades).toFixed(2)} €
                                             </Card.Text>

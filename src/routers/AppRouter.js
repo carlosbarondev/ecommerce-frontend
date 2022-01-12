@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from "react-redux"
 
 import { RegisterScreen } from "../components/auth/RegisterScreen"
 import { LoginScreen } from "../components/auth/LoginScreen"
-import { CartScreen } from "../components/cart/CartScreen"
-import { CartRouter } from "./CartRouter"
 import { HomeRouter } from "./HomeRouter"
+import { PrivateRoute } from "./PrivateRoute"
+import { Shipping } from "../components/cart/shipping/Shipping"
+import { Payment } from "../components/cart/payment/Payment"
+import { CartStepper } from "../components/ui/Stepper"
 
 import { startChecking } from "../actions/auth"
 import { cartInit } from "../actions/cart"
-import { PrivateRoute } from "./PrivateRoute"
 
 
 export const AppRouter = () => {
@@ -47,19 +48,33 @@ export const AppRouter = () => {
                     }
                 />
                 <Route
-                    path="cart"
+                    path="shipping"
                     element=
                     {
-                        <CartScreen />
+                        <>
+                            <CartStepper />
+
+                            <div className="container">
+                                <PrivateRoute isAuthenticated={!!uid}>
+                                    <Shipping />
+                                </PrivateRoute>
+                            </div>
+                        </>
                     }
                 />
                 <Route
-                    path="cart/*"
+                    path="payment"
                     element=
                     {
-                        <PrivateRoute isAuthenticated={!!uid}>
-                            <CartRouter />
-                        </PrivateRoute>
+                        <>
+                            <CartStepper />
+
+                            <div className="container">
+                                <PrivateRoute isAuthenticated={!!uid}>
+                                    <Payment />
+                                </PrivateRoute>
+                            </div>
+                        </>
                     }
                 />
                 <Route
@@ -70,6 +85,6 @@ export const AppRouter = () => {
                     }
                 />
             </Routes>
-        </BrowserRouter>
+        </BrowserRouter >
     )
 }

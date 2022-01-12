@@ -38,7 +38,7 @@ export const ShippingList = () => {
         const direccion = direccionesEnvio.find(element => element._id === id);
         dispatch(stepChange(3));
 
-        navigate("/cart/payment", {
+        navigate("/payment", {
             state: {
                 direccion: direccion,
                 facturacion: facturacion
