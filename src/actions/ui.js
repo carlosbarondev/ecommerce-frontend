@@ -7,3 +7,16 @@ export const stepChange = (step) => {
         payload: step,
     }
 }
+
+export const canvasChange = () => {
+    return {
+        type: types.canvasChange,
+    }
+}
+
+export const backdropChange = (backdrop) => {
+    return {
+        type: types.backdropChange,
+        payload: backdrop,
+    }
+}

@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown, Button, Form, FormControl } from "react-bootstrap"
 
 import { Canvas } from "./Canvas";
 import { startLogout } from "../../actions/auth";
+import { canvasChange } from "../../actions/ui";
 
 export const TopBar = () => {
 
@@ -19,8 +20,7 @@ export const TopBar = () => {
         localStorage.setItem('carrito', JSON.stringify(carro));
     }, [carro]);
 
-    const [show, setShow] = useState(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => dispatch(canvasChange());
 
     const handleLogout = () => {
         dispatch(startLogout());
@@ -99,7 +99,7 @@ export const TopBar = () => {
                     </span>
                 </Container>
             </Navbar>
-            <Canvas show={show} setShow={setShow} />
+            <Canvas />
         </>
     )
 }

@@ -1,14 +1,19 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, Offcanvas } from "react-bootstrap";
 
+import { canvasChange } from "../../actions/ui";
 
-export const Canvas = ({ show, setShow }) => {
+
+export const Canvas = () => {
 
     const navigate = useNavigate();
-    const { carrito } = useSelector(state => state.cart);
+    const dispatch = useDispatch();
 
-    const handleClose = () => setShow(false);
+    const { carrito } = useSelector(state => state.cart);
+    const { canvas, backdrop } = useSelector(state => state.ui);
+
+    const handleClose = () => dispatch(canvasChange());
 
     const handleClick = () => {
         navigate("/cart");
@@ -16,7 +21,7 @@ export const Canvas = ({ show, setShow }) => {
     }
 
     return (
-        <Offcanvas show={show} onHide={handleClose} placement={'end'}>
+        <Offcanvas show={canvas} onHide={handleClose} placement={'end'} backdrop={backdrop}>
             <Offcanvas.Header closeButton>
                 <Offcanvas.Title>Mi carrito</Offcanvas.Title>
             </Offcanvas.Header>

@@ -38,7 +38,8 @@ export const SummaryModal = ({ id, setModalShow, ...props }) => {
             titulo: values.titulo,
             comentario: values.comentario,
             rating,
-            usuario: uid
+            usuario: uid,
+            fecha: new Date(),
         }, 'POST');
         const bodyEnviar = await enviar.json();
 
