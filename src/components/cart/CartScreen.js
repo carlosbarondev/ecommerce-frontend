@@ -1,16 +1,32 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, CloseButton, Col, Image, Row } from "react-bootstrap"
+
+import { stepChange } from "../../actions/ui";
+import { productStartAdd } from "../../actions/cart";
 
 
 export const CartScreen = () => {
 
-    const { carrito } = useSelector(state => state.cart);
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const { carrito } = useSelector(state => state.cart);
+
     const handleClick = () => {
+        dispatch(stepChange(2));
+        localStorage.setItem('step', 2);
         navigate("/shipping");
+    }
+
+    const handleSubtract = (producto, unidades) => {
+        if (unidades >= 2) {
+            dispatch(productStartAdd(producto, -1, true));
+        }
+    }
+
+    const handleAdd = (producto) => {
+        dispatch(productStartAdd(producto, 1, true));
     }
 
     return (
@@ -74,9 +90,9 @@ export const CartScreen = () => {
                                         </div>
                                         <div className="col-md-2 col-sm-3">
                                             <div className="input-group">
-                                                <button style={{ height: "30px", width: "30px", marginLeft: "auto" }}>-</button>
-                                                <input className="text-center" type="text" defaultValue={cart.unidades} style={{ height: "30px", width: "30px" }} />
-                                                <button style={{ height: "30px", width: "30px", marginRight: "auto" }}>+</button>
+                                                <button onClick={() => handleSubtract(cart.producto, cart.unidades)} className="border" style={{ height: "30px", width: "30px", marginLeft: "auto" }}>-</button>
+                                                <input className="text-center border" type="text" value={cart.unidades} readOnly style={{ height: "30px", width: "30px" }} />
+                                                <button onClick={() => handleAdd(cart.producto)} className="border" style={{ height: "30px", width: "30px", marginRight: "auto" }}>+</button>
                                             </div>
                                         </div>
                                         <div className="col-md-2 col-sm-3 text-center">
@@ -94,10 +110,8 @@ export const CartScreen = () => {
                     }
                 </Col>
                 <Col lg={12} xl={4}>
-                    <Card>
+                    <Card className='sticky-top'>
                         <Card.Header as="h5" className="text-center">TOTAL</Card.Header>
-                    </Card>
-                    <Card>
                         <Card.Body className="text-center">
                             <Card.Title>{carrito.reduce((n, { unidades, producto }) => n + unidades * producto.precio, 0).toFixed(2)} €</Card.Title>
                             <div className="mt-4 d-grid gap-2">

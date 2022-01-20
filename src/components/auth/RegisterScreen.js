@@ -35,8 +35,7 @@ export const RegisterScreen = () => {
         if (password !== password2) {
             return Swal.fire('Error', 'Las contraseñas no coinciden', 'error');
         }
-        dispatch(startRegister(nombre, email, password));
-        navigate(-1);
+        dispatch(startRegister(nombre, email, password, navigate));
     }
 
     return (

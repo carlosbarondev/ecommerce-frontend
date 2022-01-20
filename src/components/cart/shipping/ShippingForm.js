@@ -1,10 +1,12 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import { Button, FormControl, FormGroup, FormLabel, FormText, Form as FormRB } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
 import { fetchConToken } from '../../../helpers/fetch';
+import { shippingModalChange } from '../../../actions/ui';
+import { shippingSetActive, shippingSetDefault, shippingStartAddBilling, shippingStartAddNew, shippingStartSort, shippingStartUpdate } from '../../../actions/shipping';
 
 
 const MyTextInput = ({ label, ...props }) => {
@@ -21,35 +23,57 @@ const MyTextInput = ({ label, ...props }) => {
 };
 
 export const ShippingForm = () => {
+    console.log('ShippingForm');
+
+    const dispatch = useDispatch();
 
     const { uid } = useSelector(state => state.auth);
+    const { activo } = useSelector(state => state.shipping);
 
     const handleRegister = async ({ direccion, nombre, telefono }) => {
 
-        const newEnvio = { direccion, nombre, telefono };
-        const resp = await fetchConToken(`usuarios/envio/${uid}`, newEnvio, 'POST');
-        const body = await resp.json();
+        let newEnvio;
+        let body;
+        let predeterminado;
 
-        if (body.msg) { // Si hay errores
-
-            Swal.fire('Error', body.msg, 'error');
-
+        if (!activo) {
+            newEnvio = { direccion, nombre, telefono };
+            await dispatch(shippingStartAddNew(newEnvio)).then((result) => {
+                predeterminado = result;
+                console.log("aqui: ", predeterminado);
+            });
+            console.log("fuera: ", predeterminado);
         } else {
-
-            const id = document.querySelector("input[name=checkbox2]:checked").id;
-
-            if (id) {
-
-                const resp = await fetchConToken(`usuarios/facturacion/${uid}`, direccion, 'POST');
-                const body = await resp.json();
-
-                if (body.msg) { // Si hay errores
-                    Swal.fire('Error', body.msg, 'error');
-                }
-
-            }
-
+            const { _id } = activo;
+            newEnvio = { _id, direccion, nombre, telefono };
+            dispatch(shippingStartUpdate(newEnvio));
+            predeterminado = _id;
         }
+
+        if (document.querySelector("input[name=checkbox1]:checked")) { // Marcar dirección de envío como predeterminada
+            console.log("pred:", predeterminado);
+
+            dispatch(shippingSetDefault(predeterminado));
+            newEnvio = { predeterminado }
+            const resp = await fetchConToken(`usuarios/${uid}`, newEnvio, 'PUT');
+            body = await resp.json();
+            if (body.msg) { // Si hay errores
+                console.log('Hola Mundo');
+                Swal.fire('Error', body.msg, 'error');
+            } else {
+                const enviar = body.envio.find(element => element._id === predeterminado);
+                dispatch(shippingStartUpdate(enviar));
+                dispatch(shippingStartSort());
+            }
+        }
+
+        const id = document.querySelector("input[name=checkbox2]:checked")?.id; // Dirección de facturación igual a la dirección de envío
+        if (id) {
+            dispatch(shippingStartAddBilling(direccion));
+        }
+
+        dispatch(shippingModalChange(false));
+        dispatch(shippingSetActive());
 
     }
 
@@ -58,15 +82,15 @@ export const ShippingForm = () => {
             <Formik
                 initialValues={{
                     direccion: {
-                        poblacion: '',
-                        pais: '',
-                        calle: '',
-                        numero: '',
-                        codigo: '',
-                        provincia: ''
+                        poblacion: activo?.direccion.poblacion || '',
+                        pais: activo?.direccion.pais || '',
+                        calle: activo?.direccion.calle || '',
+                        numero: activo?.direccion.numero || '',
+                        codigo: activo?.direccion.codigo || '',
+                        provincia: activo?.direccion.provincia || '',
                     },
-                    nombre: '',
-                    telefono: '',
+                    nombre: activo?.nombre || '',
+                    telefono: activo?.telefono || '',
                 }}
                 validationSchema={Yup.object({
                     nombre: Yup.string()
@@ -154,12 +178,14 @@ export const ShippingForm = () => {
 
                     <div key="checkbox-default" className="mb-3">
                         <FormRB.Check
+                            defaultChecked
                             type="checkbox"
                             id="checkbox1"
                             name="checkbox1"
                             label="Establecer esta dirección como predeterminada (para futuras compras)"
                         />
                         <FormRB.Check
+                            defaultChecked
                             type="checkbox"
                             id="checkbox2"
                             name="checkbox2"

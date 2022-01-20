@@ -5,7 +5,7 @@ import { fetchConToken, fetchSinToken } from '../helpers/fetch';
 import { cartClear } from './cart';
 
 
-export const startLogin = (correo, password) => {
+export const startLogin = (correo, password, navigate) => {
 
     return async (dispatch) => {
 
@@ -13,14 +13,20 @@ export const startLogin = (correo, password) => {
         const body = await resp.json();
 
         if (!body.msg) { // Cuando hay errores se retorna msg
+
             localStorage.setItem('token', body.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             localStorage.setItem('uid', body.usuario._id);
+
             dispatch(login({
                 uid: body.usuario._id,
                 nombre: body.usuario.nombre,
                 correo: body.usuario.correo
             }));
+
+            const lastPath = localStorage.getItem('lastPath') || "/";
+            navigate(lastPath, { replace: true });
+
         } else {
             Swal.fire('Error', body.msg, 'error');
         }
@@ -33,7 +39,7 @@ const login = (user) => ({
     payload: user
 })
 
-export const startRegister = (nombre, correo, password) => {
+export const startRegister = (nombre, correo, password, navigate) => {
 
     return async (dispatch) => {
 
@@ -41,14 +47,32 @@ export const startRegister = (nombre, correo, password) => {
         const body = await resp.json();
 
         if (!body.msg) { // Cuando hay errores se retorna msg
-            localStorage.setItem('token', body.token);
-            localStorage.setItem('token-init-date', new Date().getTime());
 
-            dispatch(login({
-                uid: body.usuario._id,
-                nombre: body.usuario.nombre,
-                correo: body.usuario.correo
-            }));
+            const resp = await fetchSinToken('login', { correo, password }, 'POST');
+            const body = await resp.json();
+
+            if (!body.msg) { // Cuando hay errores se retorna msg
+
+                const resp = await fetchSinToken('login', { correo, password }, 'POST');
+                const body = await resp.json();
+
+                localStorage.setItem('token', body.token);
+                localStorage.setItem('token-init-date', new Date().getTime());
+                localStorage.setItem('uid', body.usuario._id);
+
+                dispatch(login({
+                    uid: body.usuario._id,
+                    nombre: body.usuario.nombre,
+                    correo: body.usuario.correo
+                }));
+
+                const lastPath = localStorage.getItem('lastPath') || "/";
+                navigate(lastPath, { replace: true });
+
+            } else {
+                Swal.fire('Error', body.msg, 'error');
+            }
+
         } else {
             Swal.fire('Error', body.msg, 'error');
         }

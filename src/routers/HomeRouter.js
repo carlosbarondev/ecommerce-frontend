@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { TopBar } from '../components/ui/TopBar';
 import { ProductScreen } from '../components/products/ProductScreen';
@@ -12,6 +12,7 @@ import { PrivateRoute } from './PrivateRoute';
 export const HomeRouter = () => {
 
     const { uid } = useSelector(state => state.auth);
+    const { carrito } = useSelector(state => state.cart);
 
     const { pathname, search } = useLocation();
     localStorage.setItem('lastPath', pathname + search);
@@ -26,7 +27,15 @@ export const HomeRouter = () => {
 
                     <Route path="/:ProductoId" element={<ProductScreen />} />
 
-                    <Route path="cart" element={<CartScreen />} />
+                    <Route path="cart" element={
+                        <>
+                            {
+                                carrito.length > 0
+                                    ? <CartScreen />
+                                    : <Navigate to="/" replace={true} />
+                            }
+                        </>
+                    } />
 
                     <Route
                         path="summary"

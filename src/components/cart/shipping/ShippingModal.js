@@ -1,9 +1,15 @@
 import { Button, Modal } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 import { ShippingForm } from './ShippingForm';
+import { ShippingFormBilling } from './ShippingFormBilling';
 
 
-export const ShippingModal = ({ uid, setdireccion, direccionesenvio, setdireccionesenvio, facturacion, setfacturacion, ...props }) => {
+export const ShippingModal = (props) => {
+    console.log('ShippingModal');
+
+    const { elegirShippingModal } = useSelector(state => state.ui);
+
     return (
         <Modal
             {...props}
@@ -17,14 +23,11 @@ export const ShippingModal = ({ uid, setdireccion, direccionesenvio, setdireccio
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <ShippingForm
-                    uid={uid}
-                    setdireccion={setdireccion}
-                    direccionesenvio={direccionesenvio}
-                    setdireccionesenvio={setdireccionesenvio}
-                    facturacion={facturacion}
-                    setfacturacion={setfacturacion}
-                />
+                {
+                    elegirShippingModal
+                        ? <ShippingForm />
+                        : <ShippingFormBilling />
+                }
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Cerrar</Button>

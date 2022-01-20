@@ -29,10 +29,8 @@ export const LoginScreen = () => {
         navigate("/registro");
     }
 
-    const handleLogin = async (values) => {
-        await dispatch(startLogin(values.email, values.password));
-        const lastPath = localStorage.getItem('lastPath');
-        navigate(lastPath, { replace: true });
+    const handleLogin = (values) => {
+        dispatch(startLogin(values.email, values.password, navigate));
     }
 
     return (

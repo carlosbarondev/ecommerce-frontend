@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
 import { RegisterScreen } from "../components/auth/RegisterScreen"
@@ -17,7 +17,9 @@ import { cartInit } from "../actions/cart"
 export const AppRouter = () => {
 
     const dispatch = useDispatch();
+
     const { checking, uid } = useSelector(state => state.auth);
+    const { carrito } = useSelector(state => state.cart);
 
     useEffect(() => { // Restaura la autenticación al recargar el navegador
         dispatch(startChecking())
@@ -56,7 +58,11 @@ export const AppRouter = () => {
 
                             <div className="container">
                                 <PrivateRoute isAuthenticated={!!uid}>
-                                    <Shipping />
+                                    {
+                                        carrito.length > 0
+                                            ? <Shipping />
+                                            : <Navigate to="/" replace={true} />
+                                    }
                                 </PrivateRoute>
                             </div>
                         </>
@@ -71,7 +77,11 @@ export const AppRouter = () => {
 
                             <div className="container">
                                 <PrivateRoute isAuthenticated={!!uid}>
-                                    <Payment />
+                                    {
+                                        carrito.length > 0
+                                            ? <Payment />
+                                            : <Navigate to="/" replace={true} />
+                                    }
                                 </PrivateRoute>
                             </div>
                         </>

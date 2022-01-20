@@ -88,9 +88,9 @@ export const ProductScreen = () => {
                         Regresar
                     </button>
                     <div className="input-group">
-                        <button onClick={handleClick} style={{ height: "30px", width: "30px", marginLeft: "auto" }}>-</button>
-                        <input className="text-center" type="text" value={cantidad} readOnly style={{ height: "30px", width: "30px" }} />
-                        <button onClick={() => setCantidad(cantidad + 1)} style={{ height: "30px", width: "30px", marginRight: "auto" }}>+</button>
+                        <button onClick={handleClick} className="border" style={{ height: "30px", width: "30px", marginLeft: "auto" }}>-</button>
+                        <input className="text-center border" type="text" value={cantidad} readOnly style={{ height: "30px", width: "30px" }} />
+                        <button onClick={() => setCantidad(cantidad + 1)} className="border" style={{ height: "30px", width: "30px", marginRight: "auto" }}>+</button>
                     </div>
                     <div className="mt-3 d-grid gap-2">
                         <Button variant="outline-dark" size="lg" onClick={handleCart}>
@@ -118,7 +118,7 @@ export const ProductScreen = () => {
                 </h4>
                 {
                     producto.opinion.map(op => (
-                        <div className="row mt-2" key={op._id} >
+                        <div className="row mt-2" key={op._id}>
                             <hr />
                             <div className="col-sm-12 col-md-4">
                                 <div className="row">

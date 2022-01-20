@@ -3,8 +3,11 @@ import { types } from "../types/types";
 
 const initialState = {
     step: 2,
-    canvas: false,
-    backdrop: true
+    menuCanvas: false,
+    cartCanvas: false,
+    backdrop: true,
+    shippingModal: false,
+    elegirShippingModal: null
 }
 
 export const uiReducer = (state = initialState, action) => {
@@ -14,15 +17,30 @@ export const uiReducer = (state = initialState, action) => {
                 ...state,
                 step: action.payload,
             }
-        case types.canvasChange:
+        case types.menuCanvasChange:
             return {
                 ...state,
-                canvas: !state.canvas,
+                menuCanvas: !state.menuCanvas,
+            }
+        case types.cartCanvasChange:
+            return {
+                ...state,
+                cartCanvas: !state.cartCanvas,
             }
         case types.backdropChange:
             return {
                 ...state,
                 backdrop: action.payload,
+            }
+        case types.shippingModalChange:
+            return {
+                ...state,
+                shippingModal: action.payload,
+            }
+        case types.shippingModalElegir:
+            return {
+                ...state,
+                elegirShippingModal: action.payload,
             }
         default:
             return state;

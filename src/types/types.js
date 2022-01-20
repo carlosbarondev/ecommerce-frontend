@@ -1,8 +1,11 @@
 export const types = {
 
     stepChange: '[ui] Change step',
-    canvasChange: '[ui] Change canvas',
+    menuCanvasChange: '[ui] Change menu canvas',
+    cartCanvasChange: '[ui] Change cart canvas',
     backdropChange: '[ui] Change backdrop',
+    shippingModalChange: '[ui] Change shipping modal',
+    shippingModalElegir: '[ui] Shipping modal elegir',
 
     authLogin: '[auth] Login',
     authCheckingFinish: '[auth] Finish checking login state',
@@ -11,5 +14,17 @@ export const types = {
     cartInit: '[cart] Init cart',
     cartAdd: '[cart] Add cart',
     cartClear: '[cart] Logout',
+
+    shippingInit: '[shipping] Init shipping',
+    shippingSetActive: '[shipping] Set active shipping',
+    shippingSetDefault: '[shipping] Set default shipping',
+    shippingAddNew: '[shipping] Add new shipping',
+    shippingUpdate: '[shipping] Update shipping',
+    shippingDelete: '[shipping] Delete shipping',
+    shippingSort: '[shipping] Sort shipping',
+    shippingInitBilling: '[shipping] Init billing',
+    shippingAddBilling: '[shipping] Add billing',
+    shippingUpdateBilling: '[shipping] Update billing',
+    shippingDeleteBilling: '[shipping] Delete billing',
 
 }

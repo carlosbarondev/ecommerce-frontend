@@ -1,110 +1,217 @@
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Row, Col } from 'react-bootstrap';
+import { Button, Card, Form, ListGroup } from 'react-bootstrap';
 
-import { stepChange } from '../../../actions/ui';
+import { shippingModalChange, shippingModalElegir, stepChange } from '../../../actions/ui';
 import { ShippingModal } from './ShippingModal';
-import { fetchConToken } from '../../../helpers/fetch';
+import { shippingSetActive, shippingStartDelete, shippingStartDeleteBilling } from '../../../actions/shipping';
+import Swal from 'sweetalert2';
+import { useEffect } from 'react';
 
 
 export const ShippingList = () => {
+    console.log('ShippingList');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [modalShow, setModalShow] = useState(false);
-
-    const { uid } = useSelector(state => state.auth);
-    const [direccionesEnvio, setDireccionesEnvio] = useState([]);
-    const [facturacion, setFacturacion] = useState({});
-    const [checking, setChecking] = useState(false);
+    const { shippingModal } = useSelector(state => state.ui);
+    const { nombre } = useSelector(state => state.auth);
+    const { carrito } = useSelector(state => state.cart);
+    const { envio, facturacion, predeterminado } = useSelector(state => state.shipping);
 
     useEffect(() => {
-        async function fetchData() {
-            const resp = await fetchConToken(`usuarios/envio/${uid}`);
-            const { envio } = await resp.json();
-            setDireccionesEnvio(envio);
-            const resp2 = await fetchConToken(`usuarios/facturacion/${uid}`);
-            const { facturacion } = await resp2.json();
-            setFacturacion(facturacion);
-            setChecking(true);
-        }
-        fetchData();
-    }, [uid]);
+        dispatch(stepChange(2));
+        localStorage.setItem('step', 2);
+    }, [dispatch]);
 
     const handleSave = () => {
-        const id = document.querySelector("input[name=check]:checked").id;
-        const direccion = direccionesEnvio.find(element => element._id === id);
-        dispatch(stepChange(3));
+        if (document.querySelector("input[name=check_envio]:checked")) {
+            const id = document.querySelector("input[name=check_envio]:checked").id;
+            const enviar = envio.find(element => element._id === id);
+            dispatch(stepChange(3));
+            localStorage.setItem('step', 3);
+            navigate("/payment", {
+                state: {
+                    direccion: enviar,
+                    facturacion: facturacion
+                }
+            });
+        } else {
+            Swal.fire('Error', "No ha elegido una dirección de envío", 'error');
+        }
+    }
 
-        navigate("/payment", {
-            state: {
-                direccion: direccion,
-                facturacion: facturacion
-            }
-        });
+    const activar = (id, e) => {
+        e.preventDefault();
+        document.getElementById(id).checked = true;
+    }
+
+    const handleDelete = (idEnvio) => {
+        if (idEnvio) {
+            dispatch(shippingStartDelete(idEnvio));
+        } else {
+            dispatch(shippingStartDeleteBilling());
+        }
+    }
+
+    const handleEdit = (idEnvio) => {
+        if (idEnvio) {
+            dispatch(shippingModalElegir(true));
+            const enviar = envio.find(element => element._id === idEnvio);
+            dispatch(shippingSetActive(enviar));
+        } else {
+            dispatch(shippingModalElegir(false));
+        }
+        dispatch(shippingModalChange(true));
+    }
+
+    const handleHide = () => {
+        dispatch(shippingModalChange(false));
+        dispatch(shippingSetActive());
     }
 
     return (
         <>
-            {
-                checking &&
-                <Form>
-                    <fieldset>
-                        <Form.Group as={Row} className="mb-3">
-                            <Col sm={10}>
-                                <h3>Direcciones de envío</h3>
-                                {
-                                    direccionesEnvio.map(direccion => (
-                                        <Form.Check
-                                            type="radio"
-                                            label={direccion.direccion.poblacion}
-                                            name="check"
-                                            id={direccion._id}
-                                            key={direccion._id}
-                                        />
-                                    ))
-                                }
-                                <Button variant="primary" onClick={() => setModalShow(true)}>
-                                    Añadir otra dirección
-                                </Button>
-                            </Col>
-                        </Form.Group>
-                    </fieldset>
-                    <fieldset>
-                        <Form.Group as={Row} className="mb-3">
-                            <Col sm={10}>
-                                <h3>Direccion de facturación</h3>
-                                {
-                                    (facturacion)
-                                        ?
-                                        <Form.Check
-                                            type="radio"
-                                            label={facturacion.poblacion}
-                                            name="check_fact"
-                                            id={facturacion._id}
-                                            key={facturacion._id}
-                                        />
-                                        :
-                                        <Button variant="primary" onClick={() => setModalShow(true)}>
-                                            Añadir otra dirección
+            <div className="row">
+                <div className="col-md-8">
+                    <h4 className='mb-3'>Dirección de envío</h4>
+                    <Form>
+                        {
+                            envio.map(direccion => (
+                                <div className="row mt-1" key={direccion._id}>
+                                    <div className="col-md-8">
+                                        <ListGroup>
+                                            <ListGroup.Item className="border-0" action onClick={(e) => activar(direccion._id, e)}>
+                                                {
+                                                    predeterminado === direccion._id &&
+                                                    <Form.Check
+                                                        defaultChecked
+                                                        type="radio"
+                                                        id={direccion._id}
+                                                        label={direccion.nombre}
+                                                        name="check_envio"
+                                                        style={{ "fontWeight": "bold", "pointerEvents": "none" }}
+                                                    />
+                                                }
+                                                {
+                                                    predeterminado !== direccion._id &&
+                                                    <Form.Check
+                                                        type="radio"
+                                                        id={direccion._id}
+                                                        label={direccion.nombre}
+                                                        name="check_envio"
+                                                        style={{ "fontWeight": "bold", "pointerEvents": "none" }}
+                                                    />
+                                                }
+                                                <div className="mb-3">{direccion.direccion.calle} {direccion.direccion.numero}, {direccion.direccion.codigo}, {direccion.direccion.poblacion}, {direccion.direccion.provincia}, {direccion.direccion.pais}</div>
+                                            </ListGroup.Item>
+                                        </ListGroup>
+                                    </div>
+                                    <div className="col-md-4" style={{ "display": "flex", "alignItems": "center" }}>
+                                        <Button
+                                            className="me-1"
+                                            style={{ "width": "80px" }}
+                                            variant="outline-secondary"
+                                            size="sm"
+                                            onClick={() => handleEdit(direccion._id)}
+                                        >
+                                            Editar
                                         </Button>
-                                }
-                            </Col>
-                        </Form.Group>
-                    </fieldset>
-                    <Form.Group as={Row} className="mb-3">
-                        <Col sm={10}>
-                            <Button onClick={handleSave}>Guardar y continuar</Button>
-                        </Col>
-                    </Form.Group>
-                    <ShippingModal
-                        show={modalShow}
-                        onHide={() => setModalShow(false)}
-                    />
-                </Form>
-            }
+                                        <Button
+                                            style={{ "width": "80px" }}
+                                            variant="outline-secondary"
+                                            size="sm"
+                                            onClick={() => handleDelete(direccion._id)}
+                                        >
+                                            Eliminar
+                                        </Button>
+                                    </div>
+                                    <hr />
+                                </div>
+                            ))
+                        }
+                    </Form>
+                    <Button variant="primary" onClick={() => {
+                        dispatch(shippingModalElegir(true));
+                        dispatch(shippingModalChange(true));
+                    }}
+                    >
+                        Añadir otra dirección
+                    </Button>
+                    <h4>Dirección de facturación</h4>
+                    {
+                        facturacion
+                            ? <Form>
+                                <div className="row mt-1" key={facturacion._id}>
+                                    <div className="col-md-8">
+                                        <ListGroup>
+                                            <ListGroup.Item className="border-0" action onClick={(e) => activar(facturacion._id, e)}>
+                                                <Form.Check
+                                                    defaultChecked
+                                                    type="radio"
+                                                    id={facturacion._id}
+                                                    label={nombre}
+                                                    name="check_facturacion"
+                                                    style={{ "fontWeight": "bold", "pointerEvents": "none" }}
+                                                />
+                                                <div className="mb-3">{facturacion.calle} {facturacion.numero}, {facturacion.codigo}, {facturacion.poblacion}, {facturacion.provincia}, {facturacion.pais}</div>
+                                            </ListGroup.Item>
+                                        </ListGroup>
+                                    </div>
+                                    <div className="col-md-4" style={{ "display": "flex", "alignItems": "center" }}>
+                                        <Button
+                                            className="me-1"
+                                            style={{ "width": "80px" }}
+                                            variant="outline-secondary"
+                                            size="sm"
+                                            onClick={() => handleEdit()}
+                                        >
+                                            Editar
+                                        </Button>
+                                        <Button
+                                            style={{ "width": "80px" }}
+                                            variant="outline-secondary"
+                                            size="sm"
+                                            onClick={() => handleDelete()}
+                                        >
+                                            Eliminar
+                                        </Button>
+                                    </div>
+                                </div>
+                            </Form>
+                            : <Button variant="primary" onClick={() => {
+                                dispatch(shippingModalElegir(false));
+                                dispatch(shippingModalChange(true));
+                            }}
+                            >
+                                Añadir dirección
+                            </Button>
+                    }
+                </div>
+                <div className="col-md-4">
+                    <Card className='sticky-top'>
+                        <Card.Header as="h5" className="text-center">TOTAL</Card.Header>
+                        <Card.Body className="text-center">
+                            <Card.Title>{carrito.reduce((n, { unidades, producto }) => n + unidades * producto.precio, 0).toFixed(2)} €</Card.Title>
+                            <div className="mt-4 d-grid gap-2">
+                                <Button
+                                    className="mt-1"
+                                    variant="warning"
+                                    size="lg"
+                                    onClick={handleSave}
+                                >
+                                    Guardar y continuar
+                                </Button>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                </div>
+            </div>
+            <ShippingModal
+                show={shippingModal}
+                onHide={handleHide}
+            />
         </>
     );
 }

@@ -1,5 +1,5 @@
 import { types } from "../types/types"
-import { backdropChange, canvasChange } from "./ui"
+import { backdropChange, cartCanvasChange } from "./ui"
 
 
 export const cartInit = (carro) => {
@@ -27,9 +27,9 @@ export const productStartAdd = (product, cantidad, buy = false) => {
         dispatch(productAdd(productCart, productIndex));
         if (!buy) {
             dispatch(backdropChange(false));
-            dispatch(canvasChange());
+            dispatch(cartCanvasChange());
             const timer = setInterval(() => {
-                dispatch(canvasChange());
+                dispatch(cartCanvasChange());
                 dispatch(backdropChange(true));
                 clearInterval(timer);
             }, 1500);

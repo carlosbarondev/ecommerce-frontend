@@ -8,9 +8,15 @@ export const stepChange = (step) => {
     }
 }
 
-export const canvasChange = () => {
+export const menuCanvasChange = () => {
     return {
-        type: types.canvasChange,
+        type: types.menuCanvasChange,
+    }
+}
+
+export const cartCanvasChange = () => {
+    return {
+        type: types.cartCanvasChange,
     }
 }
 
@@ -18,5 +24,19 @@ export const backdropChange = (backdrop) => {
     return {
         type: types.backdropChange,
         payload: backdrop,
+    }
+}
+
+export const shippingModalChange = (e) => {
+    return {
+        type: types.shippingModalChange,
+        payload: e
+    }
+}
+
+export const shippingModalElegir = (e) => {
+    return {
+        type: types.shippingModalElegir,
+        payload: e
     }
 }
