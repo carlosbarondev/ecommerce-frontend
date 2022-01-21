@@ -6,6 +6,7 @@ import { RegisterScreen } from "../components/auth/RegisterScreen"
 import { LoginScreen } from "../components/auth/LoginScreen"
 import { HomeRouter } from "./HomeRouter"
 import { PrivateRoute } from "./PrivateRoute"
+import { PanelRouter } from "./PanelRouter"
 import { Shipping } from "../components/cart/shipping/Shipping"
 import { Payment } from "../components/cart/payment/Payment"
 import { CartStepper } from "../components/ui/Stepper"
@@ -85,6 +86,15 @@ export const AppRouter = () => {
                                 </PrivateRoute>
                             </div>
                         </>
+                    }
+                />
+                <Route
+                    path="panel/*"
+                    element=
+                    {
+                        <PrivateRoute isAuthenticated={!!uid}>
+                            <PanelRouter />
+                        </PrivateRoute>
                     }
                 />
                 <Route

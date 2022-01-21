@@ -10,6 +10,13 @@
     justify-content: center;
 }
 
+.centrar {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .auth-box-container {
     width: 500px;
     padding: 25px;
@@ -64,3 +71,11 @@
     justify-content: center;
     align-items: center;
 }
+
+.listaFondo {
+  background-color: white !important;
+}
+
+.listaFondo:hover {
+    background-color: #F8F9FA !important;
+  }
