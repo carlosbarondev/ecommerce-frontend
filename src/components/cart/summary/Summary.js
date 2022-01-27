@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 import { fetchConToken } from "../../../helpers/fetch";
 import { SummaryModal } from "./SummaryModal";
 import { cartClear } from "../../../actions/cart";
-import { facturaPdf } from "../../../helpers/facturaPdf";
+import { invoicePdf } from "../../../helpers/invoicePdf";
 
 
 export const Summary = () => {
 
     const [searchParams] = useSearchParams();
+
     const dispatch = useDispatch();
 
     const { uid, nombre } = useSelector(state => state.auth);
@@ -81,8 +82,12 @@ export const Summary = () => {
     return (
         checking &&
         <Container>
-            <Card>
-                <Card.Header as="h4">Detalles del pedido</Card.Header>
+            <Card className="mt-4">
+                <Card.Header as="h4">
+                    Detalles del pedido
+                    <div className="vr ms-3 me-3"></div>
+                    <button className="botonLink" onClick={() => invoicePdf(nombre, resumen)}>Imprimir Factura</button>
+                </Card.Header>
                 <Card.Body>
                     <Row>
                         <Col className="col-md-5">
@@ -119,22 +124,16 @@ export const Summary = () => {
                 resumen.producto.map(prod => (
                     <Card key={prod.producto._id} className="justify-content-center">
                         <Card.Body>
-                            <div className="row align-items-center">
-                                <Col className="col-sm-2 col-md-1">
+                            <Row className="align-items-center">
+                                <Col xs={3} sm={3} md={2}>
                                     <Card.Img src={prod.producto.img} fluid="true" />
                                 </Col>
-                                <Col className="col-sm-7 col-md-5">
-                                    <Card.Title>{prod.producto.nombre}</Card.Title>
+                                <Col xs={9} sm={9} md={4}>
+                                    <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${prod.producto._id}`}>{prod.producto.nombre}</Link>
+                                    <div style={{ "fontWeight": "normal", "fontSize": "14px" }}>Cantidad: {prod.unidades}</div>
+                                    <b>{prod.producto.precio * prod.unidades} €</b>
                                 </Col>
-                                <Col className="col-sm-3 col-md-2 text-center">
-                                    <Card.Text>
-                                        <b>{prod.producto.precio} €</b>
-                                    </Card.Text>
-                                    <Card.Text>
-                                        Unidades: {prod.unidades}
-                                    </Card.Text>
-                                </Col>
-                                <Col className="col-sm-12 col-md-4 text-center">
+                                <Col xs={12} sm={12} md={6} className="text-center mt-3">
                                     <Button
                                         variant="outline-secondary"
                                         onClick={() => setModalShow(prod.producto._id)}
@@ -142,7 +141,7 @@ export const Summary = () => {
                                         Escribir una opinión sobre el producto
                                     </Button>
                                 </Col>
-                            </div>
+                            </Row>
                             <SummaryModal
                                 id={prod.producto._id}
                                 setModalShow={setModalShow}
@@ -153,7 +152,6 @@ export const Summary = () => {
                     </Card>
                 ))
             }
-            <Button onClick={() => facturaPdf(nombre, resumen)}>Factura PDF</Button>
         </Container>
     )
 }

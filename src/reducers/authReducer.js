@@ -29,7 +29,12 @@ export const authReducer = (state = initialState, action) => {
             return {
                 checking: false
             }
-
+        case types.changeName:
+            return {
+                ...state,
+                nombre: action.payload,
+                checking: false
+            }
         default:
             return state;
 

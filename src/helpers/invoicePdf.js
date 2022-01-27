@@ -3,9 +3,9 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
-export const facturaPdf = (nombre, resumen) => {
+export const invoicePdf = (nombre, resumen) => {
 
-    const fecha = new Date();
+    const fecha = resumen.fecha;
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
     let rows = [];
@@ -129,7 +129,7 @@ export const facturaPdf = (nombre, resumen) => {
                             },
                             {
                                 text: `
-                                    Fecha del pedido: ${fecha.toLocaleDateString("es-ES", options)}
+                                    Fecha del pedido: ${new Date(fecha).toLocaleDateString("es-ES", options)}
                                     Número del pedido: ${resumen.idPedido}
                                 `
                             }
@@ -180,7 +180,7 @@ export const facturaPdf = (nombre, resumen) => {
                 fontSize: 16,
                 bold: true,
                 alignment: 'center',
-                margin: [0, 13, 0, 0]
+                margin: [0, 15, 0, 0]
             },
             quote: {
                 italics: true

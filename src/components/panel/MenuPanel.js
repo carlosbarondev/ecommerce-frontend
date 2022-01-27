@@ -6,7 +6,7 @@ export const MenuPanel = () => {
     const navigate = useNavigate();
 
     return (
-        <>
+        <div className="mt-4">
             <h5>Mi cuenta</h5>
             <div className="list-group">
                 <button className="list-group-item list-group-item-action border-0 listaFondo" onClick={() => navigate("/panel/datos")}>Mis datos</button>
@@ -14,6 +14,6 @@ export const MenuPanel = () => {
                 <button className="list-group-item list-group-item-action border-0 listaFondo" onClick={() => navigate("/panel/valoraciones")}>Valoraciones</button>
                 <button className="list-group-item list-group-item-action border-0 listaFondo" onClick={() => navigate("/panel/pedidos")}>Pedidos</button>
             </div>
-        </>
+        </div>
     )
 };

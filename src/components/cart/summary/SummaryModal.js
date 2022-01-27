@@ -22,7 +22,7 @@ const MyTextInput = ({ label, type, ...props }) => {
     );
 };
 
-export const SummaryModal = ({ id, setModalShow, ...props }) => {
+export const SummaryModal = ({ id, setModalShow, oldTitulo, oldComentario, oldRating, ...props }) => {
 
     const { uid } = useSelector(state => state.auth);
 
@@ -54,8 +54,8 @@ export const SummaryModal = ({ id, setModalShow, ...props }) => {
     return (
         <Formik
             initialValues={{
-                titulo: '',
-                comentario: '',
+                titulo: oldTitulo || '',
+                comentario: oldComentario || '',
             }}
             validationSchema={Yup.object({
                 titulo: Yup.string()
@@ -82,7 +82,7 @@ export const SummaryModal = ({ id, setModalShow, ...props }) => {
                     <h5>Valoración general</h5>
                     <Rating
                         onClick={handleRating}
-                        ratingValue={rating}
+                        ratingValue={oldRating || rating}
                         allowHover={false}
                     />
                     <Form>

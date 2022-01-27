@@ -44,4 +44,11 @@ export const productAdd = (product, productIndex) => {
     }
 }
 
+export const productDelete = (id) => {
+    return {
+        type: types.cartDelete,
+        payload: id
+    }
+}
+
 export const cartClear = () => ({ type: types.cartClear })

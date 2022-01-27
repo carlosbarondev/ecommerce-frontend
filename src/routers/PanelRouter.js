@@ -7,6 +7,7 @@ import { Data } from "../components/panel/Data";
 import { Wishes } from "../components/panel/Wishes";
 import { Ratings } from "../components/panel/Ratings";
 import { Orders } from "../components/panel/Orders";
+import { OrdersDetail } from "../components/panel/OrdersDetail";
 
 
 export const PanelRouter = () => {
@@ -35,6 +36,9 @@ export const PanelRouter = () => {
                         </Routes>
                         <Routes>
                             <Route path="pedidos" element={<Orders />} />
+                        </Routes>
+                        <Routes>
+                            <Route path="pedidosDetalles" element={<OrdersDetail />} />
                         </Routes>
                     </Col>
                 </Row>

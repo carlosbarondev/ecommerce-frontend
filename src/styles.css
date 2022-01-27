@@ -31,20 +31,14 @@
     border: 1px solid #000;
 }
 
-@media (max-width: 991.98px) { 
+@media (max-width: 767.98px) {
     .disable-card-header {
         display: none;
     }
 }
 
-@media (min-width: 991.98px) { 
+@media (min-width: 768px) {
     .enable-card-header {
-        display: none;
-    }
-}
-
-@media (max-width: 767.98px) { 
-    .disable-card-precio {
         display: none;
     }
 }
@@ -57,7 +51,6 @@
 
 .comentarios {
     display: flex;
-    
 }
 
 .circulo {
@@ -78,4 +71,46 @@
 
 .listaFondo:hover {
     background-color: #F8F9FA !important;
-  }
+}
+
+.botonLink {
+    background-color: #F7F7F7;
+    border: none;
+    color: #0097AF;
+}
+
+.botonLink:hover {
+    text-decoration: underline;
+}
+
+.botonLinkProducto {
+    background-color: white;
+    border: none;
+    color: #0097AF;
+}
+
+.botonLinkProducto:hover {
+    text-decoration: underline;
+}
+
+.linkProducto {
+    background-color: white;
+    color: #0097AF;
+    text-decoration: none;
+}
+
+.linkProducto:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 767.98px) { 
+    .disable-float {
+        float: left;
+    }
+}
+
+@media (min-width: 767.98px) { 
+    .disable-float {
+        float: right;
+    }
+}

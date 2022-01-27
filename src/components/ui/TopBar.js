@@ -17,7 +17,7 @@ export const TopBar = () => {
     const carro = useSelector(state => state.cart);
     const { carrito } = carro;
 
-    useEffect(() => { // Guarda el carrito de compras al recargar el navegador
+    useEffect(() => { // Guarda el carrito de compras en el localStorage cuando se modifica el carrito
         localStorage.setItem('carrito', JSON.stringify(carro));
     }, [carro]);
 

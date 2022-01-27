@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ShippingList } from './ShippingList';
-import { ShippingForm } from './ShippingForm';
 import { fetchConToken } from '../../../helpers/fetch';
 import { shippingInit, shippingSetDefault, shippingStartAddBilling } from '../../../actions/shipping';
 
@@ -13,7 +12,6 @@ export const Shipping = () => {
     const dispatch = useDispatch();
 
     const { uid } = useSelector(state => state.auth);
-    const { envio } = useSelector(state => state.shipping);
 
     const [checking, setChecking] = useState(false);
 
@@ -34,10 +32,7 @@ export const Shipping = () => {
     return (
         <>
             {
-                (checking && envio.length === 0 &&
-                    <ShippingForm />)
-                || (checking && envio.length > 0 &&
-                    <ShippingList />)
+                checking && <ShippingList />
             }
         </>
     );

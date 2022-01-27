@@ -25,6 +25,13 @@ export const cartReducer = (state = initialState, action) => {
                     ...state,
                 }
             }
+        case types.cartDelete:
+            return {
+                ...state,
+                carrito: state.carrito.filter(
+                    e => (e.producto._id !== action.payload)
+                )
+            }
         case types.cartClear:
             return {
                 carrito: []

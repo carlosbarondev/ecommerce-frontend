@@ -119,3 +119,8 @@ export const startLogout = () => {
 }
 
 const logout = () => ({ type: types.authLogout })
+
+export const changeName = (nombre) => ({
+    type: types.changeName,
+    payload: nombre
+})

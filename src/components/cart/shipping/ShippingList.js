@@ -48,11 +48,29 @@ export const ShippingList = () => {
     }
 
     const handleDelete = (idEnvio) => {
-        if (idEnvio) {
-            dispatch(shippingStartDelete(idEnvio));
-        } else {
-            dispatch(shippingStartDeleteBilling());
-        }
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Eliminada',
+                    'La dirección ha sido eliminada',
+                    'success'
+                )
+                if (idEnvio) {
+                    dispatch(shippingStartDelete(idEnvio));
+                } else {
+                    dispatch(shippingStartDeleteBilling());
+                }
+            }
+        })
     }
 
     const handleEdit = (idEnvio) => {
@@ -137,7 +155,11 @@ export const ShippingList = () => {
                         dispatch(shippingModalChange(true));
                     }}
                     >
-                        Añadir otra dirección
+                        {
+                            envio.length === 0
+                                ? <div>Añadir dirección</div>
+                                : <div>Añadir otra dirección</div>
+                        }
                     </Button>
                     <h4>Dirección de facturación</h4>
                     {

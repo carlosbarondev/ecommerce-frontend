@@ -10,9 +10,11 @@ export const types = {
     authLogin: '[auth] Login',
     authCheckingFinish: '[auth] Finish checking login state',
     authLogout: '[auth] Logout',
+    changeName: '[auth] Change Name',
 
     cartInit: '[cart] Init cart',
     cartAdd: '[cart] Add cart',
+    cartDelete: '[cart] Delete cart',
     cartClear: '[cart] Logout',
 
     shippingInit: '[shipping] Init shipping',

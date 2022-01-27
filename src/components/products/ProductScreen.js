@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
+import Swal from "sweetalert2";
 
-import { fetchSinToken } from "../../helpers/fetch";
+import { fetchConToken, fetchSinToken } from "../../helpers/fetch";
 import { productStartAdd } from "../../actions/cart";
 
 
@@ -15,6 +16,7 @@ export const ProductScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const { uid } = useSelector(state => state.auth);
     const { carrito } = useSelector(state => state.cart);
 
     const [producto, setProducto] = useState();
@@ -28,7 +30,6 @@ export const ProductScreen = () => {
             try {
                 const resp = await fetchSinToken(`productos/${ProductoId}`);
                 const body = await resp.json();
-
                 setProducto(body.producto);
                 setChecking(true);
             } catch (error) {
@@ -57,6 +58,19 @@ export const ProductScreen = () => {
     const handleClick = () => {
         if (cantidad >= 2) {
             setCantidad(cantidad - 1)
+        }
+    }
+
+    const handleWish = async (idProducto) => {
+        try {
+            const resp = await fetchConToken(`usuarios/deseos/${uid}`, { deseos: idProducto }, 'POST');
+            const body = await resp.json();
+            if (body.msg) {
+                return Swal.fire('Error', body.msg, 'error');
+            }
+        } catch (error) {
+            console.log(error);
+            return Swal.fire('Error', error, 'error');
         }
     }
 
@@ -93,6 +107,7 @@ export const ProductScreen = () => {
                         <button onClick={() => setCantidad(cantidad + 1)} className="border" style={{ height: "30px", width: "30px", marginRight: "auto" }}>+</button>
                     </div>
                     <div className="mt-3 d-grid gap-2">
+                        <Button onClick={() => handleWish(producto._id)}>JA</Button>
                         <Button variant="outline-dark" size="lg" onClick={handleCart}>
                             Añadir al carrito
                         </Button>
@@ -119,7 +134,6 @@ export const ProductScreen = () => {
                 {
                     producto.opinion.map(op => (
                         <div className="row mt-2" key={op._id}>
-                            <hr />
                             <div className="col-sm-12 col-md-4">
                                 <div className="row">
                                     <div className="col-2">
