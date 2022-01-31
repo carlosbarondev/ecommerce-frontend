@@ -22,7 +22,13 @@ export const MenuCanvas = () => {
     }
 
     return (
-        <Offcanvas show={menuCanvas} onHide={handleClose} placement={'end'}>
+        <Offcanvas
+            show={menuCanvas}
+            onHide={handleClose}
+            placement={'end'}
+            scroll={true}
+            backdrop={true}
+        >
             <Offcanvas.Header closeButton>
                 <Offcanvas.Title>Mi cuenta</Offcanvas.Title>
             </Offcanvas.Header>

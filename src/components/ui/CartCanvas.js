@@ -21,7 +21,13 @@ export const CartCanvas = () => {
     }
 
     return (
-        <Offcanvas show={cartCanvas} onHide={handleClose} placement={'end'} backdrop={backdrop}>
+        <Offcanvas
+            show={cartCanvas}
+            onHide={handleClose}
+            placement={'end'}
+            backdrop={backdrop}
+            scroll={true}
+        >
             <Offcanvas.Header closeButton>
                 <Offcanvas.Title>Mi carrito</Offcanvas.Title>
             </Offcanvas.Header>

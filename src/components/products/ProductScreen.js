@@ -11,7 +11,7 @@ import { productStartAdd } from "../../actions/cart";
 
 export const ProductScreen = () => {
 
-    const { ProductoId } = useParams();
+    const { ProductoNombre } = useParams();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -28,7 +28,7 @@ export const ProductScreen = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const resp = await fetchSinToken(`productos/${ProductoId}`);
+                const resp = await fetchSinToken(`productos/${ProductoNombre}`);
                 const body = await resp.json();
                 setProducto(body.producto);
                 setChecking(true);
@@ -37,7 +37,7 @@ export const ProductScreen = () => {
             }
         }
         fetchData();
-    }, [ProductoId]);
+    }, [ProductoNombre]);
 
     const handleReturn = () => {
         navigate(-1);

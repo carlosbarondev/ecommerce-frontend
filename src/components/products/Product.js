@@ -2,13 +2,14 @@ import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 
 
-export const Product = (children) => {
+export const Product = (props) => {
+    console.log(props);
 
-    const { _id, nombre, descripcion, precio, img } = children;
-
+    const { _id, nombre, descripcion, precio, img, categoria, subcategoria, nombreCategoria, nombreSubcategoria } = props;
+    console.log(categoria.nombre, subcategoria, nombreCategoria, nombreSubcategoria);
     return (
-        <Link to={`${_id}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
-            <Card className="col animate__animated animate__fadeIn">
+        <Link to={`/${nombreCategoria}/${nombreSubcategoria}/${_id}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+            <Card>
                 <Card.Img variant="top" src={img} />
                 <Card.Body>
                     <Card.Title>{nombre.charAt(0).toUpperCase() + nombre.slice(1)}</Card.Title>

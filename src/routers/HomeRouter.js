@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 
 import { TopBar } from '../components/ui/TopBar';
 import { ProductScreen } from '../components/products/ProductScreen';
@@ -7,6 +8,9 @@ import { ProductList } from '../components/products/ProductList';
 import { Summary } from '../components/cart/summary/Summary';
 import { CartScreen } from '../components/cart/CartScreen';
 import { PrivateRoute } from './PrivateRoute';
+import { SubCategoryList } from '../components/products/SubCategoryList';
+import { CategoryList } from '../components/products/CategoryList';
+import { SubCategoryScreen } from '../components/products/SubCategoryScreen';
 
 
 export const HomeRouter = () => {
@@ -21,11 +25,15 @@ export const HomeRouter = () => {
         <>
             <TopBar />
 
-            <div className="container">
+            <Container>
 
                 <Routes>
 
-                    <Route path="/:ProductoId" element={<ProductScreen />} />
+                    <Route path="/:CategoriaNombre" element={<SubCategoryList />} />
+
+                    <Route path="/:CategoriaNombre/:SubCategoriaNombre" element={<SubCategoryScreen />} />
+
+                    <Route path="/:CategoriaNombre/:SubCategoriaNombre/:ProductoNombre" element={<ProductScreen />} />
 
                     <Route path="cart" element={
                         <>
@@ -46,11 +54,17 @@ export const HomeRouter = () => {
                         }
                     />
 
-                    <Route path="/" element={<ProductList />} />
+                    <Route path="/" element={
+                        <>
+                            <ProductList />
+                            <CategoryList />
+                        </>
+                    }
+                    />
 
                 </Routes>
 
-            </div>
+            </Container>
 
         </>
     )

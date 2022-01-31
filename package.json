@@ -23,6 +23,7 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
     "sweetalert2": "^11.3.0",
+    "use-react-router-breadcrumbs": "^3.0.2",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.11"
   },
