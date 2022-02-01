@@ -1,28 +1,34 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Container, Navbar, Button, Form, FormControl, Offcanvas } from "react-bootstrap"
+import useBreadcrumbs from 'use-react-router-breadcrumbs';
 
 import { MenuCanvas } from "./MenuCanvas";
 import { CartCanvas } from "./CartCanvas";
 import { cartCanvasChange, menuCanvasChange } from "../../actions/ui";
-import useReactRouterBreadcrumbs from "use-react-router-breadcrumbs";
 
 
-const routes = [{ path: '/:CategoriaNombre/:SubCategoriaNombre/:ProductoNombre', breadcrumb: null }];
+const routes = [
+    { path: '/:CategoriaNombre/:SubCategoriaNombre/:ProductoNombre', breadcrumb: null },
+    { path: '/cart', breadcrumb: "Carrito" },
+    { path: '/panel/datos', breadcrumb: "Mis datos" },
+    { path: '/panel/deseos', breadcrumb: "Lista de deseos" },
+    { path: '/panel/pedidos/detalles', breadcrumb: null },
+];
 
 export const TopBar = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const { uid } = useSelector(state => state.auth);
     const carro = useSelector(state => state.cart);
     const { carrito } = carro;
 
     const [show, setShow] = useState(false);
-
-    const breadcrumbs = useReactRouterBreadcrumbs(routes);
+    const breadcrumbs = useBreadcrumbs(routes);
 
     useEffect(() => { // Guarda el carrito de compras en el localStorage cuando se modifica el carrito
         localStorage.setItem('carrito', JSON.stringify(carro));
@@ -87,9 +93,9 @@ export const TopBar = () => {
                                 <span className="fa-layers-counter" style={{ background: 'Tomato', fontSize: '60px' }}>{getUnidades()}</span>
                             </span>
                         </div>
-                        <div className="d-flex border-top border-bottom" style={{ "height": "40px", "fontSize": "14px" }}>
+                        <div className="d-flex align-items-center border-top border-bottom" style={{ "height": "40px", "fontSize": "14px" }}>
                             <button
-                                className="ms-5 border-0"
+                                className="ms-5 me-4 border-0"
                                 style={{ "backgroundColor": "#F8F9FA" }}
                                 onClick={handleShow}
                             >
@@ -110,21 +116,19 @@ export const TopBar = () => {
                                     have chosen. Like, text, images, lists, etc.
                                 </Offcanvas.Body>
                             </Offcanvas>
-                            {breadcrumbs.map(({
-                                match,
-                                breadcrumb
-                            }) => (
-                                <span className="me-2" key={match.pathname}>
-                                    <NavLink to={match.pathname}>{breadcrumb}</NavLink>
-                                </span>
-                            ))}
-                            {/* <Breadcrumb className="navbar-text ms-4" style={{ "--bs-breadcrumb-divider": "'>'" }}>
-                                <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
-                                <Breadcrumb.Item href="https://getbootstrap.com/docs/4.0/components/breadcrumb/">
-                                    Library
-                                </Breadcrumb.Item>
-                                <Breadcrumb.Item active>Data</Breadcrumb.Item>
-                            </Breadcrumb> */}
+                            {
+                                location.pathname !== "/" && location.pathname !== "/summary" && breadcrumbs.map(({
+                                    match,
+                                    breadcrumb,
+                                }, index) => (
+                                    <span key={match.pathname}>
+                                        <NavLink to={match.pathname} style={{ "textDecoration": "none", "color": "black" }}>{breadcrumb}</NavLink>
+                                        {
+                                            index < breadcrumbs.length - 1 && <span className="ms-1 me-1">{">"}</span>
+                                        }
+                                    </span>
+                                ))
+                            }
                         </div>
                     </div>
                 </Container>

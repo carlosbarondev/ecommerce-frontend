@@ -38,7 +38,7 @@ export const PanelRouter = () => {
                             <Route path="pedidos" element={<Orders />} />
                         </Routes>
                         <Routes>
-                            <Route path="pedidosDetalles" element={<OrdersDetail />} />
+                            <Route path="pedidos/detalles" element={<OrdersDetail />} />
                         </Routes>
                     </Col>
                 </Row>

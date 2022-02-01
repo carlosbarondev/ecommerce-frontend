@@ -3,12 +3,11 @@ import { Card } from "react-bootstrap";
 
 
 export const Product = (props) => {
-    console.log(props);
 
-    const { _id, nombre, descripcion, precio, img, categoria, subcategoria, nombreCategoria, nombreSubcategoria } = props;
-    console.log(categoria.nombre, subcategoria, nombreCategoria, nombreSubcategoria);
+    const { nombre, descripcion, precio, img, categoria, subcategoria } = props;
+
     return (
-        <Link to={`/${nombreCategoria}/${nombreSubcategoria}/${_id}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+        <Link to={`/${categoria.nombre}/${subcategoria.nombre}/${nombre.replace(/\s+/g, "-")}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
             <Card>
                 <Card.Img variant="top" src={img} />
                 <Card.Body>

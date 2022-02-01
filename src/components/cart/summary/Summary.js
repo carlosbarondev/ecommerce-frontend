@@ -129,7 +129,7 @@ export const Summary = () => {
                                     <Card.Img src={prod.producto.img} fluid="true" />
                                 </Col>
                                 <Col xs={9} sm={9} md={4}>
-                                    <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${prod.producto._id}`}>{prod.producto.nombre}</Link>
+                                    <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${prod.producto.categoria.nombre}/${prod.producto.subcategoria.nombre}/${prod.producto.nombre.replace(/\s+/g, "-")}`}>{prod.producto.nombre}</Link>
                                     <div style={{ "fontWeight": "normal", "fontSize": "14px" }}>Cantidad: {prod.unidades}</div>
                                     <b>{prod.producto.precio * prod.unidades} €</b>
                                 </Col>

@@ -68,7 +68,7 @@ export const Orders = () => {
                                     </Row>
                                     <Row className="disable-float">
                                         <span>
-                                            <button className="botonLink" onClick={() => navigate("/panel/pedidosDetalles", {
+                                            <button className="botonLink" onClick={() => navigate("/panel/pedidos/detalles", {
                                                 state: {
                                                     pedido: pedido
                                                 }
@@ -88,7 +88,7 @@ export const Orders = () => {
                                             <Card.Img src={p.producto.img} />
                                         </Col>
                                         <Col xs={10} md={11}>
-                                            <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${p.producto._id}`}>{p.producto.nombre}</Link>
+                                            <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${p.producto.categoria.nombre}/${p.producto.subcategoria.nombre}/${p.producto.nombre.replace(/\s+/g, "-")}`}>{p.producto.nombre}</Link>
                                             <div style={{ "fontSize": "14px" }}>Cantidad: {p.unidades}</div>
                                         </Col>
                                     </Row>
