@@ -20,28 +20,53 @@ export const PanelRouter = () => {
             <TopBar />
 
             <Container>
-                <Row>
-                    <Col md={2}>
-                        <MenuPanel />
-                    </Col>
-                    <Col md={10}>
-                        <Routes>
-                            <Route path="datos" element={<Data />} />
-                        </Routes>
-                        <Routes>
-                            <Route path="deseos" element={<Wishes />} />
-                        </Routes>
-                        <Routes>
-                            <Route path="valoraciones" element={<Ratings />} />
-                        </Routes>
-                        <Routes>
-                            <Route path="pedidos" element={<Orders />} />
-                        </Routes>
-                        <Routes>
-                            <Route path="pedidos/detalles" element={<OrdersDetail />} />
-                        </Routes>
-                    </Col>
-                </Row>
+
+                <Routes>
+                    <Route path="datos" element={
+                        <Row>
+                            <Col md={2}>
+                                <MenuPanel />
+                            </Col>
+                            <Col md={10}>
+                                <Data />
+                            </Col>
+                        </Row>
+                    } />
+                    <Route path="deseos" element={
+                        <Wishes />
+                    } />
+                    <Route path="valoraciones" element={
+                        <Row>
+                            <Col md={2}>
+                                <MenuPanel />
+                            </Col>
+                            <Col md={10}>
+                                <Ratings />
+                            </Col>
+                        </Row>
+                    } />
+                    <Route path="pedidos" element={
+                        <Row>
+                            <Col md={2}>
+                                <MenuPanel />
+                            </Col>
+                            <Col md={10}>
+                                <Orders />
+                            </Col>
+                        </Row>
+                    } />
+                    <Route path="pedidos/detalles" element={
+                        <Row>
+                            <Col md={2}>
+                                <MenuPanel />
+                            </Col>
+                            <Col md={10}>
+                                <OrdersDetail />
+                            </Col>
+                        </Row>
+                    } />
+                </Routes>
+
             </Container>
 
         </>

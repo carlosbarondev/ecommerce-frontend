@@ -56,11 +56,10 @@ export const Wishes = () => {
             {
                 deseos.length === 0
                     ? <div className="centrar">
-                        <b>No hay productos disponibles para valorar</b>
-                        <div>De momento no tienes ningún producto por</div>
-                        <div>valorar, pero te animamos a ver nuestro</div>
-                        <div>catálogo de productos y valorar después de tu</div>
-                        <div>compra.</div>
+                        <b>No ha añadido ningún  producto a la lista</b>
+                        <div>De momento no tienes ningún producto deseado,</div>
+                        <div>pero te animamos a ver nuestro catálogo de</div>
+                        <div>productos y añadirlos a tu lista de deseados</div>
                         <Button className="mt-3" variant="warning" onClick={() => navigate(`/`)}>Ver el catálogo</Button>
                     </div>
                     : <Row xs={1} md={4} className="g-4">

@@ -33,7 +33,6 @@ export const MenuCanvas = () => {
                 <Offcanvas.Title>Mi cuenta</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-                <h5>Mi cuenta</h5>
                 <ListGroup>
                     <ListGroup.Item className="border-0" action onClick={() => {
                         navigate("/panel/datos")

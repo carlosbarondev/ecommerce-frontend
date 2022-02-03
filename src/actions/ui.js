@@ -20,6 +20,12 @@ export const cartCanvasChange = () => {
     }
 }
 
+export const categoryCanvasChange = () => {
+    return {
+        type: types.categoryCanvasChange,
+    }
+}
+
 export const backdropChange = (backdrop) => {
     return {
         type: types.backdropChange,

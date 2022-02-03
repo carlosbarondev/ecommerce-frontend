@@ -93,7 +93,7 @@ export const CartScreen = () => {
                                             <Image src={cart.producto.img} fluid />
                                         </Col>
                                         <Col xs={10} sm={10} md={5}>
-                                            <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${cart.producto._id}`}>{cart.producto.nombre}</Link>
+                                            <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${cart.producto.categoria.nombre}/${cart.producto.subcategoria.nombre}/${cart.producto.nombre.replace(/\s+/g, "-")}`}>{cart.producto.nombre}</Link>
                                             <div>{cart.producto.precio} €</div>
                                             <button className="botonLinkProducto mt-2" onClick={() => handleDelete(cart.producto._id)}>Eliminar</button>
                                         </Col>
@@ -125,7 +125,7 @@ export const CartScreen = () => {
                     </Row>
                 </Col>
                 <Col md={12} lg={4}>
-                    <Card className='sticky-top'>
+                    <Card>
                         <Card.Header as="h5" className="text-center">TOTAL</Card.Header>
                         <Card.Body className="text-center">
                             <Card.Title>{carrito.reduce((n, { unidades, producto }) => n + unidades * producto.precio, 0).toFixed(2)} €</Card.Title>

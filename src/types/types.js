@@ -3,6 +3,7 @@ export const types = {
     stepChange: '[ui] Change step',
     menuCanvasChange: '[ui] Change menu canvas',
     cartCanvasChange: '[ui] Change cart canvas',
+    categoryCanvasChange: '[ui] Change category canvas',
     backdropChange: '[ui] Change backdrop',
     shippingModalChange: '[ui] Change shipping modal',
     shippingModalElegir: '[ui] Shipping modal elegir',

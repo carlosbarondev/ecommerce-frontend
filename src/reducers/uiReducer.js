@@ -5,6 +5,7 @@ const initialState = {
     step: 2,
     menuCanvas: false,
     cartCanvas: false,
+    categoryCanvas: false,
     backdrop: true,
     shippingModal: false,
     elegirShippingModal: null
@@ -26,6 +27,11 @@ export const uiReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cartCanvas: !state.cartCanvas,
+            }
+        case types.categoryCanvasChange:
+            return {
+                ...state,
+                categoryCanvas: !state.categoryCanvas,
             }
         case types.backdropChange:
             return {

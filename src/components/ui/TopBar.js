@@ -1,33 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { Container, Navbar, Button, Form, FormControl, Offcanvas } from "react-bootstrap"
+import { Container, Navbar, Form, FormControl } from "react-bootstrap"
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
 
 import { MenuCanvas } from "./MenuCanvas";
 import { CartCanvas } from "./CartCanvas";
-import { cartCanvasChange, menuCanvasChange } from "../../actions/ui";
+import { CategoryCanvas } from "./CategoryCanvas";
+import { cartCanvasChange, categoryCanvasChange, menuCanvasChange } from "../../actions/ui";
 
 
 const routes = [
     { path: '/:CategoriaNombre/:SubCategoriaNombre/:ProductoNombre', breadcrumb: null },
     { path: '/cart', breadcrumb: "Carrito" },
-    { path: '/panel/datos', breadcrumb: "Mis datos" },
+    { path: '/panel', breadcrumb: "Panel de Usuario" },
+    { path: '/panel/datos', breadcrumb: null },
     { path: '/panel/deseos', breadcrumb: "Lista de deseos" },
     { path: '/panel/pedidos/detalles', breadcrumb: null },
 ];
 
 export const TopBar = () => {
+    console.log('Hola Mundo');
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const { uid } = useSelector(state => state.auth);
+    const { nombre, uid } = useSelector(state => state.auth);
     const carro = useSelector(state => state.cart);
     const { carrito } = carro;
 
-    const [show, setShow] = useState(false);
     const breadcrumbs = useBreadcrumbs(routes);
 
     useEffect(() => { // Guarda el carrito de compras en el localStorage cuando se modifica el carrito
@@ -36,9 +38,7 @@ export const TopBar = () => {
 
     const handleShowMenu = () => dispatch(menuCanvasChange());
     const handleShowCart = () => dispatch(cartCanvasChange());
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShowCategory = () => dispatch(categoryCanvasChange());
 
     const getUnidades = () => { // Suma las unidades de los productos del carrito
         if (carrito.length > 0) {
@@ -50,91 +50,98 @@ export const TopBar = () => {
     }
 
     return (
-        <>
-            <Navbar bg="light" expand={false} sticky="top" style={{ "padding": "0" }}>
-                <Container fluid style={{ "paddingLeft": "0", "paddingRight": "0" }}>
-                    <div className="d-flex flex-column w-100">
-                        <div className="d-flex">
-                            <Link
-                                className="navbar-brand ms-3"
-                                to="/"
-                            >
-                                Ecommerce
-                            </Link>
-                            <Form className="d-flex">
-                                <FormControl
-                                    type="search"
-                                    placeholder="Search"
-                                    className="me-2 ms-5"
-                                    aria-label="Search"
-                                />
-                                <Button variant="outline-success">Search</Button>
-                            </Form>
-                            {
-                                (!!uid &&
-                                    <Button
-                                        className="ms-5"
-                                        variant="danger"
-                                        onClick={handleShowMenu}
-                                    >
-                                        Mi cuenta
-                                    </Button>)
-                                || (!uid &&
-                                    <Button
-                                        className="ms-5"
-                                        variant="danger"
-                                        onClick={() => navigate("/login")}
-                                    >
-                                        Identificate
-                                    </Button>)
-                            }
-                            <span className="fa-layers fa-fw fa-3x hv ms-5" onClick={handleShowCart}>
-                                <i className="fa-solid fa-cart-shopping"></i>
-                                <span className="fa-layers-counter" style={{ background: 'Tomato', fontSize: '60px' }}>{getUnidades()}</span>
-                            </span>
-                        </div>
-                        <div className="d-flex align-items-center border-top border-bottom" style={{ "height": "40px", "fontSize": "14px" }}>
-                            <button
-                                className="ms-5 me-4 border-0"
-                                style={{ "backgroundColor": "#F8F9FA" }}
-                                onClick={handleShow}
-                            >
-                                <i className="fa-solid fa-bars fa-lg"></i>
-                                <b className="ms-2">Todas las categorías</b>
-                            </button>
-                            <Offcanvas
-                                show={show}
-                                onHide={handleClose}
-                                scroll={true}
-                                backdrop={true}
-                            >
-                                <Offcanvas.Header closeButton>
-                                    <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-                                </Offcanvas.Header>
-                                <Offcanvas.Body>
-                                    Some text as placeholder. In real life you can have the elements you
-                                    have chosen. Like, text, images, lists, etc.
-                                </Offcanvas.Body>
-                            </Offcanvas>
-                            {
-                                location.pathname !== "/" && location.pathname !== "/summary" && breadcrumbs.map(({
-                                    match,
-                                    breadcrumb,
-                                }, index) => (
-                                    <span key={match.pathname}>
-                                        <NavLink to={match.pathname} style={{ "textDecoration": "none", "color": "black" }}>{breadcrumb}</NavLink>
-                                        {
-                                            index < breadcrumbs.length - 1 && <span className="ms-1 me-1">{">"}</span>
-                                        }
-                                    </span>
-                                ))
-                            }
-                        </div>
+        <Navbar sticky="top" bg="light" style={{ "padding": "0", "margin": "0" }}>
+            <Container className="d-flex flex-column" style={{ "padding": "0", "margin": "0" }} fluid>
+                <Container className="d-flex align-items-center" style={{ "height": "55px" }} fluid>
+                    <Navbar.Brand className="ms-4 me-5">
+                        <Link
+                            className="navbarDisableImg"
+                            to="/"
+                        >
+                            <img
+                                style={{ "height": "55px" }}
+                                alt="logo"
+                                src="https://res.cloudinary.com/dyi0p8m1g/image/upload/v1643859405/ecommerce/productos/logo_qdclxm.png"
+                            />
+                        </Link>
+                        <Link
+                            className="navbarEnableImg"
+                            to="/"
+                        >
+                            <img
+                                style={{ "height": "55px" }}
+                                alt="logo"
+                                src="https://res.cloudinary.com/dyi0p8m1g/image/upload/v1643886601/ecommerce/productos/logo-sm_hhr2nc.png"
+                            />
+                        </Link>
+                    </Navbar.Brand>
+                    <Form className="d-flex flex-grow-1 me-5">
+                        <FormControl
+                            type="search"
+                            placeholder="Busca en Ecommerce..."
+                            aria-label="Search"
+                        />
+                        <button
+                            className="border-0"
+                            style={{ "backgroundColor": "#F3A847", "marginLeft": "-40px", "width": "40px" }}
+                        >
+                            <i className="fas fa-search">
+                            </i>
+                        </button>
+                    </Form>
+                    {
+                        (!!uid &&
+                            <div key="in" className="d-flex align-items-center h-100 hoverFondo me-md-4 px-md-3" style={{ "cursor": "pointer" }} onClick={handleShowMenu}>
+                                <i className="fas fa-user me-4 me-md-2" style={{ "fontSize": "30px" }}></i>
+                                <div className="navbarDisable">
+                                    <div style={{ "marginBottom": "-5px" }}>{`Hola ${nombre}`}</div>
+                                    <b>Mi Cuenta</b>
+                                </div>
+                            </div>
+                        )
+                        || (!uid &&
+                            <div key="out" className="d-flex align-items-center h-100 hoverFondo me-md-4 px-md-3" style={{ "cursor": "pointer" }} onClick={() => navigate("/login")}>
+                                <i className="fas fa-sign-in-alt me-4 me-md-2" style={{ "fontSize": "30px" }}></i>
+                                <b className="navbarDisable">Identifícate</b>
+                            </div>
+                        )
+                    }
+                    <div className="d-flex align-items-center h-100 hoverFondo me-md-3 px-md-3" style={{ "cursor": "pointer" }} onClick={handleShowCart}>
+                        <span className="fa-layers fa-fw me-2" style={{ "fontSize": "40px" }}>
+                            <i className="fas fa-shopping-cart"></i>
+                            <span className="fa-layers-counter" style={{ "background": "Tomato", "fontSize": "45px" }}>{getUnidades()}</span>
+                        </span>
+                        <b className="navbarDisable">Mi Carrito</b>
                     </div>
                 </Container>
-            </Navbar>
+                <Container className="d-flex align-items-center border-top border-bottom" style={{ "height": "35px", "fontSize": "14px" }} fluid>
+                    <button
+                        className="border-0 ms-5 me-4"
+                        style={{ "backgroundColor": "#F8F9FA" }}
+                        onClick={handleShowCategory}
+                    >
+                        <i className="fa-solid fa-bars fa-lg"></i>
+                        <b className="ms-2">Todas las categorías</b>
+                    </button>
+                    {
+                        location.pathname !== "/" && location.pathname !== "/summary" && breadcrumbs.map(({
+                            match,
+                            breadcrumb,
+                        }, index) => (
+                            <span key={match.pathname}>
+                                <NavLink to={match.pathname} className="linkNormal">{breadcrumb}</NavLink>
+                                {
+                                    index < breadcrumbs.length - 1 && <span className="ms-1 me-1">{">"}</span>
+                                }
+                            </span>
+                        ))
+                    }
+                    <Link className="linkNormal ms-auto me-5 navbarDisable" to="/panel/deseos">Lista de deseos</Link>
+                </Container>
+            </Container>
             <MenuCanvas />
             <CartCanvas />
-        </>
+            <CategoryCanvas />
+        </Navbar>
     )
 }

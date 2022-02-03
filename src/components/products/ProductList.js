@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Carousel, Row } from "react-bootstrap"
+import { Link } from "react-router-dom";
 
 import { fetchSinToken } from "../../helpers/fetch";
 import { Product } from "./Product"
@@ -28,11 +29,13 @@ export const ProductList = () => {
         checking && <div className="col animate__animated animate__fadeIn">
             <Carousel>
                 <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="https://img-live.goboo.vip/goods/20220124/1643003923401_7475546.jpg?imageMogr2/format/webp"
-                        alt="First slide"
-                    />
+                    <Link to={`/Electrónica/Smartphones`}>
+                        <img
+                            className="d-block w-100"
+                            src="https://img-live.goboo.vip/goods/20220124/1643003923401_7475546.jpg?imageMogr2/format/webp"
+                            alt="First slide"
+                        />
+                    </Link>
                 </Carousel.Item>
                 <Carousel.Item>
                     <img

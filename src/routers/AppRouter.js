@@ -98,6 +98,10 @@ export const AppRouter = () => {
                     }
                 />
                 <Route
+                    path="panel"
+                    element={<Navigate to="/panel/datos" />}
+                />
+                <Route
                     path="/*"
                     element=
                     {
