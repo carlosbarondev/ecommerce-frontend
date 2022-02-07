@@ -46,7 +46,7 @@ export const CartScreen = () => {
 
     const handleClear = () => {
         dispatch(cartClear());
-        Swal.fire('Cesta vaciada', {}, 'success');
+        Swal.fire('Cesta vaciada', "", 'success');
     }
 
     return (

@@ -9,6 +9,7 @@ import { SubCategory } from "./SubCategory";
 export const SubCategoryList = () => {
 
     const { CategoriaNombre } = useParams();
+    console.log(CategoriaNombre);
 
     const [subcategorias, setSubcategorias] = useState();
     const [nombre, setNombre] = useState();
@@ -31,9 +32,9 @@ export const SubCategoryList = () => {
     }, [CategoriaNombre]);
 
     return (
-        checking && <div className="col animate__animated animate__fadeIn">
-            <h3>{nombre}</h3>
-            <Row xs={1} sm={2} md={4} lg={8} xl={16} className="g-0">
+        checking && <div className="animate__animated animate__fadeIn">
+            <h4 className="mt-4 mb-4"><b>{nombre}</b></h4>
+            <Row xs={2} sm={2} md={3} lg={4} xl={5} className="g-5">
                 {
                     subcategorias.map(subcategoria => (
                         <SubCategory

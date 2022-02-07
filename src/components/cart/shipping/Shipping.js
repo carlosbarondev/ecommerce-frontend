@@ -30,10 +30,6 @@ export const Shipping = () => {
     }, [dispatch, uid]);
 
     return (
-        <>
-            {
-                checking && <ShippingList />
-            }
-        </>
+        checking && <ShippingList />
     );
 };

@@ -131,7 +131,7 @@ export const Summary = () => {
                                 <Col xs={9} sm={9} md={4}>
                                     <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${prod.producto.categoria.nombre}/${prod.producto.subcategoria.nombre}/${prod.producto.nombre.replace(/\s+/g, "-")}`}>{prod.producto.nombre}</Link>
                                     <div style={{ "fontWeight": "normal", "fontSize": "14px" }}>Cantidad: {prod.unidades}</div>
-                                    <b>{prod.producto.precio * prod.unidades} €</b>
+                                    <b>{(prod.producto.precio * prod.unidades).toFixed(2)} €</b>
                                 </Col>
                                 <Col xs={12} sm={12} md={6} className="text-center mt-3">
                                     <Button

@@ -1,23 +1,22 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card } from "react-bootstrap";
 
 
 export const Product = (props) => {
 
-    const { nombre, descripcion, precio, img, categoria, subcategoria } = props;
+    const navigate = useNavigate();
+
+    const { nombre, precio, img, categoria, subcategoria } = props;
 
     return (
-        <Link to={`/${categoria.nombre}/${subcategoria.nombre}/${nombre.replace(/\s+/g, "-")}`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
-            <Card>
+        <Card className="cardProduct" onClick={() => navigate(`/${categoria.nombre}/${subcategoria.nombre}/${nombre.replace(/\s+/g, "-")}`)}>
+            <div className="d-flex justify-content-center">
                 <Card.Img variant="top" src={img} />
-                <Card.Body>
-                    <Card.Title>{nombre.charAt(0).toUpperCase() + nombre.slice(1)}</Card.Title>
-                    <Card.Text>{descripcion.charAt(0).toUpperCase() + descripcion.slice(1)}</Card.Text>
+                <Card.Body className="d-flex justify-content-center">
+                    <Card.Text className="cardName">{nombre.charAt(0).toUpperCase() + nombre.slice(1)}</Card.Text>
+                    <Card.Title className="cardPrice"><b>{precio} €</b></Card.Title>
                 </Card.Body>
-                <Card.Footer>
-                    <small className="text-muted">Precio: {precio}</small>
-                </Card.Footer>
-            </Card>
-        </Link >
+            </div>
+        </Card >
     )
 }

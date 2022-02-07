@@ -125,7 +125,7 @@
 }
 
 .hoverFondo:hover {
-    background-color: rgb(240, 227, 227) !important;
+    background-color: #EEEEEE !important;
 }
 
 @media (max-width: 767.98px) {
@@ -143,5 +143,233 @@
 @media (min-width: 992px) {
     .navbarEnableImg {
         display: none;
+    }
+}
+
+.cardProduct {
+    border: none !important;
+    cursor: pointer;
+    height: 20rem;
+    transition: transform 0.3s 0.1s ease;
+}
+
+.cardProduct:hover {
+    border: 1px solid #EEEEEE !important;
+    transform: translateY(-13px);
+}
+
+.cardProduct img {
+    position: absolute;
+    top: 2rem;
+    padding: 0rem 3rem;
+}
+
+.cardName {
+    position: absolute;
+    text-align: center;
+    top: 12.5rem;
+}
+
+.cardPrice {
+    position: absolute;
+    text-align: center;
+    top: 16rem;
+}
+
+@media (min-width: 500px) { 
+    .cardProduct {
+        height: 22rem;
+    }
+
+    .cardProduct img {
+        padding: 0rem 4rem;
+        top: 2rem;
+    }
+
+    .cardName {
+        top: 15rem;
+    }
+
+    .cardPrice {
+        top: 18.5rem;
+    }
+}
+
+@media (min-width: 576px) { 
+    .cardProduct {
+        height: 24rem;
+    }
+
+    .cardProduct img {
+        padding: 0rem 4rem;
+        top: 2rem;
+    }
+
+    .cardName {
+        top: 18rem;
+    }
+
+    .cardPrice {
+        top: 21.5rem;
+    }
+}
+
+@media (min-width: 768px) { 
+    .cardProduct {
+        height: 23rem;
+    }
+
+    .cardProduct img {
+        padding: 0rem 4rem;
+        top: 2rem;
+    }
+
+    .cardName {
+        top: 15rem;
+    }
+
+    .cardPrice {
+        top: 19rem;
+    }
+}
+
+@media (min-width: 992px) { 
+    .cardProduct {
+        height: 23rem;
+    }
+
+    .cardProduct img {
+        padding: 0rem 4rem;
+        top: 2rem;
+    }
+
+    .cardName {
+        top: 16rem;
+    }
+
+    .cardPrice {
+        top: 20rem;
+    }
+}
+
+@media (min-width: 1200px) { 
+    .cardProduct {
+        height: 23rem;
+    }
+
+    .cardProduct img {
+        padding: 0rem 5rem;
+        top: 2rem;
+    }
+
+    .cardName {
+        top: 16rem;
+    }
+
+    .cardPrice {
+        top: 20rem;
+    }
+}
+
+@media (min-width: 1400px) { 
+    .cardProduct {
+        height: 23rem;
+    }
+
+    .cardProduct img {
+        padding: 0rem 6rem;
+        top: 2rem;
+    }
+
+    .cardName {
+        top: 18rem;
+    }
+
+    .cardPrice {
+        top: 20rem;
+    }
+}
+
+.cardCategory {
+    border: none !important;
+    cursor: pointer;
+    height: 12em;
+    width: 14em;
+}
+
+.cardCategory:hover {
+    border: 1px solid #EEEEEE !important;
+}
+
+.cardCategory img {
+    position: absolute;
+    top: 0.1rem;
+    padding: 1.5em;
+}
+
+.cardCategoryBody {
+    position: absolute;
+    text-align: center;
+    top: 9rem;
+    width: 14em;
+}
+
+@media (min-width: 500px) { 
+    .cardCategory {
+        height: 14.5em;
+    }
+
+    .cardCategoryBody {
+        top: 11rem;
+    }
+}
+
+@media (min-width: 576px) { 
+    .cardCategory {
+        height: 16.5em;
+    }
+
+    .cardCategoryBody {
+        top: 13rem;
+    }
+}
+
+@media (min-width: 768px) { 
+    .cardCategory {
+        height: 14.5em;
+    }
+
+    .cardCategoryBody {
+        top: 11rem;
+    }
+}
+
+@media (min-width: 992px) { 
+    .cardCategory {
+        height: 14.5em;
+    }
+
+    .cardCategoryBody {
+        top: 11rem;
+    }
+}
+
+@media (min-width: 1200px) { 
+    .cardCategory {
+        height: 14.5em;
+    }
+
+    .cardCategoryBody {
+        top: 11rem;
+    }
+}
+
+@media (min-width: 1400px) { 
+    .cardCategory {
+        height: 16.5em;
+    }
+    
+    .cardCategoryBody {
+        top: 13rem;
     }
 }

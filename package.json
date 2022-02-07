@@ -19,6 +19,7 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.3",
+    "react-search-autocomplete": "^5.4.4",
     "react-simple-star-rating": "^4.0.5",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",

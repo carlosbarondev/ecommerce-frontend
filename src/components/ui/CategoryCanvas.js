@@ -25,8 +25,6 @@ export const CategoryCanvas = () => {
                 const resp = await fetchSinToken('categorias');
                 const body = await resp.json();
                 setCategorias(body.categorias);
-                console.log(body);
-
                 setChecking(true);
             } catch (error) {
                 console.log(error);

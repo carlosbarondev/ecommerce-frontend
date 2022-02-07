@@ -30,8 +30,12 @@ export const ProductScreen = () => {
             try {
                 const resp = await fetchSinToken(`productos/${ProductoNombre}`);
                 const body = await resp.json();
-                setProducto(body.producto);
-                setChecking(true);
+                if (body.msg) {
+                    Swal.fire('Error', body.msg, 'error');
+                } else {
+                    setProducto(body.producto);
+                    setChecking(true);
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -44,7 +48,9 @@ export const ProductScreen = () => {
     }
 
     const handleCart = () => {
-        dispatch(productStartAdd(producto, cantidad));
+        if (cantidad > 0) {
+            dispatch(productStartAdd(producto, cantidad));
+        }
     }
 
     const handleBuy = () => {
@@ -71,6 +77,14 @@ export const ProductScreen = () => {
         } catch (error) {
             console.log(error);
             return Swal.fire('Error', error, 'error');
+        }
+    }
+
+    const handleChange = (e) => {
+        if (e > 0) {
+            setCantidad(e);
+        } else {
+            setCantidad(0);
         }
     }
 
@@ -103,7 +117,7 @@ export const ProductScreen = () => {
                     </button>
                     <div className="input-group">
                         <button onClick={handleClick} className="border" style={{ height: "30px", width: "30px", marginLeft: "auto" }}>-</button>
-                        <input className="text-center border" type="text" value={cantidad} readOnly style={{ height: "30px", width: "30px" }} />
+                        <input className="text-center border" type="text" value={cantidad} onChange={e => handleChange(parseInt(e.target.value))} style={{ height: "30px", width: "30px" }} />
                         <button onClick={() => setCantidad(cantidad + 1)} className="border" style={{ height: "30px", width: "30px", marginRight: "auto" }}>+</button>
                     </div>
                     <div className="mt-3 d-grid gap-2">

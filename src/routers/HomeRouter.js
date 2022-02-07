@@ -11,6 +11,7 @@ import { PrivateRoute } from './PrivateRoute';
 import { SubCategoryList } from '../components/products/SubCategoryList';
 import { CategoryList } from '../components/products/CategoryList';
 import { SubCategoryScreen } from '../components/products/SubCategoryScreen';
+import { CarouselHome } from '../components/products/CarouselHome';
 
 
 export const HomeRouter = () => {
@@ -56,8 +57,9 @@ export const HomeRouter = () => {
 
                     <Route path="/" element={
                         <>
-                            <ProductList />
+                            <CarouselHome />
                             <CategoryList />
+                            <ProductList />
                         </>
                     }
                     />
