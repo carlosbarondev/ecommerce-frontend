@@ -12,6 +12,7 @@ import { SubCategoryList } from '../components/products/SubCategoryList';
 import { CategoryList } from '../components/products/CategoryList';
 import { SubCategoryScreen } from '../components/products/SubCategoryScreen';
 import { CarouselHome } from '../components/products/CarouselHome';
+import { SearchList } from '../components/search/SearchList';
 
 
 export const HomeRouter = () => {
@@ -35,6 +36,8 @@ export const HomeRouter = () => {
                     <Route path="/:CategoriaNombre/:SubCategoriaNombre" element={<SubCategoryScreen />} />
 
                     <Route path="/:CategoriaNombre/:SubCategoriaNombre/:ProductoNombre" element={<ProductScreen />} />
+
+                    <Route path="/buscar/:Busqueda" element={<SearchList />} />
 
                     <Route path="cart" element={
                         <>

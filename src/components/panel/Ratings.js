@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 
 import { fetchConToken } from "../../helpers/fetch";
 import { SummaryModal } from "../cart/summary/SummaryModal";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 
 export const Ratings = () => {
@@ -99,45 +100,55 @@ export const Ratings = () => {
                                 <div>compra.</div>
                                 <Button className="mt-3" variant="warning" onClick={() => navigate(`/`)}>Ver el catálogo</Button>
                             </div>
-                            : noValorados.map(op => (
-                                <Row className="mt-4" key={op._id}>
-                                    <Col xs={1} sm={1} md={1}>
-                                    </Col>
-                                    <Col xs={3} sm={3} md={2}>
-                                        <Image src={op.img} fluid="true" />
-                                    </Col>
-                                    <Col xs={8} sm={8} md={9} className="d-flex flex-column align-self-center">
-                                        <Link className="linkProducto mb-1" style={{ "fontSize": "20px" }} to={`/${op._id}`}>{op.nombre}</Link>
-                                        <span>
-                                            <Rating
-                                                className="me-2"
-                                                style={{ "pointerEvents": "none" }}
-                                                size={20}
-                                                ratingValue={op.rating}
-                                                allowHover={false}
-                                            />
-                                            {` ${op.opinion.length} Valoraciones`}
-                                        </span>
-                                        <div>
-                                            <Button
-                                                className="mt-3"
-                                                variant="outline-secondary"
-                                                size="sm"
-                                                onClick={() => setModalShowNoValorados(op._id)}
-                                            >
-                                                Escribir una opinión sobre el producto
-                                            </Button>
-                                        </div>
-                                    </Col>
-                                    <hr className="mt-5" />
-                                    <SummaryModal
-                                        id={op._id}
-                                        setModalShow={setModalShowNoValorados}
-                                        show={modalShowNoValorados === op._id}
-                                        onHide={() => setModalShowNoValorados("")}
-                                    />
-                                </Row>
-                            ))
+                            : <TransitionGroup className="todo-list">
+                                {
+                                    noValorados.map(op => (
+                                        <CSSTransition
+                                            key={op._id}
+                                            timeout={500}
+                                            classNames="item"
+                                        >
+                                            <Row className="mt-4">
+                                                <Col xs={1} sm={1} md={1}>
+                                                </Col>
+                                                <Col xs={3} sm={3} md={2}>
+                                                    <Image src={op.img} fluid="true" />
+                                                </Col>
+                                                <Col xs={8} sm={8} md={9} className="d-flex flex-column align-self-center">
+                                                    <Link className="linkProducto mb-1" style={{ "fontSize": "20px" }} to={`/${op.categoria.nombre}/${op.subcategoria.nombre}/${op.nombre.replace(/\s+/g, "-")}`}>{op.nombre}</Link>
+                                                    <span>
+                                                        <Rating
+                                                            className="me-2"
+                                                            style={{ "pointerEvents": "none" }}
+                                                            size={20}
+                                                            ratingValue={op.rating}
+                                                            allowHover={false}
+                                                        />
+                                                        {` ${op.opinion.length} Valoraciones`}
+                                                    </span>
+                                                    <div>
+                                                        <Button
+                                                            className="mt-3"
+                                                            variant="outline-secondary"
+                                                            size="sm"
+                                                            onClick={() => setModalShowNoValorados(op._id)}
+                                                        >
+                                                            Escribir una opinión sobre el producto
+                                                        </Button>
+                                                    </div>
+                                                </Col>
+                                                <hr className="mt-5" />
+                                                <SummaryModal
+                                                    id={op._id}
+                                                    setModalShow={setModalShowNoValorados}
+                                                    show={modalShowNoValorados === op._id}
+                                                    onHide={() => setModalShowNoValorados("")}
+                                                />
+                                            </Row>
+                                        </CSSTransition>
+                                    ))
+                                }
+                            </TransitionGroup>
                     }
                 </Tab>
                 <Tab eventKey="valorados" title={`Valorados (${valorados.length})`}>
@@ -150,57 +161,67 @@ export const Ratings = () => {
                                 <div>valoración para ayudar al resto de usuarios.</div>
                                 <Button className="mt-3" variant="warning" onClick={() => navigate(`/`)}>Ver el catálogo</Button>
                             </div>
-                            : valorados.map(op => (
-                                <Row className="mt-4 d-flex align-items-center" key={op.opinion[0]._id}>
-                                    <Col xs={1} sm={1} md={1}>
-                                    </Col>
-                                    <Col xs={3} sm={3} md={2}>
-                                        <Image src={op.img} fluid="true" />
-                                    </Col>
-                                    <Col xs={8} sm={8} md={3}>
-                                        <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${op._id}`}>{op.nombre}</Link>
-                                        <Button
-                                            className="mt-2"
-                                            variant="outline-secondary"
-                                            size="sm"
-                                            onClick={() => setModalShowValorados(op._id)}
+                            : <TransitionGroup className="todo-list">
+                                {
+                                    valorados.map(op => (
+                                        <CSSTransition
+                                            key={op.opinion[0]._id}
+                                            timeout={500}
+                                            classNames="item"
                                         >
-                                            Editar opinión del producto
-                                        </Button>
-                                        <Button
-                                            className="mt-3"
-                                            variant="danger"
-                                            size="sm"
-                                            onClick={() => handleDelete(op._id, op.opinion[0]._id)}
-                                        >
-                                            Eliminar opinión
-                                        </Button>
-                                    </Col>
-                                    <Col xs={12} sm={12} md={6} className="mt-3">
-                                        <div className="comentarios">
-                                            <Rating
-                                                style={{ "pointerEvents": "none", "marginRight": "8px" }}
-                                                size={20}
-                                                ratingValue={op.opinion[0].rating}
-                                                allowHover={false}
-                                            />
-                                            <div style={{ "fontSize": "18px" }}>{`${op.opinion[0].titulo}`}</div>
-                                        </div>
-                                        <div style={{ "fontSize": "14px" }}>{`${new Date(op.opinion[0].fecha).toLocaleDateString("es-ES", options)}`}</div>
-                                        <div className="mt-3">{`${op.opinion[0].comentario}`}</div>
-                                    </Col>
-                                    <hr className="mt-5" />
-                                    <SummaryModal
-                                        id={op._id}
-                                        setModalShow={setModalShowValorados}
-                                        show={modalShowValorados === op._id}
-                                        onHide={() => setModalShowValorados("")}
-                                        oldTitulo={op.opinion[0]?.titulo || null}
-                                        oldComentario={op.opinion[0]?.comentario || null}
-                                        oldRating={op.opinion[0]?.rating || null}
-                                    />
-                                </Row>
-                            ))
+                                            <Row className="mt-4 d-flex align-items-center">
+                                                <Col xs={1} sm={1} md={1}>
+                                                </Col>
+                                                <Col xs={3} sm={3} md={2}>
+                                                    <Image src={op.img} fluid="true" />
+                                                </Col>
+                                                <Col xs={8} sm={8} md={3}>
+                                                    <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${op.categoria.nombre}/${op.subcategoria.nombre}/${op.nombre.replace(/\s+/g, "-")}`}>{op.nombre}</Link>
+                                                    <Button
+                                                        className="mt-2"
+                                                        variant="outline-secondary"
+                                                        size="sm"
+                                                        onClick={() => setModalShowValorados(op._id)}
+                                                    >
+                                                        Editar opinión del producto
+                                                    </Button>
+                                                    <Button
+                                                        className="mt-3"
+                                                        variant="danger"
+                                                        size="sm"
+                                                        onClick={() => handleDelete(op._id, op.opinion[0]._id)}
+                                                    >
+                                                        Eliminar opinión
+                                                    </Button>
+                                                </Col>
+                                                <Col xs={12} sm={12} md={6} className="mt-3">
+                                                    <div className="comentarios">
+                                                        <Rating
+                                                            style={{ "pointerEvents": "none", "marginRight": "8px" }}
+                                                            size={20}
+                                                            ratingValue={op.opinion[0].rating}
+                                                            allowHover={false}
+                                                        />
+                                                        <div style={{ "fontSize": "18px" }}>{`${op.opinion[0].titulo}`}</div>
+                                                    </div>
+                                                    <div style={{ "fontSize": "14px" }}>{`${new Date(op.opinion[0].fecha).toLocaleDateString("es-ES", options)}`}</div>
+                                                    <div className="mt-3">{`${op.opinion[0].comentario}`}</div>
+                                                </Col>
+                                                <hr className="mt-5" />
+                                                <SummaryModal
+                                                    id={op._id}
+                                                    setModalShow={setModalShowValorados}
+                                                    show={modalShowValorados === op._id}
+                                                    onHide={() => setModalShowValorados("")}
+                                                    oldTitulo={op.opinion[0]?.titulo || null}
+                                                    oldComentario={op.opinion[0]?.comentario || null}
+                                                    oldRating={op.opinion[0]?.rating || null}
+                                                />
+                                            </Row>
+                                        </CSSTransition>
+                                    ))
+                                }
+                            </TransitionGroup>
                     }
                 </Tab>
             </Tabs>

@@ -311,7 +311,6 @@
     position: absolute;
     text-align: center;
     top: 9rem;
-    width: 14em;
 }
 
 @media (min-width: 500px) { 
@@ -372,4 +371,22 @@
     .cardCategoryBody {
         top: 13rem;
     }
+}
+
+.item-enter {
+    opacity: 0;
+}
+
+.item-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.item-exit {
+    opacity: 1;
+}
+
+.item-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
 }

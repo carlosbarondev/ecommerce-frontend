@@ -17,7 +17,8 @@ const routes = [
     { path: '/panel', breadcrumb: "Panel de Usuario" },
     { path: '/panel/datos', breadcrumb: null },
     { path: '/panel/deseos', breadcrumb: "Deseados" },
-    { path: '/panel/pedidos/detalles', breadcrumb: null },
+    { path: '/buscar', breadcrumb: null },
+    { path: '/buscar/:Busqueda', breadcrumb: null },
 ];
 
 export const TopBar = () => {
@@ -107,7 +108,10 @@ export const TopBar = () => {
                         <b className="ms-2 navbarDisable">Todas las categorías</b>
                     </button>
                     {
-                        location.pathname !== "/" && location.pathname !== "/summary" && breadcrumbs.map(({
+                        location.pathname !== "/" &&
+                        location.pathname !== "/summary" &&
+                        location.pathname !== "/buscar" &&
+                        breadcrumbs.map(({
                             match,
                             breadcrumb,
                         }, index) => (

@@ -13,7 +13,7 @@ export const CategoryList = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const resp = await fetchSinToken('categorias');
+                const resp = await fetchSinToken('categorias?desde=0&limite=5');
                 const body = await resp.json();
                 setCategorias(body.categorias);
                 setChecking(true);
@@ -27,7 +27,7 @@ export const CategoryList = () => {
     return (
         checking && <div className="animate__animated animate__fadeIn">
             <h4 className="mt-3 mb-4"><b>Categorías destacadas</b></h4>
-            <Row xs={2} sm={2} md={3} lg={4} xl={5} className="g-5">
+            <Row xs={2} sm={2} md={3} lg={4} xl={5} className="g-0">
                 {
                     categorias.map(categoria => (
                         <Category

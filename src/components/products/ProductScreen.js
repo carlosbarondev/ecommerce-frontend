@@ -28,7 +28,7 @@ export const ProductScreen = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const resp = await fetchSinToken(`productos/${ProductoNombre}`);
+                const resp = await fetchSinToken(`productos/producto/${ProductoNombre}`);
                 const body = await resp.json();
                 if (body.msg) {
                     Swal.fire('Error', body.msg, 'error');

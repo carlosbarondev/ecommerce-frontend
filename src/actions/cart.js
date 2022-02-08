@@ -21,7 +21,8 @@ export const productStartAdd = (product, cantidad, buy = false) => {
             }
         } else { // El producto existe en el carrito y se actualizan las unidades del producto
             productCart = {
-                unidades: carrito[productIndex].unidades + cantidad
+                //unidades: carrito[productIndex].unidades + cantidad
+                unidades: cantidad
             }
         }
         dispatch(productAdd(productCart, productIndex));

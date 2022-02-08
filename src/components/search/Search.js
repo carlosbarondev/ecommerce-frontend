@@ -19,10 +19,13 @@ export const Search = () => {
                 const body = await resp.json();
                 body.productos.forEach(p => {
                     const item = {
-                        id: p._id,
+                        _id: p._id,
                         name: p.nombre,
+                        nombre: p.nombre,
                         categoria: p.categoria,
-                        subcategoria: p.subcategoria
+                        subcategoria: p.subcategoria,
+                        img: p.img,
+                        precio: p.precio
                     }
                     setItems(items => items.concat(item));
                 })
@@ -36,7 +39,26 @@ export const Search = () => {
     const handleOnSearch = (string, results) => {
         // onSearch will have as the first callback parameter
         // the string searched and for the second the results.
-        setAux(string);
+
+        if (string !== "") {
+            setAux(string);
+
+            const input = document.querySelector('input');
+
+            input.addEventListener("keyup", function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    event.target.blur();
+                    setAux("");
+                    navigate(`/buscar/${string}`, {
+                        state: {
+                            nombre: string,
+                            busqueda: results,
+                        }
+                    });
+                }
+            });
+        }
         // console.log("handleOnSearch", string, results)
     }
 
@@ -56,7 +78,10 @@ export const Search = () => {
 
     const formatResult = (item) => {
         const product = items.find(p => p.name === item);
-        return <div><b>{item}</b><span style={{ "color": "grey" }}>{` en ${product.categoria.nombre}`}</span></div>
+        return <div>
+            <b>{item}</b>
+            <span style={{ "color": "grey" }}>{` en ${product.categoria.nombre}`}</span>
+        </div>
     }
 
     return (

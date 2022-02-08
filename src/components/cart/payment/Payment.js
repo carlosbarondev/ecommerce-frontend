@@ -43,7 +43,7 @@ export const Payment = () => {
     };
 
     return (
-        <div className="all">
+        <div className="all animate__animated animate__fadeIn">
             <div className="Checkout">
                 {clientSecret && (
                     <Elements options={options} stripe={stripePromise}>

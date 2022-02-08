@@ -4,12 +4,12 @@ import { Row } from "react-bootstrap"
 
 import { fetchSinToken } from "../../helpers/fetch";
 import { SubCategory } from "./SubCategory";
+import { ProductListBest } from "./ProductListBest";
 
 
 export const SubCategoryList = () => {
 
     const { CategoriaNombre } = useParams();
-    console.log(CategoriaNombre);
 
     const [subcategorias, setSubcategorias] = useState();
     const [nombre, setNombre] = useState();
@@ -33,7 +33,7 @@ export const SubCategoryList = () => {
 
     return (
         checking && <div className="animate__animated animate__fadeIn">
-            <h4 className="mt-4 mb-4"><b>{nombre}</b></h4>
+            <h4 className="mt-4 mb-4">Categorías en <b>{nombre}</b></h4>
             <Row xs={2} sm={2} md={3} lg={4} xl={5} className="g-5">
                 {
                     subcategorias.map(subcategoria => (
@@ -45,6 +45,7 @@ export const SubCategoryList = () => {
                     ))
                 }
             </Row>
+            <ProductListBest categoria={CategoriaNombre} />
         </div>
     )
 }

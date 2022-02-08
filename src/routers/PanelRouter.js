@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
 
 import { TopBar } from "../components/ui/TopBar";
@@ -19,7 +19,7 @@ export const PanelRouter = () => {
         <>
             <TopBar />
 
-            <Container>
+            <Container className="animate__animated animate__fadeIn">
 
                 <Routes>
                     <Route path="datos" element={
@@ -65,6 +65,10 @@ export const PanelRouter = () => {
                             </Col>
                         </Row>
                     } />
+                    <Route
+                        path="/"
+                        element={<Navigate to="/panel/datos" />}
+                    />
                 </Routes>
 
             </Container>

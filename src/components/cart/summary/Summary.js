@@ -81,7 +81,7 @@ export const Summary = () => {
 
     return (
         checking &&
-        <Container>
+        <Container className="animate__animated animate__fadeIn">
             <Card className="mt-4">
                 <Card.Header as="h4">
                     Detalles del pedido
