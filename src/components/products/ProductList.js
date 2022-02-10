@@ -26,7 +26,7 @@ export const ProductList = () => {
 
     return (
         checking && <div className="animate__animated animate__fadeIn">
-            <h4 className="mt-5 mb-4"><b>Artículos mejor valorados</b></h4>
+            <h4 className="mt-5 mb-3"><b>Artículos mejor valorados</b></h4>
             <Row xs={2} sm={2} md={3} lg={4} xl={4} className="g-0">
                 {
                     productos.map(producto => (

@@ -39,7 +39,7 @@ export const Orders = () => {
     }, [uid]);
 
     return (
-        checking && <div className="mt-4">
+        checking && <div className="animate__animated animate__fadeIn mt-4">
             <h3>Mis Pedidos</h3>
             {
                 pedidos.map(pedido => (

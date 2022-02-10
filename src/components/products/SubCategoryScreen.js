@@ -29,8 +29,8 @@ export const SubCategoryScreen = () => {
 
     return (
         checking && <div className="animate__animated animate__fadeIn">
-            <h4 className="mt-4 mb-4"><b>{SubCategoriaNombre}</b></h4>
-            <Row xs={2} sm={2} md={3} lg={4} xl={4} className="g-5">
+            <h4 className="mt-4 mb-3"><b>{SubCategoriaNombre}</b></h4>
+            <Row xs={2} sm={2} md={3} lg={4} xl={4} className="g-0">
                 {
                     productos.map(producto => (
                         <Product

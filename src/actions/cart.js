@@ -26,7 +26,7 @@ export const productStartAdd = (product, cantidad, buy = false) => {
             }
         }
         dispatch(productAdd(productCart, productIndex));
-        if (!buy) {
+        if (!buy) { // Para que no salte el canvas al comprar
             dispatch(backdropChange(false));
             dispatch(cartCanvasChange());
             const timer = setInterval(() => {

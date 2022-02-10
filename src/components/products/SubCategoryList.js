@@ -33,8 +33,8 @@ export const SubCategoryList = () => {
 
     return (
         checking && <div className="animate__animated animate__fadeIn">
-            <h4 className="mt-4 mb-4">Categorías en <b>{nombre}</b></h4>
-            <Row xs={2} sm={2} md={3} lg={4} xl={5} className="g-5">
+            <h4 className="mt-4 mb-3">Categorías en <b>{nombre}</b></h4>
+            <Row xs={2} sm={3} md={4} lg={5} xl={5} className="g-0">
                 {
                     subcategorias.map(subcategoria => (
                         <SubCategory

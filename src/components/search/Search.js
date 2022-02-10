@@ -19,6 +19,7 @@ export const Search = () => {
                 const body = await resp.json();
                 body.productos.forEach(p => {
                     const item = {
+                        id: p._id,
                         _id: p._id,
                         name: p.nombre,
                         nombre: p.nombre,

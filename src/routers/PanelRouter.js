@@ -19,7 +19,7 @@ export const PanelRouter = () => {
         <>
             <TopBar />
 
-            <Container className="animate__animated animate__fadeIn">
+            <Container>
 
                 <Routes>
                     <Route path="datos" element={
