@@ -28,18 +28,20 @@ export const ProductListBest = ({ categoria }) => {
     }, [categoria]);
 
     return (
-        checking && <div className="animate__animated animate__fadeIn">
-            <h4 className="mt-5 mb-4">Artículos más vendidos en <b>{categoria}</b></h4>
-            <Row xs={2} sm={2} md={3} lg={4} xl={4} className="g-0">
-                {
-                    productos.map(producto => (
-                        <Product
-                            key={producto._id}
-                            {...producto}
-                        />
-                    ))
-                }
-            </Row>
-        </div>
+        checking
+            ? <div className="animate__animated animate__fadeIn mb-5">
+                <h4 className="mt-5 mb-4">Artículos más vendidos en <b>{categoria}</b></h4>
+                <Row xs={2} sm={2} md={3} lg={4} xl={4} className="g-0">
+                    {
+                        productos.map(producto => (
+                            <Product
+                                key={producto._id}
+                                {...producto}
+                            />
+                        ))
+                    }
+                </Row>
+            </div>
+            : <div style={{ "height": "5000px" }}></div>
     )
 }

@@ -43,7 +43,7 @@ export const Payment = () => {
     };
 
     return (
-        <div className="all animate__animated animate__fadeIn">
+        <div className="d-flex justify-content-center mt-2 mt-sm-5 animate__animated animate__fadeIn">
             <div className="Checkout">
                 {clientSecret && (
                     <Elements options={options} stripe={stripePromise}>

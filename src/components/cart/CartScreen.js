@@ -48,7 +48,7 @@ export const CartScreen = () => {
 
     const handleClear = () => {
         dispatch(cartClear());
-        Swal.fire('Cesta vaciada', "", 'success');
+        Swal.fire('Cesta vaciada', "No hay artículos en tu carrito", 'success');
     }
 
     const handleStart = () => {
@@ -111,14 +111,14 @@ export const CartScreen = () => {
                                                     <div>{cart.producto.precio} €</div>
                                                     <button className="botonLinkProducto mt-2" onClick={() => handleDelete(cart.producto._id)}>Eliminar</button>
                                                 </Col>
-                                                <Col xs={8} sm={8} md={3}>
+                                                <Col xs={6} sm={8} md={3}>
                                                     <div className="input-group mt-2">
                                                         <button onClick={() => handleSubtract(cart.producto, cart.unidades)} className="border" style={{ height: "30px", width: "30px", marginLeft: "auto" }}>-</button>
                                                         <input className="text-center border" type="text" value={cart.unidades} onChange={e => handleChange(parseInt(e.target.value), cart.producto)} style={{ height: "30px", width: "30px" }} />
                                                         <button onClick={() => handleAdd(cart.producto, cart.unidades)} className="border" style={{ height: "30px", width: "30px", marginRight: "auto" }}>+</button>
                                                     </div>
                                                 </Col>
-                                                <Col xs={4} sm={4} md={2} className="text-center">
+                                                <Col xs={6} sm={4} md={2} className="text-center">
                                                     <Card.Text className="mt-2">
                                                         <span className="enable-span">Total:&nbsp;</span>{(cart.producto.precio * cart.unidades).toFixed(2)} €
                                                     </Card.Text>
@@ -130,7 +130,7 @@ export const CartScreen = () => {
                             ))
                         }
                     </TransitionGroup>
-                    <Row className="mt-3">
+                    <Row className="mt-3 mb-5">
                         <Col xs={5} md={4}>
                             <Button variant="outline-secondary" onClick={handleClear}><i className="fa-solid fa-trash"></i> Vaciar cesta</Button>
                         </Col>
@@ -141,7 +141,7 @@ export const CartScreen = () => {
                     </Row>
                 </Col>
                 <Col md={12} lg={4}>
-                    <Card>
+                    <Card className="mb-5">
                         <Card.Header as="h5" className="text-center">TOTAL</Card.Header>
                         <Card.Body className="text-center">
                             <Card.Title>{carrito.reduce((n, { unidades, producto }) => n + unidades * producto.precio, 0).toFixed(2)} €</Card.Title>

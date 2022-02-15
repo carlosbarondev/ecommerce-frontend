@@ -96,7 +96,7 @@ export const Wishes = () => {
     }
 
     return (
-        checking && <div className="animate__animated animate__fadeIn">
+        checking && <div className="animate__animated animate__fadeIn mb-5">
             <h3 className="mt-4 mb-4">Lista de deseos</h3>
             {
                 !tab

@@ -80,7 +80,7 @@ export const Ratings = () => {
     }
 
     return (
-        checking && <div className="animate__animated animate__fadeIn mt-4">
+        checking && <div className="animate__animated animate__fadeIn mt-4 mb-5">
             {
                 console.log("noValorados", noValorados)
             }

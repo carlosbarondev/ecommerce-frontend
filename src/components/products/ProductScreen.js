@@ -91,14 +91,14 @@ export const ProductScreen = () => {
     return (
         checking && <div className="animate__animated animate__fadeIn">
             <div className="row mt-5">
-                <div className="col-4">
+                <div className="col-12 col-md-4">
                     <img
                         src={producto.img}
                         alt={producto.nombre}
-                        className="img-thumbnail animate__animated animate__fadeInLeft"
+                        className="img-thumbnail animate__animated animate__fadeInLeft mb-4"
                     />
                 </div>
-                <div className="col-8">
+                <div className="col-12 col-md-8">
                     <h3>{producto.nombre}</h3>
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item"><b>Descripción: </b>{producto.descripcion}</li>
@@ -121,32 +121,35 @@ export const ProductScreen = () => {
                         <button onClick={() => setCantidad(cantidad + 1)} className="border" style={{ height: "30px", width: "30px", marginRight: "auto" }}>+</button>
                     </div>
                     <div className="mt-3 d-grid gap-2">
-                        <Button onClick={() => handleWish(producto._id)}>JA</Button>
+                        <Button onClick={() => handleWish(producto._id)}><i class="fa-solid fa-heart"></i> Deseado</Button>
                         <Button variant="outline-dark" size="lg" onClick={handleCart}>
-                            Añadir al carrito
+                            <i class="fa-solid fa-cart-plus"></i> Añadir al carrito
                         </Button>
                         <Button className="mt-1" variant="warning" size="lg" onClick={handleBuy}>
-                            Comprar
+                            Comprar <i class="fa-solid fa-share"></i>
                         </Button>
                     </div>
                 </div>
             </div>
-            <div style={{ "marginTop": "80px" }}>
-                <h4 className="comentarios" style={{ "marginBottom": "30px" }}>
-                    {`Valoraciones(${producto.opinion.length})`}
+            <hr className="mt-5 mb-5" />
+            <div className="mb-5 ms-2 ms-sm-0">
+                <div className="d-flex align-items-center mb-5">
+                    <h4 className="mb-0 me-1">
+                        {`Valoraciones (${producto.opinion.length})`}
+                    </h4>
                     <Rating
-                        showTooltip
+                        showTooltip={window.innerWidth > 400 ? true : false}
                         tooltipDefaultText="Sin opiniones"
                         tooltipArray={['Muy malo', 'Malo', 'Bueno', 'Muy bueno', 'Excelente']}
-                        tooltipStyle={{ "background": "#00A3C8" }}
+                        tooltipStyle={{ "background": "#00A3C8", "fontSize": "20px" }}
                         style={{ "pointerEvents": "none", "marginLeft": "8px" }}
                         size={30}
                         ratingValue={producto.rating}
                         allowHover={false}
                     />
-                </h4>
+                </div>
                 {
-                    producto.opinion.map(op => (
+                    producto.opinion.map((op, index) => (
                         <div className="row mt-2" key={op._id}>
                             <div className="col-sm-12 col-md-4">
                                 <div className="row">
@@ -168,12 +171,14 @@ export const ProductScreen = () => {
                                         ratingValue={op.rating}
                                         allowHover={false}
                                     />
-                                    <div style={{ "fontSize": "18px" }}>{`${op.titulo}`}</div>
+                                    <div style={{ "fontSize": "16px" }}><b>{`${op.titulo}`}</b></div>
                                 </div>
                                 <div style={{ "fontSize": "14px" }}>{`${new Date(op.fecha).toLocaleDateString("es-ES", options)}`}</div>
                                 <div className="mt-3">{`${op.comentario}`}</div>
                             </div>
-                            <hr className="mt-4" />
+                            {
+                                (index !== producto.opinion.length - 1) && <hr className="mt-4" />
+                            }
                         </div>
                     ))
                 }

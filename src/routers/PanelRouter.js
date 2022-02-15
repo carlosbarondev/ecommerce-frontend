@@ -8,6 +8,7 @@ import { Wishes } from "../components/panel/Wishes";
 import { Ratings } from "../components/panel/Ratings";
 import { Orders } from "../components/panel/Orders";
 import { OrdersDetail } from "../components/panel/OrdersDetail";
+import { Footer } from "../components/ui/Footer";
 
 
 export const PanelRouter = () => {
@@ -16,7 +17,9 @@ export const PanelRouter = () => {
     localStorage.setItem('lastPath', pathname + search);
 
     return (
-        <>
+
+        <div className="d-flex flex-column min-vh-100">
+
             <TopBar />
 
             <Container>
@@ -73,6 +76,8 @@ export const PanelRouter = () => {
 
             </Container>
 
-        </>
+            <Footer />
+
+        </div>
     )
 };

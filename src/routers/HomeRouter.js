@@ -13,6 +13,7 @@ import { CategoryList } from '../components/products/CategoryList';
 import { SubCategoryScreen } from '../components/products/SubCategoryScreen';
 import { CarouselHome } from '../components/products/CarouselHome';
 import { SearchList } from '../components/search/SearchList';
+import { Footer } from '../components/ui/Footer';
 
 
 export const HomeRouter = () => {
@@ -24,7 +25,8 @@ export const HomeRouter = () => {
     localStorage.setItem('lastPath', pathname + search);
 
     return (
-        <>
+        <div className="d-flex flex-column min-vh-100">
+
             <TopBar />
 
             <Container>
@@ -71,6 +73,8 @@ export const HomeRouter = () => {
 
             </Container>
 
-        </>
+            <Footer />
+
+        </div>
     )
 }

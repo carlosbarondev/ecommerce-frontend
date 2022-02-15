@@ -133,7 +133,7 @@ export const ShippingList = () => {
                                                     </ListGroup.Item>
                                                 </ListGroup>
                                             </div>
-                                            <div className="col-md-4" style={{ "display": "flex", "alignItems": "center" }}>
+                                            <div className="col-md-4 mb-4 mb-md-0" style={{ "display": "flex", "alignItems": "center" }}>
                                                 <Button
                                                     className="me-1"
                                                     style={{ "width": "80px" }}
@@ -159,10 +159,13 @@ export const ShippingList = () => {
                             }
                         </TransitionGroup>
                     </Form>
-                    <Button variant="primary" onClick={() => {
-                        dispatch(shippingModalElegir(true));
-                        dispatch(shippingModalChange(true));
-                    }}
+                    <Button
+                        className="mb-5"
+                        variant="primary"
+                        onClick={() => {
+                            dispatch(shippingModalElegir(true));
+                            dispatch(shippingModalChange(true));
+                        }}
                     >
                         {
                             envio.length === 0
@@ -195,7 +198,7 @@ export const ShippingList = () => {
                                                     </ListGroup.Item>
                                                 </ListGroup>
                                             </div>
-                                            <div className="col-md-4" style={{ "display": "flex", "alignItems": "center" }}>
+                                            <div className="col-md-4 mb-5" style={{ "display": "flex", "alignItems": "center" }}>
                                                 <Button
                                                     className="me-1"
                                                     style={{ "width": "80px" }}
@@ -216,10 +219,13 @@ export const ShippingList = () => {
                                             </div>
                                         </div>
                                     </Form>
-                                    : <Button variant="primary" onClick={() => {
-                                        dispatch(shippingModalElegir(false));
-                                        dispatch(shippingModalChange(true));
-                                    }}
+                                    : <Button
+                                        className="mb-5"
+                                        variant="primary"
+                                        onClick={() => {
+                                            dispatch(shippingModalElegir(false));
+                                            dispatch(shippingModalChange(true));
+                                        }}
                                     >
                                         Añadir dirección
                                     </Button>

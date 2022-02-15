@@ -88,7 +88,7 @@ export const Data = () => {
     }
 
     return (
-        checking && <div className="animate__animated animate__fadeIn mt-4">
+        checking && <div className="animate__animated animate__fadeIn mt-4 mb-5">
             <h3>Mis Datos</h3>
             <div className="centrar">
                 <div className="list-group">
