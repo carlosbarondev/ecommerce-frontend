@@ -1,5 +1,5 @@
 import { Formik, Form, useField } from 'formik';
-import { Button, FormControl, FormGroup, FormLabel, FormText } from 'react-bootstrap';
+import { Button, FormControl, FormGroup, FormLabel, FormText, Image } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -39,7 +39,17 @@ export const RegisterScreen = () => {
     }
 
     return (
-        <div className='auth-main'>
+        <div className="d-flex flex-column align-items-center">
+            <div className="d-flex justify-content-center">
+                <Image
+                    src="https://res.cloudinary.com/dyi0p8m1g/image/upload/v1643859405/ecommerce/productos/logo_qdclxm.png"
+                    alt="logo"
+                    className='mt-3 mt-sm-5 mb-0 mb-sm-4'
+                    style={{ "cursor": "pointer", "maxWidth": "75%" }}
+                    onClick={() => navigate("/")}
+                    fluid
+                />
+            </div>
             <Formik
                 initialValues={{
                     nombre: '',
@@ -50,20 +60,20 @@ export const RegisterScreen = () => {
                 validationSchema={Yup.object({
                     nombre: Yup.string()
                         .max(15, 'Must be 15 characters or less')
-                        .required('Required'),
+                        .required('El nombre es obligatorio'),
                     email: Yup.string()
                         .email('Invalid email address')
-                        .required('Required'),
+                        .required('El email es obligatorio'),
                     password: Yup.string()
                         .max(20, 'Must be 20 characters or less')
-                        .required('Required'),
+                        .required('La contraseña es obligatoria'),
                     password2: Yup.string()
                         .max(20, 'Must be 20 characters or less')
-                        .required('Required'),
+                        .required('La contraseña es obligatoria'),
                 })}
                 onSubmit={handleRegister}
             >
-                <Form className="auth-box-container d-grid gap-2 border rounded">
+                <Form className="auth-box-container d-grid gap-2 mt-4 mb-5">
 
                     <h1>Crear cuenta</h1>
 

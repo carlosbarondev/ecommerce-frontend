@@ -13,6 +13,7 @@ export const CategoryCanvas = () => {
     const dispatch = useDispatch();
 
     const { categoryCanvas, backdrop } = useSelector(state => state.ui);
+    const { nombre } = useSelector(state => state.auth);
 
     const [categorias, setCategorias] = useState();
     const [menu, setMenu] = useState(1);
@@ -42,7 +43,6 @@ export const CategoryCanvas = () => {
 
     const handleChangeMenu = (idCat) => {
         const index = categorias.findIndex(cat => cat._id === idCat);
-        console.log(index);
         setIndexCat(index);
         setMenu(2);
     }
@@ -63,31 +63,54 @@ export const CategoryCanvas = () => {
             backdrop={backdrop}
             scroll={true}
         >
-            <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Categorías</Offcanvas.Title>
+            <Offcanvas.Header className="canvasCategoryTitle" closeButton closeVariant="white">
+                <Offcanvas.Title>
+                    <div>
+                        <i className="fa-solid fa-circle-user fa-xl ms-3 me-3"></i>
+                        {nombre
+                            ? ` Hola, ${nombre}`
+                            : <span
+                                onClick={() => {
+                                    navigate("/login")
+                                    dispatch(categoryCanvasChange())
+                                }}>
+                                Hola, Identifícate
+                            </span>
+                        }
+                    </div>
+                </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
                 {
                     menu === 1
-                        ? <ListGroup className="animate__animated animate__fadeInLeft animate__faster">
-                            {
-                                categorias.map(categoria => (
-                                    <ListGroup.Item key={categoria._id} className="border-0" action onClick={() => handleChangeMenu(categoria._id)}>
-                                        {categoria.nombre}
-                                    </ListGroup.Item>
-                                ))
-                            }
-                        </ListGroup>
-                        : <ListGroup className="animate__animated animate__fadeInRight animate__faster">
-                            <button onClick={() => setMenu(1)}>MENÚ PRINCIPAL</button>
-                            {
-                                categorias[indexCat].subcategorias.map(sub => (
-                                    <ListGroup.Item key={sub._id} className="border-0" action onClick={() => handleLink(sub.nombre)}>
-                                        {sub.nombre}
-                                    </ListGroup.Item>
-                                ))
-                            }
-                        </ListGroup>
+                        ? <div>
+                            <div className="mb-3">
+                                <strong>CATEGORÍAS</strong>
+                            </div>
+                            <ListGroup className="animate__animated animate__fadeInLeft animate__faster">
+                                {
+                                    categorias.map(categoria => (
+                                        <ListGroup.Item key={categoria._id} className="border-0 d-flex align-items-center canvasCategoryHover" action onClick={() => handleChangeMenu(categoria._id)}>
+                                            {categoria.nombre}<i className="fa-solid fa-angle-right ms-auto canvasCategoryArrow"></i>
+                                        </ListGroup.Item>
+                                    ))
+                                }
+                            </ListGroup>
+                        </div>
+                        : <div>
+                            <div className="mb-3 d-flex align-items-center" style={{ "cursor": "pointer" }} onClick={() => setMenu(1)}>
+                                <b><i className="fa-solid fa-arrow-left mx-3"></i>MENÚ PRINCIPAL</b>
+                            </div>
+                            <ListGroup className="animate__animated animate__fadeInRight animate__faster">
+                                {
+                                    categorias[indexCat].subcategorias.map(sub => (
+                                        <ListGroup.Item key={sub._id} className="border-0 canvasCategoryHover" action onClick={() => handleLink(sub.nombre)}>
+                                            {sub.nombre}
+                                        </ListGroup.Item>
+                                    ))
+                                }
+                            </ListGroup>
+                        </div>
                 }
             </Offcanvas.Body>
         </Offcanvas>

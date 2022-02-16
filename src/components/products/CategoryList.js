@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Row } from "react-bootstrap"
 
 import { fetchSinToken } from "../../helpers/fetch";
 import { Category } from "./Category";
+import { categoryCanvasChange } from "../../actions/ui";
 
 
 export const CategoryList = () => {
+
+    const dispatch = useDispatch();
 
     const [categorias, setCategorias] = useState();
     const [checking, setChecking] = useState(false);
@@ -24,9 +28,14 @@ export const CategoryList = () => {
         fetchData();
     }, []);
 
+    const handleShowCategory = () => dispatch(categoryCanvasChange());
+
     return (
         checking && <div className="animate__animated animate__fadeIn">
-            <h4 className="mt-3 mb-3"><b>Categorías destacadas</b></h4>
+            <h4 className="mt-3 mb-3">
+                <b>Categorías destacadas</b>
+                <button className="botonLinkProducto ms-2" style={{ "fontSize": "16px" }} onClick={handleShowCategory}>Ver más</button>
+            </h4>
             <Row xs={2} sm={3} md={4} lg={5} xl={5} className="g-0">
                 {
                     categorias.map(categoria => (

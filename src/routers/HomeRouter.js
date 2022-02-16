@@ -64,7 +64,8 @@ export const HomeRouter = () => {
                         <>
                             <CarouselHome />
                             <CategoryList />
-                            <ProductList />
+                            <ProductList desde={0} limite={8} ordenar="-vendido" />
+                            <ProductList desde={0} limite={4} ordenar="-rating" />
                         </>
                     }
                     />

@@ -12,6 +12,7 @@ export const MenuCanvas = () => {
     const navigate = useNavigate();
 
     const { menuCanvas } = useSelector(state => state.ui);
+    const { nombre } = useSelector(state => state.auth);
 
     const handleClose = () => dispatch(menuCanvasChange());
 
@@ -29,34 +30,58 @@ export const MenuCanvas = () => {
             scroll={true}
             backdrop={true}
         >
-            <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Mi cuenta</Offcanvas.Title>
+            <Offcanvas.Header className="canvasCategoryTitle" closeButton closeVariant="white">
+                <Offcanvas.Title>
+                    <div>
+                        <i className="fa-solid fa-circle-user fa-xl ms-3 me-3"></i>{`Hola, ${nombre}`}
+                    </div>
+                </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-                <ListGroup>
-                    <ListGroup.Item className="border-0" action onClick={() => {
+                <ListGroup className="animate__animated animate__fadeInRight animate__faster">
+                    <ListGroup.Item className="border-0 canvasCategoryHover" action onClick={() => {
                         navigate("/panel/datos")
                         dispatch(menuCanvasChange())
                     }}>
-                        Mis datos
+                        <div className="d-flex">
+                            <div style={{ "width": "35px" }}>
+                                <i className="fa-solid fa-user-pen fa-lg me-2"></i>
+                            </div>
+                            Mis datos
+                        </div>
                     </ListGroup.Item>
-                    <ListGroup.Item className="border-0" action onClick={() => {
+                    <ListGroup.Item className="border-0 canvasCategoryHover" action onClick={() => {
                         navigate("/panel/deseos")
                         dispatch(menuCanvasChange())
                     }}>
-                        Lista de deseos
+                        <div className="d-flex">
+                            <div style={{ "width": "35px" }}>
+                                <i className="fa-solid fa-gifts fa-lg me-2"></i>
+                            </div>
+                            Lista de deseos
+                        </div>
                     </ListGroup.Item>
-                    <ListGroup.Item className="border-0" action onClick={() => {
+                    <ListGroup.Item className="border-0 canvasCategoryHover" action onClick={() => {
                         navigate("/panel/valoraciones")
                         dispatch(menuCanvasChange())
                     }}>
-                        Valoraciones
+                        <div className="d-flex">
+                            <div style={{ "width": "35px" }}>
+                                <i className="fa-solid fa-star fa-lg me-2"></i>
+                            </div>
+                            Valoraciones
+                        </div>
                     </ListGroup.Item>
-                    <ListGroup.Item className="border-0" action onClick={() => {
+                    <ListGroup.Item className="border-0 canvasCategoryHover" action onClick={() => {
                         navigate("/panel/pedidos")
                         dispatch(menuCanvasChange())
                     }}>
-                        Pedidos
+                        <div className="d-flex">
+                            <div style={{ "width": "35px" }}>
+                                <i className="fa-solid fa-truck-fast fa-lg me-2"></i>
+                            </div>
+                            Pedidos
+                        </div>
                     </ListGroup.Item>
                 </ListGroup>
                 <Button className="mt-3" onClick={handleLogout}>Cerrar sesión</Button>

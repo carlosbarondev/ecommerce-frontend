@@ -18,8 +18,19 @@
 }
 
 .auth-box-container {
-    width: 500px;
-    padding: 25px;
+    width: 400px;
+}
+
+@media (max-width: 500px) { 
+    .auth-box-container {
+        width: 350px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .disable-vr {
+        display: none;
+    }
 }
 
 .checkbox-address-container {
@@ -100,6 +111,16 @@
 }
 
 .linkProducto:hover {
+    text-decoration: underline;
+}
+
+.linkFooter {
+    background-color: #f8f9fa;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.linkFooter:hover {
     text-decoration: underline;
 }
 
@@ -473,4 +494,26 @@
 .item-exit-active {
     opacity: 0;
     transition: opacity 500ms ease-in;
+}
+
+.canvasCategoryTitle {
+    background-color: #0E282D !important;
+    color: white !important;
+}
+
+.canvasCategoryHover:hover {
+    background-color: #EAEDED !important;
+    color: black !important;
+}
+
+.canvasCategoryArrow {
+    color: inherit;
+}
+
+.canvasCategoryBack {
+    height: 50px;
+}
+
+.canvasCategoryBack:hover {
+    background-color: #EAEDED !important;
 }
