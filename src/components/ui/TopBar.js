@@ -59,14 +59,14 @@ export const TopBar = () => {
                             className="navbarDisableImg"
                             style={{ "height": "55px", "cursor": "pointer" }}
                             alt="logo"
-                            src="https://res.cloudinary.com/dyi0p8m1g/image/upload/v1643859405/ecommerce/productos/logo_qdclxm.png"
+                            src="/assets/logo_grande.png"
                             onClick={() => navigate("/")}
                         />
                         <Image
                             className="navbarEnableImg"
                             style={{ "height": "55px", "cursor": "pointer" }}
                             alt="logo"
-                            src="https://res.cloudinary.com/dyi0p8m1g/image/upload/v1643886601/ecommerce/productos/logo-sm_hhr2nc.png"
+                            src="/assets/logo.png"
                             onClick={() => navigate("/")}
                         />
                     </Navbar.Brand>

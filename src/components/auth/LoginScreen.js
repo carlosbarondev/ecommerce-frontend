@@ -37,7 +37,7 @@ export const LoginScreen = () => {
         <div className="d-flex flex-column justify-content-center align-items-center">
             <div className="d-flex justify-content-center">
                 <Image
-                    src="https://res.cloudinary.com/dyi0p8m1g/image/upload/v1643859405/ecommerce/productos/logo_qdclxm.png"
+                    src="/assets/logo_grande.png"
                     alt="logo"
                     className='mt-5 mb-5'
                     style={{ "cursor": "pointer", "maxWidth": "75%" }}
@@ -54,14 +54,14 @@ export const LoginScreen = () => {
                                 <ListGroup.Item className='border-0'>
                                     <i className="fa-solid fa-user fa-xl"></i>
                                     <b> Usuario predefinido</b>
-                                    <div className='mt-2 ms-5'>E-mail: <strong>test1</strong></div>
-                                    <div className='ms-5'>Contraseña: <strong>123456</strong></div>
+                                    <div className='mt-2 ms-5'>E-mail: <span class="text-danger">test1</span></div>
+                                    <div className='ms-5'>Contraseña: <span class="text-danger">123456</span></div>
                                 </ListGroup.Item>
                                 <ListGroup.Item className='border-0'>
                                     <i className="fa-solid fa-user-gear fa-xl"></i>
                                     <b> Administrador</b>
-                                    <div className='mt-2 ms-5'>E-mail: <strong>admin</strong></div>
-                                    <div className='ms-5'>Contraseña: <strong>123456</strong></div>
+                                    <div className='mt-2 ms-5'>E-mail: <span class="text-danger">admin</span></div>
+                                    <div className='ms-5'>Contraseña: <span class="text-danger">123456</span></div>
                                 </ListGroup.Item>
                                 <ListGroup.Item className='border-0'>
                                     <i className="fa-solid fa-user-plus fa-xl"></i>

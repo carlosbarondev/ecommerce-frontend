@@ -102,6 +102,9 @@ export const CategoryCanvas = () => {
                                 <b><i className="fa-solid fa-arrow-left mx-3"></i>MENÚ PRINCIPAL</b>
                             </div>
                             <ListGroup className="animate__animated animate__fadeInRight animate__faster">
+                                <ListGroup.Item key="all" className="border-0 canvasCategoryHover" action onClick={() => handleLink("")}>
+                                    Todo en {categorias[indexCat].nombre}
+                                </ListGroup.Item>
                                 {
                                     categorias[indexCat].subcategorias.map(sub => (
                                         <ListGroup.Item key={sub._id} className="border-0 canvasCategoryHover" action onClick={() => handleLink(sub.nombre)}>

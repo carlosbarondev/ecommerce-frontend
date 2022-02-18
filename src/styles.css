@@ -100,6 +100,20 @@
     color: #0097AF;
 }
 
+.textClipboard {
+    color: #0033cc;
+}
+
+.botonClipboard {
+    background-color: white;
+    border: none;
+    color: #0099cc;
+}
+
+.botonClipboard:hover {
+    color: black;
+}
+
 .botonLinkProducto:hover {
     text-decoration: underline;
 }

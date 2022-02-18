@@ -84,7 +84,9 @@ export const MenuCanvas = () => {
                         </div>
                     </ListGroup.Item>
                 </ListGroup>
-                <Button className="mt-3" onClick={handleLogout}>Cerrar sesión</Button>
+                <div className="d-grid gap-2">
+                    <Button variant="danger" className="mt-3" onClick={handleLogout}><i className="fa-solid fa-right-from-bracket"></i> Cerrar sesión</Button>
+                </div>
             </Offcanvas.Body>
         </Offcanvas>
     )

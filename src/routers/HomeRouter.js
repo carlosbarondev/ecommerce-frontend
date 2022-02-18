@@ -14,6 +14,7 @@ import { SubCategoryScreen } from '../components/products/SubCategoryScreen';
 import { CarouselHome } from '../components/products/CarouselHome';
 import { SearchList } from '../components/search/SearchList';
 import { Footer } from '../components/ui/Footer';
+import { ImagesHome } from '../components/products/ImagesHome';
 
 
 export const HomeRouter = () => {
@@ -64,8 +65,9 @@ export const HomeRouter = () => {
                         <>
                             <CarouselHome />
                             <CategoryList />
-                            <ProductList desde={0} limite={8} ordenar="-vendido" />
                             <ProductList desde={0} limite={4} ordenar="-rating" />
+                            <ImagesHome />
+                            <ProductList desde={0} limite={8} ordenar="-vendido" />
                         </>
                     }
                     />

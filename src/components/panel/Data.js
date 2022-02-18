@@ -98,8 +98,8 @@ export const Data = () => {
                     </button>
                 </div>
             </div>
-            <ListGroup variant="flush">
-                <ListGroup.Item>
+            <ListGroup className="mt-5">
+                <ListGroup.Item className="border-0">
                     <h5>Datos de mi cuenta</h5>
                     <Formik
                         initialValues={{
@@ -107,7 +107,7 @@ export const Data = () => {
                         }}
                         validationSchema={Yup.object({
                             nombre: Yup.string()
-                                .required('Required'),
+                                .required('Requerido'),
                         })}
                         onSubmit={handleName}
                     >
@@ -126,7 +126,7 @@ export const Data = () => {
                         </Form>
                     </Formik>
                 </ListGroup.Item>
-                <ListGroup.Item>
+                <ListGroup.Item className="border-0 mt-4">
                     <h5>Contraseña</h5>
                     <Formik
                         initialValues={{
@@ -136,10 +136,10 @@ export const Data = () => {
                         validationSchema={Yup.object({
                             newPassword: Yup.string()
                                 .min(6, 'Must be 6 characters or more')
-                                .required('Required'),
+                                .required('Requerido'),
                             newPassword2: Yup.string()
                                 .min(6, 'Must be 6 characters or more')
-                                .required('Required'),
+                                .required('Requerido'),
                         })}
                         onSubmit={handlePassword}
                     >

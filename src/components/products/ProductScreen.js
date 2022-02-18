@@ -43,22 +43,36 @@ export const ProductScreen = () => {
         fetchData();
     }, [ProductoNombre]);
 
-    const handleReturn = () => {
-        navigate(-1);
-    }
-
     const handleCart = () => {
-        if (cantidad > 0) {
-            dispatch(productStartAdd(producto, cantidad));
+        if (producto.stock > 0) {
+            if (cantidad > 0) {
+                if (cantidad <= producto.stock) {
+                    dispatch(productStartAdd(producto, cantidad));
+                } else {
+                    Swal.fire('Escasez de stock', 'Su pedido es mayor al stock del artículo', 'warning');
+                }
+            }
+        } else {
+            Swal.fire('Artículo agotado', 'El artículo estará disponible próximamente', 'warning');
         }
     }
 
     const handleBuy = () => {
-        const productIndex = carrito.findIndex(pid => pid.producto._id === producto._id);
-        if (carrito[productIndex]?.unidades === undefined) {
-            dispatch(productStartAdd(producto, cantidad, true));
+        if (producto.stock > 0) {
+            if (cantidad > 0) {
+                if (cantidad <= producto.stock) {
+                    const productIndex = carrito.findIndex(pid => pid.producto._id === producto._id);
+                    if (carrito[productIndex]?.unidades === undefined) {
+                        dispatch(productStartAdd(producto, cantidad, true));
+                    }
+                    navigate("/cart");
+                } else {
+                    Swal.fire('Escasez de stock', 'Su pedido es mayor al stock del artículo', 'warning');
+                }
+            }
+        } else {
+            Swal.fire('Artículo agotado', 'El artículo estará disponible próximamente', 'warning');
         }
-        navigate("/cart");
     }
 
     const handleClick = () => {
@@ -72,7 +86,9 @@ export const ProductScreen = () => {
             const resp = await fetchConToken(`usuarios/deseos/${uid}`, { deseos: idProducto }, 'POST');
             const body = await resp.json();
             if (body.msg) {
-                return Swal.fire('Error', body.msg, 'error');
+                return Swal.fire('Inicia sesión', "Identifícate para añadir el artículo a tu lista de deseos", 'warning');
+            } else {
+                return Swal.fire('Artículo añadido a tu lista', "Accede a tu lista de deseos para organizar tus compras", 'success');
             }
         } catch (error) {
             console.log(error);
@@ -91,42 +107,54 @@ export const ProductScreen = () => {
     return (
         checking && <div className="animate__animated animate__fadeIn">
             <div className="row mt-5">
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-lg-5 text-center">
                     <img
                         src={producto.img}
                         alt={producto.nombre}
-                        className="img-thumbnail animate__animated animate__fadeInLeft mb-4"
+                        className="animate__animated animate__fadeInLeft mb-5 mb-lg-0"
+                        style={{ "width": "75%" }}
                     />
                 </div>
-                <div className="col-12 col-md-8">
+                <div className="col-12 col-lg-7">
                     <h3>{producto.nombre}</h3>
+                    <div className="d-flex align-items-center">
+                        <Rating
+                            className="me-2 mb-1"
+                            style={{ "pointerEvents": "none" }}
+                            size={20}
+                            ratingValue={producto.rating}
+                            allowHover={false}
+                        />
+                        <div>
+                            {
+                                producto.opinion.length > 0
+                                    ? <a className="linkNormal text-muted" href="#stars">{producto.opinion.length === 1 ? `${producto.opinion.length} valoración` : `${producto.opinion.length} valoraciones`}</a>
+                                    : `Sin valoraciones`
+                            }
+                        </div>
+                    </div>
+                    <h4 className="mt-2 mb-3"><b>{producto.precio} €</b></h4>
+
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item"><b>Descripción: </b>{producto.descripcion}</li>
-                        <li className="list-group-item"><b>Precio: </b>{producto.precio}</li>
-                        <li className="list-group-item"><b>Stock: </b>{producto.stock}</li>
+                        <li className="list-group-item"><b>Stock: </b>{producto.stock > 0 ? `${producto.stock} unidades` : <span className="p-1 rounded" style={{ "backgroundColor": "#cc0000", "color": "white", "fontWeight": "bolder" }}>Producto agotado</span>}</li>
                     </ul>
 
-                    <h5 className="mt-3">Characters</h5>
-                    <p>{producto.nombre}</p>
-
-                    <button
-                        className="btn btn-outline-info"
-                        onClick={handleReturn}
-                    >
-                        Regresar
-                    </button>
-                    <div className="input-group">
+                    <div className="input-group mt-3 mb-1">
                         <button onClick={handleClick} className="border" style={{ height: "30px", width: "30px", marginLeft: "auto" }}>-</button>
                         <input className="text-center border" type="text" value={cantidad} onChange={e => handleChange(parseInt(e.target.value))} style={{ height: "30px", width: "30px" }} />
                         <button onClick={() => setCantidad(cantidad + 1)} className="border" style={{ height: "30px", width: "30px", marginRight: "auto" }}>+</button>
                     </div>
-                    <div className="mt-3 d-grid gap-2">
-                        <Button onClick={() => handleWish(producto._id)}><i class="fa-solid fa-heart"></i> Deseado</Button>
-                        <Button variant="outline-dark" size="lg" onClick={handleCart}>
-                            <i class="fa-solid fa-cart-plus"></i> Añadir al carrito
+
+                    <div className="d-flex gap-2 mt-4">
+                        <Button className="flex-fill" variant="outline-danger" size="lg" onClick={() => handleWish(producto._id)}>
+                            <i className="fa-solid fa-heart"></i>
                         </Button>
-                        <Button className="mt-1" variant="warning" size="lg" onClick={handleBuy}>
-                            Comprar <i class="fa-solid fa-share"></i>
+                        <Button className="flex-fill" variant="outline-dark" size="lg" onClick={handleCart}>
+                            <i className="fa-solid fa-cart-plus"></i> Añadir al carrito
+                        </Button>
+                        <Button className="flex-fill" variant="warning" size="lg" onClick={handleBuy}>
+                            Comprar <i className="fa-solid fa-share"></i>
                         </Button>
                     </div>
                 </div>
@@ -134,12 +162,13 @@ export const ProductScreen = () => {
             <hr className="mt-5 mb-5" />
             <div className="mb-5 ms-2 ms-sm-0">
                 <div className="d-flex align-items-center mb-5">
-                    <h4 className="mb-0 me-1">
+                    <h4 id="stars" className="mb-0 me-1">
                         {`Valoraciones (${producto.opinion.length})`}
                     </h4>
                     <Rating
+                        className="mt-1"
                         showTooltip={window.innerWidth > 400 ? true : false}
-                        tooltipDefaultText="Sin opiniones"
+                        tooltipDefaultText="Todavía no tiene ninguna opinión"
                         tooltipArray={['Muy malo', 'Malo', 'Bueno', 'Muy bueno', 'Excelente']}
                         tooltipStyle={{ "background": "#00A3C8", "fontSize": "20px" }}
                         style={{ "pointerEvents": "none", "marginLeft": "8px" }}

@@ -52,7 +52,7 @@ export const Wishes = () => {
     const handleAdd = async () => {
         const checked = document.querySelectorAll('input[type="checkbox"]:checked');
         if (checked.length === 0) {
-            return Swal.fire('Atención', "No ha seleccionado ningún artículo", 'info');
+            return Swal.fire('¡Atención!', "No ha seleccionado ningún artículo", 'info');
         }
         const ids = Array.from(checked).map(x => x.id);
         const addProduct = deseos.filter(p => ids.find(x => x === p._id));
@@ -71,7 +71,7 @@ export const Wishes = () => {
 
         const checked = document.querySelectorAll('input[type="checkbox"]:checked');
         if (checked.length === 0) {
-            return Swal.fire('Atención', "No ha seleccionado ningún artículo", 'info');
+            return Swal.fire('¡Atención!', "No ha seleccionado ningún artículo", 'info');
         }
         const ids = Array.from(checked).map(x => x.id);
 
@@ -112,11 +112,13 @@ export const Wishes = () => {
                             <h5 className="mt-auto mb-auto me-auto">Seleccionados: {seleccionados}</h5>
                             <Button
                                 className="me-4"
+                                variant="outline-dark"
                                 onClick={handleAdd}
                             >
                                 Añadir al carrito
                             </Button>
                             <Button
+                                variant="outline-dark"
                                 onClick={handleDelete}
                             >
                                 Eliminar de la lista

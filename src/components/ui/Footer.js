@@ -12,7 +12,7 @@ export const Footer = () => {
             <div className="col-12 col-lg-4 mb-5 mb-lg-0">
                 <div className="d-flex flex-column justify-content-center align-items-center">
                     <Image
-                        src="https://res.cloudinary.com/dyi0p8m1g/image/upload/v1643859405/ecommerce/productos/logo_qdclxm.png"
+                        src="/assets/logo_grande.png"
                         alt="logo"
                         style={{ "cursor": "pointer", "maxWidth": "50%" }}
                         onClick={() => navigate("/")}
@@ -41,7 +41,7 @@ export const Footer = () => {
 
             <div className="col-12 col-lg-4 mt-5 mt-sm-0">
                 <div className="d-flex flex-column justify-content-center align-items-center">
-                    <a className="linkFooter text-muted" href="https://github.com/carlosbarondev">carlosbarondev &copy;2022</a>
+                    <a className="linkFooter text-muted" href="https://github.com/carlosbarondev">carlosbarondev &copy; 2022</a>
                 </div>
             </div>
 

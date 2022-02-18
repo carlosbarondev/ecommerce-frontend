@@ -42,7 +42,7 @@ export const RegisterScreen = () => {
         <div className="d-flex flex-column align-items-center">
             <div className="d-flex justify-content-center">
                 <Image
-                    src="https://res.cloudinary.com/dyi0p8m1g/image/upload/v1643859405/ecommerce/productos/logo_qdclxm.png"
+                    src="/assets/logo_grande.png"
                     alt="logo"
                     className='mt-3 mt-sm-5 mb-0 mb-sm-4'
                     style={{ "cursor": "pointer", "maxWidth": "75%" }}

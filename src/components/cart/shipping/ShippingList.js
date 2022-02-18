@@ -1,13 +1,13 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Form, ListGroup } from 'react-bootstrap';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import Swal from 'sweetalert2';
 
 import { shippingModalChange, shippingModalElegir, stepChange } from '../../../actions/ui';
 import { ShippingModal } from './ShippingModal';
 import { shippingSetActive, shippingStartDelete, shippingStartDeleteBilling } from '../../../actions/shipping';
-import Swal from 'sweetalert2';
-import { useEffect } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 
 export const ShippingList = () => {
@@ -91,9 +91,9 @@ export const ShippingList = () => {
     }
 
     return (
-        <div className="animate__animated animate__fadeIn">
+        <div className="animate__animated animate__fadeIn mb-4">
             <div className="row">
-                <div className="col-md-8">
+                <div className="col-12 col-md-7 col-lg-8">
                     <h4 className='mb-3'>Dirección de envío</h4>
                     <Form>
                         <TransitionGroup className="todo-list">
@@ -105,7 +105,7 @@ export const ShippingList = () => {
                                         classNames="item"
                                     >
                                         <div className="row mt-1">
-                                            <div className="col-md-8">
+                                            <div className="col-12 col-sm-8">
                                                 <ListGroup>
                                                     <ListGroup.Item className="border-0" action onClick={(e) => activar(direccion._id, e)}>
                                                         {
@@ -133,7 +133,7 @@ export const ShippingList = () => {
                                                     </ListGroup.Item>
                                                 </ListGroup>
                                             </div>
-                                            <div className="col-md-4 mb-4 mb-md-0" style={{ "display": "flex", "alignItems": "center" }}>
+                                            <div className="col-12 col-sm-4 mb-4 mb-md-0" style={{ "display": "flex", "alignItems": "center" }}>
                                                 <Button
                                                     className="me-1"
                                                     style={{ "width": "80px" }}
@@ -160,8 +160,8 @@ export const ShippingList = () => {
                         </TransitionGroup>
                     </Form>
                     <Button
-                        className="mb-5"
-                        variant="primary"
+                        className="mt-2 mb-5"
+                        variant="outline-secondary"
                         onClick={() => {
                             dispatch(shippingModalElegir(true));
                             dispatch(shippingModalChange(true));
@@ -183,7 +183,7 @@ export const ShippingList = () => {
                                 facturacion
                                     ? <Form>
                                         <div className="row mt-1">
-                                            <div className="col-md-8">
+                                            <div className="col-8">
                                                 <ListGroup>
                                                     <ListGroup.Item className="border-0" action onClick={(e) => activar(facturacion._id, e)}>
                                                         <Form.Check
@@ -198,7 +198,7 @@ export const ShippingList = () => {
                                                     </ListGroup.Item>
                                                 </ListGroup>
                                             </div>
-                                            <div className="col-md-4 mb-5" style={{ "display": "flex", "alignItems": "center" }}>
+                                            <div className="col-4 mb-5" style={{ "display": "flex", "alignItems": "center" }}>
                                                 <Button
                                                     className="me-1"
                                                     style={{ "width": "80px" }}
@@ -220,8 +220,8 @@ export const ShippingList = () => {
                                         </div>
                                     </Form>
                                     : <Button
-                                        className="mb-5"
-                                        variant="primary"
+                                        className="mt-2 mb-5"
+                                        variant="outline-secondary"
                                         onClick={() => {
                                             dispatch(shippingModalElegir(false));
                                             dispatch(shippingModalChange(true));
@@ -233,8 +233,8 @@ export const ShippingList = () => {
                         </CSSTransition>
                     </TransitionGroup>
                 </div>
-                <div className="col-md-4">
-                    <Card className='sticky-top'>
+                <div className="col-12 col-md-5 col-lg-4">
+                    <Card>
                         <Card.Header as="h5" className="text-center">TOTAL</Card.Header>
                         <Card.Body className="text-center">
                             <Card.Title>{carrito.reduce((n, { unidades, producto }) => n + unidades * producto.precio, 0).toFixed(2)} €</Card.Title>
