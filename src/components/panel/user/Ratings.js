@@ -5,8 +5,8 @@ import { Button, Col, Image, Row, Tab, Tabs } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 import Swal from "sweetalert2";
 
-import { fetchConToken } from "../../helpers/fetch";
-import { SummaryModal } from "../cart/summary/SummaryModal";
+import { fetchConToken } from "../../../helpers/fetch";
+import { SummaryModal } from "../../cart/summary/SummaryModal";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 

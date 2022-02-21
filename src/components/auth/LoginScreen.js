@@ -54,14 +54,14 @@ export const LoginScreen = () => {
                                 <ListGroup.Item className='border-0'>
                                     <i className="fa-solid fa-user fa-xl"></i>
                                     <b> Usuario predefinido</b>
-                                    <div className='mt-2 ms-5'>E-mail: <span class="text-danger">test1</span></div>
-                                    <div className='ms-5'>Contraseña: <span class="text-danger">123456</span></div>
+                                    <div className='mt-2 ms-5'>E-mail: <span className="text-danger">test1</span></div>
+                                    <div className='ms-5'>Contraseña: <span className="text-danger">123456</span></div>
                                 </ListGroup.Item>
                                 <ListGroup.Item className='border-0'>
                                     <i className="fa-solid fa-user-gear fa-xl"></i>
                                     <b> Administrador</b>
-                                    <div className='mt-2 ms-5'>E-mail: <span class="text-danger">admin</span></div>
-                                    <div className='ms-5'>Contraseña: <span class="text-danger">123456</span></div>
+                                    <div className='mt-2 ms-5'>E-mail: <span className="text-danger">admin</span></div>
+                                    <div className='ms-5'>Contraseña: <span className="text-danger">123456</span></div>
                                 </ListGroup.Item>
                                 <ListGroup.Item className='border-0'>
                                     <i className="fa-solid fa-user-plus fa-xl"></i>

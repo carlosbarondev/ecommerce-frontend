@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Card, Col, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 
-import { fetchConToken } from "../../helpers/fetch";
-import { invoicePdf } from "../../helpers/invoicePdf";
+import { fetchConToken } from "../../../helpers/fetch";
+import { invoicePdf } from "../../../helpers/invoicePdf";
 
 
 export const Orders = () => {

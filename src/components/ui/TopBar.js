@@ -14,7 +14,7 @@ import { Search } from "../search/Search";
 const routes = [
     { path: '/:CategoriaNombre/:SubCategoriaNombre/:ProductoNombre', breadcrumb: null },
     { path: '/cart', breadcrumb: "Carrito" },
-    { path: '/panel', breadcrumb: "Panel de Usuario" },
+    { path: '/panel', breadcrumb: "Panel" },
     { path: '/panel/datos', breadcrumb: null },
     { path: '/panel/deseos', breadcrumb: "Deseados" },
     { path: '/buscar', breadcrumb: null },
@@ -27,7 +27,7 @@ export const TopBar = () => {
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const { nombre, uid } = useSelector(state => state.auth);
+    const { nombre, uid, rol } = useSelector(state => state.auth);
     const carro = useSelector(state => state.cart);
     const { carrito } = carro;
 
@@ -76,10 +76,18 @@ export const TopBar = () => {
                     {
                         (!!uid &&
                             <div key="in" className="d-flex align-items-center h-100 hoverFondo me-md-4 px-2 px-md-3" style={{ "cursor": "pointer" }} onClick={handleShowMenu}>
-                                <i className="fas fa-user" style={{ "fontSize": "30px" }}></i>
+                                {
+                                    rol === "USER_ROLE"
+                                        ? <i className="fas fa-user" style={{ "fontSize": "30px" }}></i>
+                                        : <i className="fa-solid fa-user-gear" style={{ "fontSize": "30px" }}></i>
+                                }
                                 <div className="navbarDisable ms-2">
                                     <div style={{ "marginBottom": "-5px" }}>{`Hola ${nombre}`}</div>
-                                    <b>Mi Cuenta</b>
+                                    {
+                                        rol === "USER_ROLE"
+                                            ? <b>Mi Cuenta</b>
+                                            : <b>Panel de Administración</b>
+                                    }
                                 </div>
                             </div>
                         )

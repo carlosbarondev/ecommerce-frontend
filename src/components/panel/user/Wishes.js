@@ -5,8 +5,8 @@ import { Button, Card, Form, Image, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
-import { fetchConToken } from "../../helpers/fetch";
-import { productStartAdd } from "../../actions/cart";
+import { fetchConToken } from "../../../helpers/fetch";
+import { productStartAdd } from "../../../actions/cart";
 
 
 export const Wishes = () => {

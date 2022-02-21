@@ -5,7 +5,9 @@ const initialState = {
     checking: true,
     // uid: null,
     // nombre: null,
-    // correo: null
+    // correo: null,
+    // rol: null,
+    // estado: null
 }
 
 export const authReducer = (state = initialState, action) => {

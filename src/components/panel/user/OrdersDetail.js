@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 
-import { invoicePdf } from "../../helpers/invoicePdf";
-import { SummaryModal } from "../cart/summary/SummaryModal";
+import { invoicePdf } from "../../../helpers/invoicePdf";
+import { SummaryModal } from "../../cart/summary/SummaryModal";
 
 
 export const OrdersDetail = () => {

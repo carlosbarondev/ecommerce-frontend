@@ -21,7 +21,9 @@ export const startLogin = (correo, password, navigate) => {
             dispatch(login({
                 uid: body.usuario._id,
                 nombre: body.usuario.nombre,
-                correo: body.usuario.correo
+                correo: body.usuario.correo,
+                rol: body.usuario.rol,
+                estado: body.usuario.estado
             }));
 
             const lastPath = localStorage.getItem('lastPath') || "/";
@@ -63,7 +65,9 @@ export const startRegister = (nombre, correo, password, navigate) => {
                 dispatch(login({
                     uid: body.usuario._id,
                     nombre: body.usuario.nombre,
-                    correo: body.usuario.correo
+                    correo: body.usuario.correo,
+                    rol: body.usuario.rol,
+                    estado: body.usuario.estado
                 }));
 
                 const lastPath = localStorage.getItem('lastPath') || "/";
@@ -94,7 +98,9 @@ export const startChecking = () => {
             dispatch(login({
                 uid: body.uid,
                 nombre: body.nombre,
-                correo: body.correo
+                correo: body.correo,
+                rol: body.rol,
+                estado: body.estado
             }));
         } else {
             dispatch(checkingFinish());

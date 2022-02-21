@@ -6,8 +6,8 @@ import * as Yup from 'yup';
 import { Button, Col, FormControl, FormGroup, FormLabel, FormText, ListGroup, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 
-import { fetchConToken } from "../../helpers/fetch";
-import { changeName } from "../../actions/auth";
+import { fetchConToken } from "../../../helpers/fetch";
+import { changeName } from "../../../actions/auth";
 
 
 const MyTextInput = ({ label, ...props }) => {
