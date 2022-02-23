@@ -62,7 +62,7 @@ export const RegisterScreen = () => {
                         .max(15, 'Must be 15 characters or less')
                         .required('El nombre es obligatorio'),
                     email: Yup.string()
-                        .email('Invalid email address')
+                        .email('El formato del correo es inválido')
                         .required('El email es obligatorio'),
                     password: Yup.string()
                         .max(20, 'Must be 20 characters or less')

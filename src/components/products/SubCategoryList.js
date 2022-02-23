@@ -18,7 +18,7 @@ export const SubCategoryList = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const resp = await fetchSinToken(`categorias/${CategoriaNombre}`);
+                const resp = await fetchSinToken(`categorias/${CategoriaNombre.replace(/-/g, " ")}`);
                 const body = await resp.json();
                 const { categoria } = body;
                 setNombre(categoria.nombre);
@@ -45,7 +45,7 @@ export const SubCategoryList = () => {
                     ))
                 }
             </Row>
-            <ProductListBest categoria={CategoriaNombre} />
+            <ProductListBest categoria={nombre} />
         </div>
     )
 }

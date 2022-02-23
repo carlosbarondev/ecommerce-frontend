@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ListGroup, Offcanvas } from "react-bootstrap";
+import { normalizeText } from 'normalize-text';
 
 import { categoryCanvasChange } from "../../actions/ui";
 import { fetchSinToken } from "../../helpers/fetch";
@@ -48,7 +49,7 @@ export const CategoryCanvas = () => {
     }
 
     const handleLink = (nombreSub) => {
-        navigate(`/${categorias[indexCat].nombre}/${nombreSub}`);
+        navigate(`/${normalizeText(categorias[indexCat].nombre.replace(/\s+/g, '-'))}/${normalizeText(nombreSub.replace(/\s+/g, '-'))}`);
         dispatch(categoryCanvasChange());
         setTimeout(() => {
             setMenu(1);

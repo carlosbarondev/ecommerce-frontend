@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+import { normalizeText } from 'normalize-text';
 
 import { fetchSinToken } from '../../helpers/fetch';
 
@@ -70,7 +71,7 @@ export const Search = () => {
 
     const handleOnSelect = (item) => {
         setAux("");
-        navigate(`/${item.categoria.nombre}/${item.subcategoria.nombre}/${item.name.replace(/\s+/g, "-")}`);
+        navigate(`/${normalizeText(item.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(item.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(item.name.replace(/\s+/g, "-"))}`);
     }
 
     const handleOnFocus = () => {

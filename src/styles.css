@@ -531,3 +531,9 @@
 .canvasCategoryBack:hover {
     background-color: #EAEDED !important;
 }
+
+.centrarImagen {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}

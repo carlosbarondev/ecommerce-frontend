@@ -12,7 +12,8 @@ import { Orders } from "../components/panel/user/Orders";
 import { OrdersDetail } from "../components/panel/user/OrdersDetail";
 import { AdminPanel } from "../components/panel/admin/AdminPanel";
 import { Users } from "../components/panel/admin/Users";
-
+import { Categories } from "../components/panel/admin/Categories";
+import { CategoryDetail } from "../components/panel/admin/CategoryDetail";
 
 
 export const PanelRouter = () => {
@@ -84,30 +85,40 @@ export const PanelRouter = () => {
                         : <Routes>
                             <Route path="usuarios" element={
                                 <Row>
-                                    <Col md={2}>
+                                    <Col md={12} lg={2}>
                                         <AdminPanel />
                                     </Col>
-                                    <Col md={10}>
+                                    <Col md={12} lg={10}>
                                         <Users />
                                     </Col>
                                 </Row>
                             } />
                             <Route path="categorias" element={
                                 <Row>
-                                    <Col md={2}>
+                                    <Col md={12} lg={2}>
                                         <AdminPanel />
                                     </Col>
-                                    <Col md={10}>
-                                        <Data />
+                                    <Col md={12} lg={10}>
+                                        <Categories />
+                                    </Col>
+                                </Row>
+                            } />
+                            <Route path="categorias/:CategoriaNombre" element={
+                                <Row>
+                                    <Col md={12} lg={2}>
+                                        <AdminPanel />
+                                    </Col>
+                                    <Col md={12} lg={10}>
+                                        <CategoryDetail />
                                     </Col>
                                 </Row>
                             } />
                             <Route path="productos" element={
                                 <Row>
-                                    <Col md={2}>
+                                    <Col md={12} lg={2}>
                                         <AdminPanel />
                                     </Col>
-                                    <Col md={10}>
+                                    <Col md={12} lg={10}>
                                         <Data />
                                     </Col>
                                 </Row>

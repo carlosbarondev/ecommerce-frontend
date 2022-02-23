@@ -131,7 +131,9 @@ export const TopBar = () => {
                             </span>
                         ))
                     }
-                    <Link className="linkNormal ms-auto me-5 navbarDisable" to="/panel/deseos">Lista de deseos</Link>
+                    {
+                        rol !== "ADMIN_ROLE" ? <Link className="linkNormal ms-auto me-5 navbarDisable" to="/panel/deseos">Lista de deseos</Link> : null
+                    }
                 </Container>
             </Container>
             <MenuCanvas />

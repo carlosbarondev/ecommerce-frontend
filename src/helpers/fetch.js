@@ -22,7 +22,7 @@ const fetchSinToken = (endpoint, data, method = 'GET') => {
 
 }
 
-const fetchConToken = (endpoint, data, method = 'GET') => {
+const fetchConToken = (endpoint, data, method = 'GET', formData = false) => {
 
     const url = `${baseUrl}/${endpoint}`;
     const token = localStorage.getItem('token') || '';
@@ -40,11 +40,15 @@ const fetchConToken = (endpoint, data, method = 'GET') => {
 
         return fetch(url, {
             method,
-            headers: {
-                'Content-type': 'application/json',
-                'x-token': token
-            },
-            body: JSON.stringify(data)
+            headers: !formData
+                ? {
+                    'Content-type': 'application/json',
+                    'x-token': token
+                }
+                : {
+                    'x-token': token
+                },
+            body: !formData ? JSON.stringify(data) : data
         });
 
     }

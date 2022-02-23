@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Image } from "react-bootstrap";
+import { normalizeText } from 'normalize-text';
 
 
 export const Product = (props) => {
 
     const navigate = useNavigate();
+    //console.log(nombreCat, nombreSub);
 
     const { nombre, precio, img, categoria, subcategoria } = props;
 
     return (
-        <Card className="cardProduct" onClick={() => navigate(`/${categoria.nombre}/${subcategoria.nombre}/${nombre.replace(/\s+/g, "-")}`)}>
+        <Card className="cardProduct" onClick={() => navigate(`/${normalizeText(categoria.nombre.replace(/\s+/g, '-'))}/${normalizeText(subcategoria.nombre.replace(/\s+/g, '-'))}/${normalizeText(nombre.replace(/\s+/g, "-"))}`)}>
             <div className="d-flex flex-column">
                 <div className="border-section">
                     <Image className="imagenCentrar" src={img} fluid />

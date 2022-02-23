@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, Col, Image, Row } from "react-bootstrap"
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Swal from "sweetalert2";
+import { normalizeText } from 'normalize-text';
 
 import { stepChange } from "../../actions/ui";
 import { cartClear, productDelete, productStartAdd } from "../../actions/cart";
@@ -107,7 +108,7 @@ export const CartScreen = () => {
                                                     <Image src={cart.producto.img} fluid />
                                                 </Col>
                                                 <Col xs={10} sm={10} md={5}>
-                                                    <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${cart.producto.categoria.nombre}/${cart.producto.subcategoria.nombre}/${cart.producto.nombre.replace(/\s+/g, "-")}`}>{cart.producto.nombre}</Link>
+                                                    <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${normalizeText(cart.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(cart.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(cart.producto.nombre.replace(/\s+/g, "-"))}`}>{cart.producto.nombre}</Link>
                                                     <div>{cart.producto.precio} €</div>
                                                     <button className="botonLinkProducto mt-2" onClick={() => handleDelete(cart.producto._id)}>Eliminar</button>
                                                 </Col>

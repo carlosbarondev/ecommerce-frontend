@@ -11,13 +11,15 @@ export const SubCategoryScreen = () => {
     const { SubCategoriaNombre } = useParams();
 
     const [productos, setProductos] = useState();
+    const [nombre, setNombre] = useState();
     const [checking, setChecking] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const resp = await fetchSinToken(`categorias/subcategoria/${SubCategoriaNombre}`);
+                const resp = await fetchSinToken(`categorias/subcategoria/${SubCategoriaNombre.replace(/-/g, " ")}`);
                 const body = await resp.json();
+                setNombre(body.subcategoria.nombre);
                 setProductos(body.subcategoria.productos);
                 setChecking(true);
             } catch (error) {
@@ -29,12 +31,14 @@ export const SubCategoryScreen = () => {
 
     return (
         checking && <div className="animate__animated animate__fadeIn">
-            <h4 className="mt-4 mb-3"><b>{SubCategoriaNombre}</b></h4>
+            <h4 className="mt-4 mb-3"><b>{nombre}</b></h4>
             <Row xs={2} sm={2} md={3} lg={4} xl={4} className="g-0">
                 {
                     productos.map(producto => (
                         <Product
                             key={producto._id}
+                            nombreCat={producto.categoria}
+                            nombreSub={producto.subcategoria}
                             {...producto}
                         />
                     ))

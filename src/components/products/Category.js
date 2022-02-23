@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Image } from "react-bootstrap";
-
+import { normalizeText } from 'normalize-text';
 
 export const Category = (children) => {
 
@@ -9,7 +9,9 @@ export const Category = (children) => {
     const { nombre, img } = children;
 
     return (
-        <Card className="cardCategory" onClick={() => navigate(`/${nombre}`)}>
+        <Card className="cardCategory" onClick={() => navigate(`/${normalizeText(nombre.replace(/\s+/g, '-'))}`, {
+            state: nombre
+        })}>
             <div className="d-flex flex-column">
                 <div className="border-section-category">
                     <Image className="imagenCentrar" src={img} fluid />

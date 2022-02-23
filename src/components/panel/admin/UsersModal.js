@@ -2,6 +2,7 @@ import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import { Button, FormControl, FormGroup, FormLabel, FormText, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
+import { normalizeWhiteSpaces } from 'normalize-text';
 
 import { fetchConToken } from '../../../helpers/fetch';
 
@@ -26,7 +27,7 @@ export const UsersModal = ({ id, correo, nombre, usuarios, setUsuarios, setModal
         const enviar = await fetchConToken(`usuarios/${id}`, {
             oldCorreo: correo,
             correo: values.correo,
-            nombre: values.nombre,
+            nombre: normalizeWhiteSpaces(values.nombre),
         }, 'PUT');
         const bodyEnviar = await enviar.json();
 
@@ -49,6 +50,7 @@ export const UsersModal = ({ id, correo, nombre, usuarios, setUsuarios, setModal
             }}
             validationSchema={Yup.object({
                 correo: Yup.string()
+                    .email('El formato del correo es inválido')
                     .max(20, 'Must be 20 characters or less')
                     .required('Requerido'),
                 nombre: Yup.string()
