@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { normalizeText } from 'normalize-text';
 
 import { fetchConToken } from "../../../helpers/fetch";
+import { CategoryAddModal } from "./CategoryAddModal";
 
 
 export const Categories = () => {
@@ -12,6 +13,7 @@ export const Categories = () => {
     const navigate = useNavigate();
 
     const [categorias, setCategorias] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
     const [checking, setChecking] = useState(false);
 
     useEffect(() => {
@@ -23,7 +25,7 @@ export const Categories = () => {
                 setChecking(true);
             } catch (error) {
                 console.log(error);
-                return Swal.fire('Error', error, 'error');
+                return Swal.fire('Error', error.message, 'error');
             }
         }
         fetchData();
@@ -82,6 +84,17 @@ export const Categories = () => {
                     }
                 </ListGroup>
             </Card>
+            <Button className="mt-4" onClick={() => setModalShow("open")}>
+                Agregar Categoría
+            </Button>
+            <CategoryAddModal
+                categorias={categorias}
+                setCategorias={setCategorias}
+                setModalShow={setModalShow}
+                setChecking={setChecking}
+                show={modalShow === "open"}
+                onHide={() => setModalShow("")}
+            />
         </div>
     )
 }

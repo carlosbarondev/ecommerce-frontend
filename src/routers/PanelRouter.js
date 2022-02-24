@@ -14,6 +14,7 @@ import { AdminPanel } from "../components/panel/admin/AdminPanel";
 import { Users } from "../components/panel/admin/Users";
 import { Categories } from "../components/panel/admin/Categories";
 import { CategoryDetail } from "../components/panel/admin/CategoryDetail";
+import { Products } from "../components/panel/admin/Products";
 
 
 export const PanelRouter = () => {
@@ -119,7 +120,7 @@ export const PanelRouter = () => {
                                         <AdminPanel />
                                     </Col>
                                     <Col md={12} lg={10}>
-                                        <Data />
+                                        <Products />
                                     </Col>
                                 </Row>
                             } />

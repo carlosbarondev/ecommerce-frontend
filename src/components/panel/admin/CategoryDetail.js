@@ -8,7 +8,8 @@ import { normalizeText, normalizeWhiteSpaces } from 'normalize-text';
 
 import { fetchConToken } from '../../../helpers/fetch';
 import { imageUpload } from '../../../helpers/imageUpload';
-import { CategoriesModal } from './CategoriesModal';
+import { SubUpdateModal } from './SubUpdateModal';
+import { SubAddModal } from './SubAddModal';
 
 
 const MyTextInput = ({ label, type, ...props }) => {
@@ -33,6 +34,7 @@ export const CategoryDetail = () => {
     const [subcategorias, setSubCategorias] = useState();
     const [fileUpload, setFileUpload] = useState();
     const [modalShow, setModalShow] = useState(false);
+    const [modalShowAdd, setModalShowAdd] = useState(false);
     const [checking, setChecking] = useState(false);
 
     useEffect(() => {
@@ -57,12 +59,12 @@ export const CategoryDetail = () => {
                 const resp = await fetchConToken(`categorias/${categoria._id}`, {}, 'DELETE');
                 const body = await resp.json();
                 setCategoria(body);
-                Swal.fire('Categoría deshabilitada', "", 'success');
+                window.location.reload();
             } else {
                 const resp = await fetchConToken(`categorias/${categoria._id}`, { estado: true }, 'PUT');
                 const body = await resp.json();
                 setCategoria(body);
-                Swal.fire('Categoría habilitada', "", 'success');
+                window.location.reload();
             }
         } catch (error) {
             console.log(error);
@@ -84,6 +86,7 @@ export const CategoryDetail = () => {
                 setCategoria(body);
                 Swal.fire('Nombre actualizado', "", 'success');
                 navigate(`/panel/categorias/${normalizeText(body.nombre.replace(/\s+/g, '-'))}`, { replace: true });
+                window.location.reload();
             }
         }
     }
@@ -111,14 +114,14 @@ export const CategoryDetail = () => {
                 const newSub = [...subcategorias];
                 newSub[newSub.findIndex(sub => sub._id === body._id)].estado = false;
                 setSubCategorias(newSub);
-                Swal.fire('Subcategoría deshabilitada', "", 'success');
+                window.location.reload();
             } else {
                 const resp = await fetchConToken(`categorias/subcategoria/${id}`, { estado: true }, 'PUT');
                 const body = await resp.json();
                 const newSub = [...subcategorias];
                 newSub[newSub.findIndex(sub => sub._id === body._id)].estado = true;
                 setSubCategorias(newSub);
-                Swal.fire('Subcategoría habilitada', "", 'success');
+                window.location.reload();
             }
         } catch (error) {
             console.log(error);
@@ -174,62 +177,69 @@ export const CategoryDetail = () => {
                                 </Col>
                             </Row>
                         </Col>
-                        <Col xs={12} lg={4} className='centrarImagen'>
-                            <div className='text-center'>
-                                <Image src={categoria.img ? categoria.img : "/assets/no-image.png"} fluid />
+                        <Col xs={12} lg={4} className="d-flex justify-content-center align-items-center">
+                            <div style={{ "height": "14rem" }}>
+                                <Image className="mh-100" src={categoria.img ? categoria.img : "/assets/no-image.png"} />
                             </div>
                         </Col>
                     </Row>
                     <h5 className='mt-4'>Subcategorías</h5>
                     <ListGroup variant="flush">
                         {
-                            categoria.subcategorias.map(sub =>
-                                <ListGroup.Item key={sub._id}>
-                                    <Row>
-                                        <Col xs={3} sm={3} md={4}>
-                                            {sub.nombre}
-                                        </Col>
-                                        <Col xs={2} sm={2} md={4}>
-                                            {
-                                                sub.estado ? <span className="text-success">Activa</span> : <span className="text-danger">Deshabilitada</span>
-                                            }
-                                        </Col>
-                                        <Col xs={7} sm={7} md={4}>
-                                            <div>
-                                                <Button
-                                                    className="me-1"
-                                                    style={{ "width": "80px" }}
-                                                    variant="outline-secondary"
-                                                    size="sm"
-                                                    onClick={() => setModalShow(sub._id)}
-                                                >
-                                                    Editar
-                                                </Button>
-                                                <Button
-                                                    style={{ "width": "80px" }}
-                                                    variant="outline-secondary"
-                                                    size="sm"
-                                                    onClick={() => handleSubDelete(sub._id, sub.estado)}
-                                                >
-                                                    {
-                                                        sub.estado ? "Eliminar" : "Habilitar"
-                                                    }
-                                                </Button>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    <CategoriesModal
-                                        subcategoria={sub}
-                                        subcategorias={subcategorias}
-                                        setSubCategorias={setSubCategorias}
-                                        setModalShow={setModalShow}
-                                        show={modalShow === sub._id}
-                                        onHide={() => setModalShow("")}
-                                    />
+                            categoria.subcategorias.length !== 0
+                                ? categoria.subcategorias.map(sub =>
+                                    <ListGroup.Item key={sub._id}>
+                                        <Row>
+                                            <Col xs={3} sm={3} md={4}>
+                                                {sub.nombre}
+                                            </Col>
+                                            <Col xs={2} sm={2} md={4}>
+                                                {
+                                                    sub.estado ? <span className="text-success">Activa</span> : <span className="text-danger">Deshabilitada</span>
+                                                }
+                                            </Col>
+                                            <Col xs={7} sm={7} md={4}>
+                                                <div>
+                                                    <Button
+                                                        className="me-1"
+                                                        style={{ "width": "80px" }}
+                                                        variant="outline-secondary"
+                                                        size="sm"
+                                                        onClick={() => setModalShow(sub._id)}
+                                                    >
+                                                        Editar
+                                                    </Button>
+                                                    <Button
+                                                        style={{ "width": "80px" }}
+                                                        variant="outline-secondary"
+                                                        size="sm"
+                                                        onClick={() => handleSubDelete(sub._id, sub.estado)}
+                                                    >
+                                                        {
+                                                            sub.estado ? "Eliminar" : "Habilitar"
+                                                        }
+                                                    </Button>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                        <SubUpdateModal
+                                            subcategoria={sub}
+                                            subcategorias={subcategorias}
+                                            setSubCategorias={setSubCategorias}
+                                            setModalShow={setModalShow}
+                                            show={modalShow === sub._id}
+                                            onHide={() => setModalShow("")}
+                                        />
+                                    </ListGroup.Item>
+                                )
+                                : <ListGroup.Item key={categoria._id}>
+                                    No tiene subcategorías
                                 </ListGroup.Item>
-                            )
                         }
                     </ListGroup>
+                    <Button className="mt-2 mb-2" onClick={() => setModalShowAdd("openSub")}>
+                        Agregar Subcategoría
+                    </Button>
                     <h5 className="mt-4 mb-2">Estado: {
                         categoria.estado ? <span className="text-success">Activa</span> : <span className="text-danger">Deshabilitada</span>
                     }</h5>
@@ -243,6 +253,15 @@ export const CategoryDetail = () => {
                     </Button>
                 </Form>
             </Formik>
+            <SubAddModal
+                categoria={categoria}
+                setCategoria={setCategoria}
+                subcategorias={subcategorias}
+                setSubCategorias={setSubCategorias}
+                setModalShowAdd={setModalShowAdd}
+                show={modalShowAdd === "openSub"}
+                onHide={() => setModalShowAdd("")}
+            />
         </div>
     );
 }

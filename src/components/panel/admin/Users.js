@@ -20,8 +20,8 @@ export const Users = () => {
                 setUsuarios(body.usuarios);
                 setChecking(true);
             } catch (error) {
-                console.log(error);
-                return Swal.fire('Error', error, 'error');
+                console.log(error.message);
+                return Swal.fire('Error', error.message, 'error');
             }
         }
         fetchData();
@@ -45,8 +45,8 @@ export const Users = () => {
                 Swal.fire('Usuario habilitado', "", 'success');
             }
         } catch (error) {
-            console.log(error);
-            return Swal.fire('Error', error, 'error');
+            console.log(error.message);
+            return Swal.fire('Error', error.message, 'error');
         }
     }
 

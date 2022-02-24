@@ -101,7 +101,7 @@ export const Wishes = () => {
             {
                 !tab
                     ? <div className="centrar mt-5">
-                        <b>No ha añadido ningún  producto a la lista</b>
+                        <b>No ha añadido ningún producto a la lista</b>
                         <div>De momento no tienes ningún producto deseado,</div>
                         <div>pero te animamos a ver nuestro catálogo de</div>
                         <div>productos y añadirlos a tu lista de deseados</div>

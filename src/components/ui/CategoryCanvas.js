@@ -37,9 +37,7 @@ export const CategoryCanvas = () => {
 
     const handleClose = () => {
         dispatch(categoryCanvasChange());
-        setTimeout(() => {
-            setMenu(1);
-        }, 500);
+        setMenu(1);
     }
 
     const handleChangeMenu = (idCat) => {
@@ -51,9 +49,7 @@ export const CategoryCanvas = () => {
     const handleLink = (nombreSub) => {
         navigate(`/${normalizeText(categorias[indexCat].nombre.replace(/\s+/g, '-'))}/${normalizeText(nombreSub.replace(/\s+/g, '-'))}`);
         dispatch(categoryCanvasChange());
-        setTimeout(() => {
-            setMenu(1);
-        }, 500);
+        setMenu(1);
     }
 
     return (
@@ -88,7 +84,7 @@ export const CategoryCanvas = () => {
                             <div className="mb-3">
                                 <strong>CATEGORÍAS</strong>
                             </div>
-                            <ListGroup className="animate__animated animate__fadeInLeft animate__faster">
+                            <ListGroup className="animate__animated animate__fadeInLeft">
                                 {
                                     categorias.map(categoria => (
                                         <ListGroup.Item key={categoria._id} className="border-0 d-flex align-items-center canvasCategoryHover" action onClick={() => handleChangeMenu(categoria._id)}>

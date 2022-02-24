@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
+import { normalizeText } from 'normalize-text';
 
 
 export const CarouselHome = () => {
     return <Carousel className="animate__animated animate__fadeIn navbarDisable mb-5">
         <Carousel.Item>
-            <Link to={`/Electrónica/Smartphones`}>
+            <Link to={`/${normalizeText("Electrónica".replace(/\s+/g, '-'))}/${normalizeText("Smartphones".replace(/\s+/g, '-'))}`}>
                 <img
                     className="d-block w-100"
                     src="https://img-live.goboo.vip/goods/20220124/1643003923401_7475546.jpg?imageMogr2/format/webp"

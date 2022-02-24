@@ -22,7 +22,7 @@ const MyTextInput = ({ label, type, ...props }) => {
     );
 };
 
-export const CategoriesModal = ({ subcategoria, subcategorias, setSubCategorias, setModalShow, ...props }) => {
+export const SubUpdateModal = ({ subcategoria, subcategorias, setSubCategorias, setModalShow, ...props }) => {
 
     const [fileUpload, setFileUpload] = useState();
 
@@ -47,6 +47,8 @@ export const CategoriesModal = ({ subcategoria, subcategorias, setSubCategorias,
         handleUploadImage();
 
         setModalShow("");
+
+        window.location.reload();
 
     }
 
