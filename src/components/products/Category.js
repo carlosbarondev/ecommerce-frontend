@@ -14,7 +14,7 @@ export const Category = (children) => {
         })}>
             <div className="d-flex flex-column">
                 <div className="border-section-category">
-                    <Image className="imagenCentrar" src={img} fluid />
+                    <Image className="imagenCentrar" src={img ? img : "/assets/no-image.png"} fluid />
                 </div>
                 <Card.Body className="d-flex justify-content-center">
                     <Card.Title className="cardCategoryBody">{nombre.charAt(0).toUpperCase() + nombre.slice(1)}</Card.Title>

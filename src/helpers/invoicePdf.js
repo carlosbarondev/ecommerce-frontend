@@ -55,7 +55,7 @@ export const invoicePdf = (nombre, resumen) => {
                 text: `\n\n\n`
             },
             {
-                text: `Si tienes preguntas sobre tus pedidos, visita https://www.amazon.es/contacto`, //TODO Contacto
+                text: `Si tienes preguntas sobre tus pedidos, visita https://github.com/carlosbarondev`,
                 style: "small"
             },
             { canvas: [{ type: 'line', x1: 0, y1: 5, x2: 595 - 2 * 40, y2: 5, lineWidth: 1 }] },

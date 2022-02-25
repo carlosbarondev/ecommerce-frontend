@@ -20,22 +20,6 @@ export const Products = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const resp = await fetchConToken(`categorias?visibles=${`{"estado": {"$in" : ["true", "false"]}}`}&ordenar=""`);
-                const body = await resp.json();
-                setCategorias(body.categorias);
-                setChecking(true);
-            } catch (error) {
-                console.log(error);
-                return Swal.fire('Error', error.message, 'error');
-            }
-        }
-        fetchData();
-    }, []);
-
-
-    useEffect(() => {
-        async function fetchData() {
-            try {
                 const resp = await fetchConToken(`productos?visibles=${`{"estado": {"$in" : ["true", "false"]}}`}&ordenar=""`);
                 const body = await resp.json();
                 setProductos(body.productos);
@@ -80,7 +64,7 @@ export const Products = () => {
             <Card className="mt-4">
                 <Card.Header>
                     <Row>
-                        <Col xs={5} sm={5}>
+                        <Col xs={4} sm={4}>
                             Nombre
                         </Col>
                         <Col xs={2} sm={2}>
@@ -89,7 +73,7 @@ export const Products = () => {
                         <Col xs={2} sm={2}>
                             Estado
                         </Col>
-                        <Col xs={3} sm={3}>
+                        <Col xs={4} sm={4}>
                         </Col>
                     </Row>
                 </Card.Header>
@@ -98,7 +82,7 @@ export const Products = () => {
                         productos.map(prod =>
                             <ListGroup.Item key={prod._id}>
                                 <Row>
-                                    <Col xs={5} sm={5}>
+                                    <Col xs={4} sm={4}>
                                         {prod.nombre}
                                     </Col>
                                     <Col xs={2} sm={2}>
@@ -106,11 +90,11 @@ export const Products = () => {
                                     </Col>
                                     <Col xs={2} sm={2}>
                                         {
-                                            prod.estado ? <span className="text-success">Activa</span> : <span className="text-danger">Deshabilitada</span>
+                                            prod.estado ? <span className="text-success">Activo</span> : <span className="text-danger">Deshabilitado</span>
                                         }
                                     </Col>
-                                    <Col xs={3} sm={3} className="mt-2 mt-sm-0">
-                                        <div className="d-grid">
+                                    <Col xs={4} sm={4} className="mt-2 mt-sm-0">
+                                        <div className="d-flex justify-content-center align-items-center">
                                             <Button
                                                 className="me-1"
                                                 style={{ "width": "80px" }}

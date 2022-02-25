@@ -105,7 +105,7 @@ export const CartScreen = () => {
                                         <Card.Body>
                                             <Row className="align-items-center">
                                                 <Col xs={2} sm={2} md={2}>
-                                                    <Image src={cart.producto.img} fluid />
+                                                    <Image src={cart.producto.img ? cart.producto.img : "/assets/no-image.png"} fluid />
                                                 </Col>
                                                 <Col xs={10} sm={10} md={5}>
                                                     <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${normalizeText(cart.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(cart.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(cart.producto.nombre.replace(/\s+/g, "-"))}`}>{cart.producto.nombre}</Link>

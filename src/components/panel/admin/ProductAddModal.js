@@ -32,7 +32,7 @@ export const ProductAddModal = ({ categorias, setModalShow, ...props }) => {
 
         try {
             const resp = await fetchConToken(`productos`, {
-                nombre: normalizeWhiteSpaces(values.nombre),
+                nombre: normalizeWhiteSpaces(values.nombre.replace(/-/g, " ")),
                 descripcion: normalizeWhiteSpaces(values.descripcion),
                 precio: normalizeWhiteSpaces(values.precio),
                 stock: normalizeWhiteSpaces(values.stock),
@@ -78,7 +78,7 @@ export const ProductAddModal = ({ categorias, setModalShow, ...props }) => {
             }}
             validationSchema={Yup.object({
                 nombre: Yup.string()
-                    .max(100, 'Must be 100 characters or less')
+                    .max(35, 'Must be 35 characters or less')
                     .required('Requerido'),
                 descripcion: Yup.string()
                     .max(2000, 'Must be 2000 characters or less')
@@ -130,6 +130,7 @@ export const ProductAddModal = ({ categorias, setModalShow, ...props }) => {
                             <Col>
                                 <h5 className='mt-3'>Subcategoría</h5>
                                 <FormSelect
+                                    disabled={cat ? false : true}
                                     defaultValue="default"
                                     aria-label="Default select example"
                                     onChange={e => {

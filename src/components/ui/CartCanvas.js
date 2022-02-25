@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Offcanvas } from "react-bootstrap";
+import { normalizeText } from 'normalize-text';
 
 import { cartCanvasChange } from "../../actions/ui";
 
@@ -66,13 +67,13 @@ export const CartCanvas = () => {
                             <div key={cart.producto._id} className="row d-flex align-items-center">
                                 <div className="col-4">
                                     <img
-                                        src={cart.producto.img}
+                                        src={cart.producto.img ? cart.producto.img : "/assets/no-image.png"}
                                         alt={cart.producto.nombre}
                                         className="img-thumbnail"
                                     />
                                 </div>
                                 <div className="col-8">
-                                    <h5 className="text-black-50">{cart.producto.nombre}</h5>
+                                    <Link className="linkProducto" onClick={handleClose} style={{ "fontSize": "20px" }} to={`/${normalizeText(cart.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(cart.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(cart.producto.nombre.replace(/\s+/g, "-"))}`}>{cart.producto.nombre}</Link>
                                     <div><b>Unidades: {cart.unidades}</b></div>
                                     <div><b>{(cart.producto.precio * cart.unidades).toFixed(2)} €</b></div>
                                 </div>

@@ -44,34 +44,42 @@ export const ProductScreen = () => {
     }, [ProductoNombre]);
 
     const handleCart = () => {
-        if (producto.stock > 0) {
-            if (cantidad > 0) {
-                if (cantidad <= producto.stock) {
-                    dispatch(productStartAdd(producto, cantidad));
-                } else {
-                    Swal.fire('Escasez de stock', 'Su pedido es mayor al stock del artículo', 'warning');
+        if (producto.estado) {
+            if (producto.stock > 0) {
+                if (cantidad > 0) {
+                    if (cantidad <= producto.stock) {
+                        dispatch(productStartAdd(producto, cantidad));
+                    } else {
+                        Swal.fire('Escasez de stock', 'Su pedido es mayor al stock del artículo', 'warning');
+                    }
                 }
+            } else {
+                Swal.fire('Artículo agotado', 'El artículo estará disponible próximamente', 'warning');
             }
         } else {
-            Swal.fire('Artículo agotado', 'El artículo estará disponible próximamente', 'warning');
+            Swal.fire('Artículo descatalogado', 'El artículo ya no está disponible', 'warning');
         }
     }
 
     const handleBuy = () => {
-        if (producto.stock > 0) {
-            if (cantidad > 0) {
-                if (cantidad <= producto.stock) {
-                    const productIndex = carrito.findIndex(pid => pid.producto._id === producto._id);
-                    if (carrito[productIndex]?.unidades === undefined) {
-                        dispatch(productStartAdd(producto, cantidad, true));
+        if (producto.estado) {
+            if (producto.stock > 0) {
+                if (cantidad > 0) {
+                    if (cantidad <= producto.stock) {
+                        const productIndex = carrito.findIndex(pid => pid.producto._id === producto._id);
+                        if (carrito[productIndex]?.unidades === undefined) {
+                            dispatch(productStartAdd(producto, cantidad, true));
+                        }
+                        navigate("/cart");
+                    } else {
+                        Swal.fire('Escasez de stock', 'Su pedido es mayor al stock del artículo', 'warning');
                     }
-                    navigate("/cart");
-                } else {
-                    Swal.fire('Escasez de stock', 'Su pedido es mayor al stock del artículo', 'warning');
                 }
+            } else {
+                Swal.fire('Artículo agotado', 'El artículo estará disponible próximamente', 'warning');
             }
         } else {
-            Swal.fire('Artículo agotado', 'El artículo estará disponible próximamente', 'warning');
+            Swal.fire('Artículo descatalogado', 'El artículo ya no está disponible', 'warning');
         }
     }
 
@@ -109,7 +117,7 @@ export const ProductScreen = () => {
             <div className="row mt-5">
                 <div className="col-12 col-lg-5 text-center">
                     <img
-                        src={producto.img}
+                        src={producto.img ? producto.img : "/assets/no-image.png"}
                         alt={producto.nombre}
                         className="animate__animated animate__fadeInLeft mb-5 mb-lg-0"
                         style={{ "width": "75%" }}
@@ -137,7 +145,12 @@ export const ProductScreen = () => {
 
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item"><b>Descripción: </b>{producto.descripcion}</li>
-                        <li className="list-group-item"><b>Stock: </b>{producto.stock > 0 ? `${producto.stock} unidades` : <span className="p-1 rounded" style={{ "backgroundColor": "#cc0000", "color": "white", "fontWeight": "bolder" }}>Producto agotado</span>}</li>
+                        <li className="list-group-item"><b>Stock: </b>{
+                            producto.estado
+                                ? producto.stock > 0 ? `${producto.stock} unidades`
+                                    : <span className="p-1 rounded" style={{ "backgroundColor": "#cc0000", "color": "white", "fontWeight": "bolder" }}>Producto agotado</span>
+                                : <span className="p-1 rounded" style={{ "backgroundColor": "#cc0000", "color": "white", "fontWeight": "bolder" }}>Producto descatalogado</span>}
+                        </li>
                     </ul>
 
                     <div className="input-group mt-3 mb-1">

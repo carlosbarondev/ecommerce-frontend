@@ -47,6 +47,7 @@ export const SummaryModal = ({ id, setModalShow, oldTitulo, oldComentario, oldRa
             Swal.fire('Error', bodyEnviar.msg, 'error');
         } else {
             setModalShow("");
+            Swal.fire('Valoración enviada', "Gracias por compartir su experiencia", 'success');
         }
 
     }

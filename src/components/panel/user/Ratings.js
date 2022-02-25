@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Image, Row, Tab, Tabs } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 import Swal from "sweetalert2";
+import { normalizeText } from 'normalize-text';
 
 import { fetchConToken } from "../../../helpers/fetch";
 import { SummaryModal } from "../../cart/summary/SummaryModal";
@@ -81,12 +82,6 @@ export const Ratings = () => {
 
     return (
         checking && <div className="animate__animated animate__fadeIn mt-4 mb-5">
-            {
-                console.log("noValorados", noValorados)
-            }
-            {
-                console.log("valorados", valorados)
-            }
             <h3 className="mb-4">Mis Valoraciones</h3>
             <Tabs defaultActiveKey="sinvalorar" id="uncontrolled-tab" className="mb-5">
                 <Tab eventKey="sinvalorar" title={`Sin valorar (${noValorados.length})`}>
@@ -112,13 +107,13 @@ export const Ratings = () => {
                                                 <Col xs={1} sm={1} md={1}>
                                                 </Col>
                                                 <Col xs={3} sm={3} md={2}>
-                                                    <Image src={op.img} fluid="true" />
+                                                    <Image src={op.img ? op.img : "/assets/no-image.png"} fluid />
                                                 </Col>
                                                 <Col xs={8} sm={8} md={9} className="d-flex flex-column align-self-center">
-                                                    <Link className="linkProducto mb-1" style={{ "fontSize": "20px" }} to={`/${op.categoria.nombre}/${op.subcategoria.nombre}/${op.nombre.replace(/\s+/g, "-")}`}>{op.nombre}</Link>
-                                                    <span>
+                                                    <Link className="linkProducto mb-1" style={{ "fontSize": "20px" }} to={`/${normalizeText(op.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(op.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(op.nombre.replace(/\s+/g, "-"))}`}>{op.nombre}</Link>
+                                                    <span className="d-flex align-items-center">
                                                         <Rating
-                                                            className="me-2"
+                                                            className="me-2 mb-1"
                                                             style={{ "pointerEvents": "none" }}
                                                             size={20}
                                                             ratingValue={op.rating}
@@ -173,10 +168,12 @@ export const Ratings = () => {
                                                 <Col xs={1} sm={1} md={1}>
                                                 </Col>
                                                 <Col xs={3} sm={3} md={2}>
-                                                    <Image src={op.img} fluid="true" />
+                                                    <Image src={op.img ? op.img : "/assets/no-image.png"} fluid />
                                                 </Col>
                                                 <Col xs={8} sm={8} md={3}>
-                                                    <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${op.categoria.nombre}/${op.subcategoria.nombre}/${op.nombre.replace(/\s+/g, "-")}`}>{op.nombre}</Link>
+                                                    <div>
+                                                        <Link className="linkProducto mb-1" style={{ "fontSize": "20px" }} to={`/${normalizeText(op.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(op.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(op.nombre.replace(/\s+/g, "-"))}`}>{op.nombre}</Link>
+                                                    </div>
                                                     <Button
                                                         className="mt-2"
                                                         variant="outline-secondary"

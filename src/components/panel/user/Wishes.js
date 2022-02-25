@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, Form, Image, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { normalizeText } from 'normalize-text';
 
 import { fetchConToken } from "../../../helpers/fetch";
 import { productStartAdd } from "../../../actions/cart";
@@ -19,7 +20,6 @@ export const Wishes = () => {
 
     const [deseos, setDeseos] = useState();
     const [checking, setChecking] = useState(false);
-    const [tab, setTab] = useState(false);
     const [seleccionados, setSeleccionados] = useState(0);
 
     useEffect(() => {
@@ -31,8 +31,6 @@ export const Wishes = () => {
                     return Swal.fire('Error', body.msg, 'error');
                 } else {
                     setDeseos(body.deseos.deseos);
-                    if (body.deseos.deseos.length > 0)
-                        setTab(true);
                     setChecking(true);
                 }
             } catch (error) {
@@ -50,6 +48,7 @@ export const Wishes = () => {
     }
 
     const handleAdd = async () => {
+        let nav = true;
         const checked = document.querySelectorAll('input[type="checkbox"]:checked');
         if (checked.length === 0) {
             return Swal.fire('¡Atención!', "No ha seleccionado ningún artículo", 'info');
@@ -57,14 +56,24 @@ export const Wishes = () => {
         const ids = Array.from(checked).map(x => x.id);
         const addProduct = deseos.filter(p => ids.find(x => x === p._id));
         addProduct.forEach(wish => {
-            const cartProduct = carrito.find(x => x.producto._id === wish._id);
-            if (cartProduct) {
-                dispatch(productStartAdd(wish, cartProduct.unidades + 1, true));
+            if (wish.estado) {
+                if (wish.stock > 0) {
+                    const cartProduct = carrito.find(x => x.producto._id === wish._id);
+                    if (cartProduct) {
+                        dispatch(productStartAdd(wish, cartProduct.unidades + 1, true));
+                    } else {
+                        dispatch(productStartAdd(wish, 1, true));
+                    }
+                } else {
+                    nav = false;
+                    return Swal.fire('Artículo agotado', `${wish.nombre} estará disponible próximamente`, 'warning');
+                }
             } else {
-                dispatch(productStartAdd(wish, 1, true));
+                nav = false;
+                return Swal.fire('Artículo descatalogado', `${wish.nombre} ya no está disponible`, 'warning');
             }
         });
-        navigate("/cart");
+        nav && navigate("/cart");
     }
 
     const handleDelete = async () => {
@@ -83,15 +92,10 @@ export const Wishes = () => {
             } else {
                 setDeseos(body.usuario.deseos);
                 setSeleccionados(0);
-                if (body.usuario.deseos.length === 0) {
-                    setTimeout(function () {
-                        setTab(false);
-                    }, 400);
-                }
             }
         } catch (error) {
             console.log(error);
-            return Swal.fire('Error', error, 'error');
+            return Swal.fire('Error', error.message, 'error');
         }
     }
 
@@ -99,7 +103,7 @@ export const Wishes = () => {
         checking && <div className="animate__animated animate__fadeIn mb-5">
             <h3 className="mt-4 mb-4">Lista de deseos</h3>
             {
-                !tab
+                deseos.length === 0
                     ? <div className="centrar mt-5">
                         <b>No ha añadido ningún producto a la lista</b>
                         <div>De momento no tienes ningún producto deseado,</div>
@@ -149,7 +153,7 @@ export const Wishes = () => {
                                                         <Image className="imagenCentrar" src={wish.img} fluid />
                                                     </div>
                                                     <Card.Body className="d-flex justify-content-center">
-                                                        <Card.Text className="cardName"><Link className="linkNormal" to={`/${wish.categoria.nombre}/${wish.subcategoria.nombre}/${wish.nombre.replace(/\s+/g, "-")}`}>{wish.nombre.charAt(0).toUpperCase() + wish.nombre.slice(1)}</Link></Card.Text>
+                                                        <Card.Text className="cardName"><Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${normalizeText(wish.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(wish.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(wish.nombre.replace(/\s+/g, "-"))}`}>{wish.nombre}</Link></Card.Text>
                                                         <Card.Title className="cardPrice"><b>{wish.precio} €</b></Card.Title>
                                                     </Card.Body>
                                                 </div>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { normalizeText } from 'normalize-text';
 
 import { fetchConToken } from "../../../helpers/fetch";
 import { SummaryModal } from "./SummaryModal";
@@ -126,10 +127,10 @@ export const Summary = () => {
                         <Card.Body>
                             <Row className="align-items-center">
                                 <Col xs={3} sm={3} md={2}>
-                                    <Card.Img src={prod.producto.img} fluid="true" />
+                                    <Card.Img src={prod.producto.img ? prod.producto.img : "/assets/no-image.png"} fluid />
                                 </Col>
                                 <Col xs={9} sm={9} md={4}>
-                                    <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${prod.producto.categoria.nombre}/${prod.producto.subcategoria.nombre}/${prod.producto.nombre.replace(/\s+/g, "-")}`}>{prod.producto.nombre}</Link>
+                                    <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${normalizeText(prod.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(prod.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(prod.producto.nombre.replace(/\s+/g, "-"))}`}>{prod.producto.nombre}</Link>
                                     <div style={{ "fontWeight": "normal", "fontSize": "14px" }}>Cantidad: {prod.unidades}</div>
                                     <b>{(prod.producto.precio * prod.unidades).toFixed(2)} €</b>
                                 </Col>
