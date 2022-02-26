@@ -120,7 +120,7 @@ export const ProductScreen = () => {
                         src={producto.img ? producto.img : "/assets/no-image.png"}
                         alt={producto.nombre}
                         className="animate__animated animate__fadeInLeft mb-5 mb-lg-0"
-                        style={{ "width": "75%" }}
+                        style={{ "maxHeight": "35rem" }}
                     />
                 </div>
                 <div className="col-12 col-lg-7">
@@ -144,7 +144,10 @@ export const ProductScreen = () => {
                     <h4 className="mt-2 mb-3"><b>{producto.precio} €</b></h4>
 
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item"><b>Descripción: </b>{producto.descripcion}</li>
+                        <li className="list-group-item"><div style={{ "whiteSpace": "pre-wrap" }}>
+                            <span className="fw-bold">Descripción: </span>
+                            {producto.descripcion}
+                        </div></li>
                         <li className="list-group-item"><b>Stock: </b>{
                             producto.estado
                                 ? producto.stock > 0 ? `${producto.stock} unidades`

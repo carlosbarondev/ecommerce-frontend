@@ -37,16 +37,16 @@ export const Categories = () => {
             <Card className="mt-4">
                 <Card.Header>
                     <Row>
-                        <Col xs={3} sm={3}>
+                        <Col xs={5} sm={4} md={4}>
                             Nombre
                         </Col>
-                        <Col xs={3} sm={3}>
+                        <Col xs={0} sm={0} md={2} className="disable-card-header">
                             Ventas
                         </Col>
-                        <Col xs={3} sm={3}>
+                        <Col xs={3} sm={4} md={2}>
                             Estado
                         </Col>
-                        <Col xs={3} sm={3}>
+                        <Col xs={4} sm={4} md={4}>
                         </Col>
                     </Row>
                 </Card.Header>
@@ -55,22 +55,22 @@ export const Categories = () => {
                         categorias.map(cat =>
                             <ListGroup.Item key={cat._id}>
                                 <Row>
-                                    <Col xs={3} sm={3}>
+                                    <Col xs={5} sm={4} md={4}>
                                         {cat.nombre}
                                     </Col>
-                                    <Col xs={3} sm={3}>
+                                    <Col xs={0} sm={0} md={2} className="disable-card-header">
                                         {cat.vendidos}
                                     </Col>
-                                    <Col xs={3} sm={3}>
+                                    <Col xs={3} sm={4} md={2}>
                                         {
                                             cat.estado ? <span className="text-success">Activa</span> : <span className="text-danger">Deshabilitada</span>
                                         }
                                     </Col>
-                                    <Col xs={3} sm={3} className="mt-2 mt-sm-0">
+                                    <Col xs={4} sm={4} md={4} className="mt-2 mt-sm-0">
                                         <div className="d-grid">
                                             <Button
                                                 className="me-1"
-                                                variant="outline-secondary"
+                                                variant="outline-primary"
                                                 size="sm"
                                                 onClick={() => navigate(`/panel/categorias/${normalizeText(cat.nombre.replace(/\s+/g, '-'))}`)}
                                             >

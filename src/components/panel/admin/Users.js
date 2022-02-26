@@ -56,16 +56,16 @@ export const Users = () => {
             <Card className="mt-4">
                 <Card.Header>
                     <Row>
-                        <Col xs={4} sm={3}>
+                        <Col xs={6} sm={5} md={3}>
                             Correo
                         </Col>
-                        <Col xs={4} sm={3}>
+                        <Col xs={0} sm={3} md={3} className="disable-card-header2">
                             Nombre
                         </Col>
-                        <Col xs={4} sm={3}>
+                        <Col xs={0} sm={0} md={3} className="disable-card-header">
                             Estado
                         </Col>
-                        <Col xs={12} sm={3}>
+                        <Col xs={6} sm={4} md={3}>
                         </Col>
                     </Row>
                 </Card.Header>
@@ -74,31 +74,30 @@ export const Users = () => {
                         usuarios.map(user =>
                             <ListGroup.Item key={user._id}>
                                 <Row>
-                                    <Col xs={4} sm={3}>
+                                    <Col xs={6} sm={5} md={3}>
                                         {user.correo}
                                     </Col>
-                                    <Col xs={4} sm={3}>
+                                    <Col xs={0} sm={3} md={3} className="disable-card-header2">
                                         {user.nombre}
                                     </Col>
-                                    <Col xs={4} sm={3}>
+                                    <Col xs={0} sm={0} md={3} className="disable-card-header">
                                         {
                                             user.estado ? <span className="text-success">Activo</span> : <span className="text-danger">Deshabilitado</span>
                                         }
                                     </Col>
-                                    <Col xs={12} sm={3}>
-                                        <div>
+                                    <Col xs={6} sm={4} md={3}>
+                                        <div className="d-flex">
                                             <Button
-                                                className="me-1"
-                                                style={{ "width": "80px" }}
-                                                variant="outline-secondary"
+                                                className="me-1 flex-grow-1"
+                                                variant="outline-primary"
                                                 size="sm"
                                                 onClick={() => setModalShow(user._id)}
                                             >
                                                 Editar
                                             </Button>
                                             <Button
-                                                style={{ "width": "80px" }}
-                                                variant="outline-secondary"
+                                                className="flex-grow-1"
+                                                variant={user.estado ? "outline-danger" : "outline-success"}
                                                 size="sm"
                                                 onClick={() => handleDelete(user._id, user.estado)}
                                             >

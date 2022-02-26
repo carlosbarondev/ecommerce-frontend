@@ -47,7 +47,7 @@ export const CategoryDetail = () => {
                 setChecking(true);
             } catch (error) {
                 console.log(error);
-                return Swal.fire('Error', error, 'error');
+                return Swal.fire('Error', error.message, 'error');
             }
         }
         fetchData();
@@ -68,7 +68,7 @@ export const CategoryDetail = () => {
             }
         } catch (error) {
             console.log(error);
-            return Swal.fire('Error', error, 'error');
+            return Swal.fire('Error', error.message, 'error');
         }
     }
 
@@ -190,28 +190,27 @@ export const CategoryDetail = () => {
                                 ? categoria.subcategorias.map(sub =>
                                     <ListGroup.Item key={sub._id}>
                                         <Row>
-                                            <Col xs={3} sm={3} md={4}>
+                                            <Col xs={5} sm={5} md={4}>
                                                 {sub.nombre}
                                             </Col>
-                                            <Col xs={2} sm={2} md={4}>
+                                            <Col xs={0} sm={0} md={3} className="disable-card-header">
                                                 {
                                                     sub.estado ? <span className="text-success">Activa</span> : <span className="text-danger">Deshabilitada</span>
                                                 }
                                             </Col>
-                                            <Col xs={7} sm={7} md={4}>
-                                                <div>
+                                            <Col xs={7} sm={7} md={5}>
+                                                <div className="d-flex">
                                                     <Button
-                                                        className="me-1"
-                                                        style={{ "width": "80px" }}
-                                                        variant="outline-secondary"
+                                                        className="me-1 flex-grow-1"
+                                                        variant="outline-primary"
                                                         size="sm"
                                                         onClick={() => setModalShow(sub._id)}
                                                     >
                                                         Editar
                                                     </Button>
                                                     <Button
-                                                        style={{ "width": "80px" }}
-                                                        variant="outline-secondary"
+                                                        className="flex-grow-1"
+                                                        variant={sub.estado ? "outline-danger" : "outline-success"}
                                                         size="sm"
                                                         onClick={() => handleSubDelete(sub._id, sub.estado)}
                                                     >

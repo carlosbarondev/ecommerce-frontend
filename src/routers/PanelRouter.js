@@ -15,6 +15,7 @@ import { Users } from "../components/panel/admin/Users";
 import { Categories } from "../components/panel/admin/Categories";
 import { CategoryDetail } from "../components/panel/admin/CategoryDetail";
 import { Products } from "../components/panel/admin/Products";
+import { ProductDetail } from "../components/panel/admin/ProductDetail";
 
 
 export const PanelRouter = () => {
@@ -121,6 +122,16 @@ export const PanelRouter = () => {
                                     </Col>
                                     <Col md={12} lg={10}>
                                         <Products />
+                                    </Col>
+                                </Row>
+                            } />
+                            <Route path="productos/:ProductoNombre" element={
+                                <Row>
+                                    <Col md={12} lg={2}>
+                                        <AdminPanel />
+                                    </Col>
+                                    <Col md={12} lg={10}>
+                                        <ProductDetail />
                                     </Col>
                                 </Row>
                             } />

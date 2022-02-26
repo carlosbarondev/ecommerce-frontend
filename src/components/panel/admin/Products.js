@@ -35,45 +35,22 @@ export const Products = () => {
         fetchData();
     }, []);
 
-    const handleDelete = async (id, estado) => {
-        try {
-            if (estado) {
-                const resp = await fetchConToken(`productos/${id}`, {}, 'DELETE');
-                const body = await resp.json();
-                const newProductos = [...productos];
-                newProductos[productos.findIndex(prod => prod._id === body.productoBorrado._id)].estado = false;
-                setProductos(newProductos);
-                Swal.fire('Producto deshabilitado', "", 'success');
-            } else {
-                const resp = await fetchConToken(`productos/${id}`, { estado: true }, 'PUT');
-                const body = await resp.json();
-                const newProductos = [...productos];
-                newProductos[productos.findIndex(prod => prod._id === body._id)].estado = true;
-                setProductos(newProductos);
-                Swal.fire('Usuario habilitado', "", 'success');
-            }
-        } catch (error) {
-            console.log(error.message);
-            return Swal.fire('Error', error.message, 'error');
-        }
-    }
-
     return (
         checking && <div className="animate__animated animate__fadeIn mt-4 mb-5">
             <h3>Gestión de Productos</h3>
             <Card className="mt-4">
                 <Card.Header>
                     <Row>
-                        <Col xs={4} sm={4}>
+                        <Col xs={5} sm={4} md={4}>
                             Nombre
                         </Col>
-                        <Col xs={2} sm={2}>
+                        <Col xs={0} sm={0} md={2} className="disable-card-header">
                             Ventas
                         </Col>
-                        <Col xs={2} sm={2}>
+                        <Col xs={3} sm={4} md={2}>
                             Estado
                         </Col>
-                        <Col xs={4} sm={4}>
+                        <Col xs={4} sm={4} md={4}>
                         </Col>
                     </Row>
                 </Card.Header>
@@ -82,37 +59,26 @@ export const Products = () => {
                         productos.map(prod =>
                             <ListGroup.Item key={prod._id}>
                                 <Row>
-                                    <Col xs={4} sm={4}>
+                                    <Col xs={5} sm={4} md={4}>
                                         {prod.nombre}
                                     </Col>
-                                    <Col xs={2} sm={2}>
+                                    <Col xs={0} sm={0} md={2} className="disable-card-header">
                                         {prod.vendido}
                                     </Col>
-                                    <Col xs={2} sm={2}>
+                                    <Col xs={3} sm={4} md={2}>
                                         {
                                             prod.estado ? <span className="text-success">Activo</span> : <span className="text-danger">Deshabilitado</span>
                                         }
                                     </Col>
-                                    <Col xs={4} sm={4} className="mt-2 mt-sm-0">
-                                        <div className="d-flex justify-content-center align-items-center">
+                                    <Col xs={4} sm={4} md={4} className="mt-2 mt-sm-0">
+                                        <div className="d-grid">
                                             <Button
                                                 className="me-1"
-                                                style={{ "width": "80px" }}
-                                                variant="outline-secondary"
+                                                variant="outline-primary"
                                                 size="sm"
-                                                onClick={() => navigate(`/panel/categorias/${normalizeText(prod.nombre.replace(/\s+/g, '-'))}`)}
+                                                onClick={() => navigate(`/panel/productos/${normalizeText(prod.nombre.replace(/\s+/g, '-'))}`)}
                                             >
                                                 Editar
-                                            </Button>
-                                            <Button
-                                                style={{ "width": "80px" }}
-                                                variant="outline-secondary"
-                                                size="sm"
-                                                onClick={() => handleDelete(prod._id, prod.estado)}
-                                            >
-                                                {
-                                                    prod.estado ? "Eliminar" : "Habilitar"
-                                                }
                                             </Button>
                                         </div>
                                     </Col>
