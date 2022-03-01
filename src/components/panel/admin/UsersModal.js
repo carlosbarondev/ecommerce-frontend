@@ -50,18 +50,17 @@ export const UsersModal = ({ id, correo, nombre, usuarios, setUsuarios, setModal
             }}
             validationSchema={Yup.object({
                 correo: Yup.string()
-                    .email('El formato del correo es inválido')
-                    .max(20, 'Must be 20 characters or less')
+                    .email('El email es inválido')
                     .required('Requerido'),
                 nombre: Yup.string()
-                    .max(1000, 'Must be 1000 characters or less')
+                    .min(2, '2 caracteres como mínimo')
+                    .max(20, '20 caracteres como máximo')
                     .required('Requerido'),
             })}
             onSubmit={handleSubmit}
         >
             <Modal
                 {...props}
-
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >

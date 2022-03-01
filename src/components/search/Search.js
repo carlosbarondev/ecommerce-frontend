@@ -39,43 +39,30 @@ export const Search = () => {
     }, []);
 
     const handleOnSearch = (string, results) => {
-        // onSearch will have as the first callback parameter
-        // the string searched and for the second the results.
-
         if (string !== "") {
             setAux(string);
-
             const input = document.querySelector('input');
-
             input.addEventListener("keyup", function (event) {
                 if (event.key === 'Enter') {
                     event.preventDefault();
                     event.target.blur();
                     setAux("");
-                    navigate(`/buscar/${string}`, {
-                        state: {
-                            nombre: string,
-                            busqueda: results,
-                        }
-                    });
+                    if (event.target.value) {
+                        navigate(`/buscar/${event.target.value}`, {
+                            state: {
+                                nombre: event.target.value,
+                                busqueda: results,
+                            }
+                        });
+                    }
                 }
             });
         }
-        // console.log("handleOnSearch", string, results)
-    }
-
-    const handleOnHover = (result) => {
-        // the item hovered
-        // console.log("handleOnHover", result)
     }
 
     const handleOnSelect = (item) => {
         setAux("");
         navigate(`/${normalizeText(item.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(item.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(item.name.replace(/\s+/g, "-"))}`);
-    }
-
-    const handleOnFocus = () => {
-        // console.log("handleOnFocus", 'Focused')
     }
 
     const formatResult = (item) => {
@@ -91,9 +78,7 @@ export const Search = () => {
             <ReactSearchAutocomplete
                 items={items}
                 onSearch={handleOnSearch}
-                onHover={handleOnHover}
                 onSelect={handleOnSelect}
-                onFocus={handleOnFocus}
                 formatResult={formatResult}
                 placeholder="Busca en Ecommerce..."
                 inputSearchString={aux}

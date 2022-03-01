@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 import Swal from "sweetalert2";
+import ReactRoundedImage from "react-rounded-image";
 
 import { fetchConToken, fetchSinToken } from "../../helpers/fetch";
 import { productStartAdd } from "../../actions/cart";
@@ -31,17 +32,20 @@ export const ProductScreen = () => {
                 const resp = await fetchSinToken(`productos/producto/${ProductoNombre}`);
                 const body = await resp.json();
                 if (body.msg) {
-                    Swal.fire('Error', body.msg, 'error');
+                    console.log(body.msg);
+                    // Swal.fire('Error', body.msg, 'error');
+                    navigate("/");
                 } else {
                     setProducto(body.producto);
                     setChecking(true);
                 }
             } catch (error) {
                 console.log(error);
+                navigate("/");
             }
         }
         fetchData();
-    }, [ProductoNombre]);
+    }, [ProductoNombre, navigate]);
 
     const handleCart = () => {
         if (producto.estado) {
@@ -116,11 +120,11 @@ export const ProductScreen = () => {
         checking && <div className="animate__animated animate__fadeIn">
             <div className="row mt-5">
                 <div className="col-12 col-lg-5 text-center">
-                    <img
+                    <Image
                         src={producto.img ? producto.img : "/assets/no-image.png"}
                         alt={producto.nombre}
-                        className="animate__animated animate__fadeInLeft mb-5 mb-lg-0"
-                        style={{ "maxHeight": "35rem" }}
+                        className="animate__animated animate__fadeInLeft mb-5 mb-lg-0 imagenDetalleProducto"
+                        fluid
                     />
                 </div>
                 <div className="col-12 col-lg-7">
@@ -144,15 +148,18 @@ export const ProductScreen = () => {
                     <h4 className="mt-2 mb-3"><b>{producto.precio} €</b></h4>
 
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item"><div style={{ "whiteSpace": "pre-wrap" }}>
-                            <span className="fw-bold">Descripción: </span>
-                            {producto.descripcion}
-                        </div></li>
-                        <li className="list-group-item"><b>Stock: </b>{
-                            producto.estado
-                                ? producto.stock > 0 ? `${producto.stock} unidades`
-                                    : <span className="p-1 rounded" style={{ "backgroundColor": "#cc0000", "color": "white", "fontWeight": "bolder" }}>Producto agotado</span>
-                                : <span className="p-1 rounded" style={{ "backgroundColor": "#cc0000", "color": "white", "fontWeight": "bolder" }}>Producto descatalogado</span>}
+                        <li className="list-group-item">
+                            <div className="fw-bold">Detalles del producto</div>
+                            <div className="mt-2 ms-4 mb-2" style={{ "whiteSpace": "pre-wrap" }}>{producto.descripcion}</div>
+                        </li>
+                        <li className="list-group-item">
+                            <span className="fw-bold">Stock: </span>
+                            {
+                                producto.estado
+                                    ? producto.stock > 0 ? `${producto.stock} unidades`
+                                        : <span className="p-1 rounded" style={{ "backgroundColor": "#cc0000", "color": "white", "fontWeight": "bolder" }}>Producto agotado</span>
+                                    : <span className="p-1 rounded" style={{ "backgroundColor": "#cc0000", "color": "white", "fontWeight": "bolder" }}>Producto descatalogado</span>
+                            }
                         </li>
                     </ul>
 
@@ -166,9 +173,16 @@ export const ProductScreen = () => {
                         <Button className="flex-fill" variant="outline-danger" size="lg" onClick={() => handleWish(producto._id)}>
                             <i className="fa-solid fa-heart"></i>
                         </Button>
-                        <Button className="flex-fill" variant="outline-dark" size="lg" onClick={handleCart}>
-                            <i className="fa-solid fa-cart-plus"></i> Añadir al carrito
-                        </Button>
+                        <div className="flex-fill buttonDisable2">
+                            <Button className="flex-fill" variant="outline-dark" size="lg" onClick={handleCart}>
+                                <i className="fa-solid fa-cart-plus"></i> Añadir al carrito
+                            </Button>
+                        </div>
+                        <div className="flex-fill buttonDisable">
+                            <Button className="flex-fill" variant="outline-dark" size="lg" onClick={handleCart}>
+                                <i className="fa-solid fa-cart-plus"></i> Añadir
+                            </Button>
+                        </div>
                         <Button className="flex-fill" variant="warning" size="lg" onClick={handleBuy}>
                             Comprar <i className="fa-solid fa-share"></i>
                         </Button>
@@ -177,17 +191,17 @@ export const ProductScreen = () => {
             </div>
             <hr className="mt-5 mb-5" />
             <div className="mb-5 ms-2 ms-sm-0">
-                <div className="d-flex align-items-center mb-5">
-                    <h4 id="stars" className="mb-0 me-1">
+                <div className="mb-5">
+                    <h4 id="stars" style={{ "display": "inline" }} className="me-3 align-middle">
                         {`Valoraciones (${producto.opinion.length})`}
                     </h4>
                     <Rating
-                        className="mt-1"
-                        showTooltip={window.innerWidth > 400 ? true : false}
-                        tooltipDefaultText="Todavía no tiene ninguna opinión"
+                        className="mt-2 mt-sm-1 me-3"
+                        showTooltip
+                        tooltipDefaultText="El artículo no tiene comentarios"
                         tooltipArray={['Muy malo', 'Malo', 'Bueno', 'Muy bueno', 'Excelente']}
-                        tooltipStyle={{ "background": "#00A3C8", "fontSize": "20px" }}
-                        style={{ "pointerEvents": "none", "marginLeft": "8px" }}
+                        tooltipStyle={{ "background": "#00A3C8", "fontSize": "20px", "margin": "0", "marginTop": "6px" }}
+                        style={{ "pointerEvents": "none" }}
                         size={30}
                         ratingValue={producto.rating}
                         allowHover={false}
@@ -195,16 +209,33 @@ export const ProductScreen = () => {
                 </div>
                 {
                     producto.opinion.map((op, index) => (
-                        <div className="row mt-2" key={op._id}>
+                        op.usuario.estado && <div className="row mt-2" key={op._id}>
                             <div className="col-sm-12 col-md-4">
                                 <div className="row">
                                     <div className="col-2">
-                                        <div className="circulo me-2">
-                                            <i className="fa-solid fa-user"></i>
-                                        </div>
+                                        {
+                                            op.usuario.rol !== "ADMIN_ROLE"
+                                                ? op.usuario.img
+                                                    ? <div className="ms-2 me-3">
+                                                        <ReactRoundedImage
+                                                            image={op.usuario.img ? op.usuario.img : "/assets/no-image.png"}
+                                                            roundedColor="#49c1e1"
+                                                            imageWidth="50"
+                                                            imageHeight="50"
+                                                            roundedSize="2"
+                                                            borderRadius="15"
+                                                        />
+                                                    </div>
+                                                    : <div className="circulo ms-2 me-3">
+                                                        <i className="fa-solid fa-user fa-lg"></i>
+                                                    </div>
+                                                : <div className="circulo ms-2 me-3">
+                                                    <i className="fa-solid fa-user-gear fa-lg"></i>
+                                                </div>
+                                        }
                                     </div>
-                                    <div className="col-10">
-                                        <div style={{ "fontSize": "18px" }}>{`${op.usuario.nombre}`}</div>
+                                    <div className="col-10 d-flex align-items-center">
+                                        <div className="ms-2" style={{ "fontSize": "20px" }}>{`${op.usuario.nombre}`}</div>
                                     </div>
                                 </div>
                             </div>

@@ -33,9 +33,9 @@ export const ProductAddModal = ({ categorias, setModalShow, ...props }) => {
         try {
             const resp = await fetchConToken(`productos`, {
                 nombre: normalizeWhiteSpaces(values.nombre.replace(/-/g, " ")),
-                descripcion: normalizeWhiteSpaces(values.descripcion),
-                precio: normalizeWhiteSpaces(values.precio),
-                stock: normalizeWhiteSpaces(values.stock),
+                descripcion: values.descripcion,
+                precio: values.precio,
+                stock: values.stock,
                 categoria: cat._id,
                 subcategoria: sub
             }, 'POST');
@@ -45,7 +45,6 @@ export const ProductAddModal = ({ categorias, setModalShow, ...props }) => {
             } else {
                 handleUploadImage(body._id);
                 setModalShow("");
-                window.location.reload();
             }
         } catch (error) {
             console.log(error.message);
@@ -78,11 +77,13 @@ export const ProductAddModal = ({ categorias, setModalShow, ...props }) => {
             }}
             validationSchema={Yup.object({
                 nombre: Yup.string()
-                    .max(35, 'Must be 35 characters or less')
-                    .required('Requerido'),
+                    .min(2, '2 caracteres como mínimo')
+                    .max(34, '34 caracteres como máximo')
+                    .required('El nombre es obligatorio'),
                 descripcion: Yup.string()
-                    .max(2000, 'Must be 2000 characters or less')
-                    .required('Requerido'),
+                    .min(2, '2 caracteres como mínimo')
+                    .max(2000, '2000 caracteres como máximo')
+                    .required('La descripción es obligatoria'),
                 precio: Yup.number()
                     .typeError('Debe especificar un número')
                     .required('Requerido'),
@@ -108,8 +109,9 @@ export const ProductAddModal = ({ categorias, setModalShow, ...props }) => {
                         <MyTextInput
                             label="Nombre"
                             name="nombre"
+                            placeholder="Nombre*"
                         />
-                        <Row className='mt-2'>
+                        <Row className='mt-2 mb-4'>
                             <Col>
                                 <h5 className='mt-3'>Categoría</h5>
                                 <FormSelect
@@ -152,18 +154,22 @@ export const ProductAddModal = ({ categorias, setModalShow, ...props }) => {
                             label="Descripción"
                             name="descripcion"
                             type="textarea"
+                            rows="6"
+                            placeholder="Descripción*"
                         />
                         <Row className='mt-2'>
                             <Col>
                                 <MyTextInput
                                     label="Precio"
                                     name="precio"
+                                    placeholder="Precio*"
                                 />
                             </Col>
                             <Col>
                                 <MyTextInput
                                     label="Stock"
                                     name="stock"
+                                    placeholder="Stock*"
                                 />
                             </Col>
                         </Row>

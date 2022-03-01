@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Row } from "react-bootstrap"
 
 import { fetchSinToken } from "../../helpers/fetch";
@@ -7,6 +7,8 @@ import { Product } from "./Product";
 
 
 export const SubCategoryScreen = () => {
+
+    const navigate = useNavigate();
 
     const { SubCategoriaNombre } = useParams();
 
@@ -24,10 +26,11 @@ export const SubCategoryScreen = () => {
                 setChecking(true);
             } catch (error) {
                 console.log(error);
+                navigate("/");
             }
         }
         fetchData();
-    }, [SubCategoriaNombre]);
+    }, [SubCategoriaNombre, navigate]);
 
     return (
         checking && <div className="animate__animated animate__fadeIn">

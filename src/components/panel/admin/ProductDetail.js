@@ -125,11 +125,13 @@ export const ProductDetail = () => {
                 }}
                 validationSchema={Yup.object({
                     nombre: Yup.string()
-                        .max(35, 'Must be 35 characters or less')
-                        .required('Requerido'),
+                        .min(2, '2 caracteres como mínimo')
+                        .max(34, '34 caracteres como máximo')
+                        .required('El nombre es obligatorio'),
                     descripcion: Yup.string()
-                        .max(2000, 'Must be 2000 characters or less')
-                        .required('Requerido'),
+                        .min(2, '2 caracteres como mínimo')
+                        .max(2000, '2000 caracteres como máximo')
+                        .required('La descripción es obligatoria'),
                     precio: Yup.number()
                         .typeError('Debe especificar un número')
                         .required('Requerido'),

@@ -150,10 +150,10 @@ export const Wishes = () => {
                                                 />
                                                 <div className="d-flex flex-column">
                                                     <div className="border-section">
-                                                        <Image className="imagenCentrar" src={wish.img} fluid />
+                                                        <Image className="imagenCentrar" src={wish.img} style={{ "maxHeight": "65%" }} fluid />
                                                     </div>
                                                     <Card.Body className="d-flex justify-content-center">
-                                                        <Card.Text className="cardName"><Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${normalizeText(wish.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(wish.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(wish.nombre.replace(/\s+/g, "-"))}`}>{wish.nombre}</Link></Card.Text>
+                                                        <Card.Text className="cardName"><Link className="linkProducto" to={`/${normalizeText(wish.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(wish.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(wish.nombre.replace(/\s+/g, "-"))}`}>{wish.nombre}</Link></Card.Text>
                                                         <Card.Title className="cardPrice"><b>{wish.precio} €</b></Card.Title>
                                                     </Card.Body>
                                                 </div>

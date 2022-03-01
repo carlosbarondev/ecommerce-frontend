@@ -7,7 +7,8 @@ const initialState = {
     // nombre: null,
     // correo: null,
     // rol: null,
-    // estado: null
+    // estado: null,
+    // img: null
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -35,6 +36,12 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 nombre: action.payload,
+                checking: false
+            }
+        case types.changeImage:
+            return {
+                ...state,
+                img: action.payload,
                 checking: false
             }
         default:

@@ -4,29 +4,33 @@ import { normalizeText } from 'normalize-text';
 
 
 export const CarouselHome = () => {
-    return <Carousel className="animate__animated animate__fadeIn navbarDisable mb-5">
+    return <Carousel variant="dark" className="animate__animated animate__fadeIn navbarDisable mb-5">
         <Carousel.Item>
-            <Link to={`/${normalizeText("Electrónica".replace(/\s+/g, '-'))}/${normalizeText("Smartphones".replace(/\s+/g, '-'))}`}>
+            <Link to={`/${normalizeText("Electronica".replace(/\s+/g, '-'))}/${normalizeText("Tablets".replace(/\s+/g, '-'))}/${normalizeText("Samsung Galaxy Tab S8 Ultra".replace(/\s+/g, "-"))}`}>
                 <img
                     className="d-block w-100"
-                    src="https://img-live.goboo.vip/goods/20220124/1643003923401_7475546.jpg?imageMogr2/format/webp"
+                    src="/assets/samsungtab.jpeg"
                     alt="First slide"
                 />
             </Link>
         </Carousel.Item>
         <Carousel.Item>
-            <img
-                className="d-block w-100"
-                src="https://img-live.goboo.vip/goods/20220121/1642763437323_8933246.jpg?imageMogr2/format/webp"
-                alt="Second slide"
-            />
+            <Link to={`/${normalizeText("Electronica".replace(/\s+/g, '-'))}/${normalizeText("Auriculares".replace(/\s+/g, '-'))}/${normalizeText("Apple AirPods (3.ª generación)".replace(/\s+/g, "-"))}`}>
+                <img
+                    className="d-block w-100"
+                    src="/assets/airpodsb.jpg"
+                    alt="Second slide"
+                />
+            </Link>
         </Carousel.Item>
         <Carousel.Item>
-            <img
-                className="d-block w-100"
-                src="https://img-live.goboo.vip/goods/20220117/1642400187994_3106679.jpg?imageMogr2/format/webp"
-                alt="Third slide"
-            />
+            <Link to={`/${normalizeText("Electronica".replace(/\s+/g, '-'))}/${normalizeText("Tablets".replace(/\s+/g, '-'))}/${normalizeText("Samsung Galaxy Tab S8 Ultra".replace(/\s+/g, "-"))}`}>
+                <img
+                    className="d-block w-100"
+                    src="/assets/lego.jpg"
+                    alt="Third slide"
+                />
+            </Link>
         </Carousel.Item>
     </Carousel>
 };

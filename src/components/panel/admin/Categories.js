@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, Col, ListGroup, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { normalizeText } from 'normalize-text';
@@ -56,7 +56,11 @@ export const Categories = () => {
                             <ListGroup.Item key={cat._id}>
                                 <Row>
                                     <Col xs={5} sm={4} md={4}>
-                                        {cat.nombre}
+                                        <Link
+                                            className="linkProducto"
+                                            to={`/${normalizeText(cat.nombre.replace(/\s+/g, "-"))}`}>
+                                            {cat.nombre}
+                                        </Link>
                                     </Col>
                                     <Col xs={0} sm={0} md={2} className="disable-card-header">
                                         {cat.vendidos}

@@ -72,6 +72,8 @@ export const HomeRouter = () => {
                     }
                     />
 
+                    <Route path="/*" element={<Navigate to="/" />} />
+
                 </Routes>
 
             </Container>

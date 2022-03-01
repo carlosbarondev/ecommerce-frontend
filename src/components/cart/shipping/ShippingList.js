@@ -11,7 +11,6 @@ import { shippingSetActive, shippingStartDelete, shippingStartDeleteBilling } fr
 
 
 export const ShippingList = () => {
-    console.log('ShippingList');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -28,16 +27,20 @@ export const ShippingList = () => {
 
     const handleSave = () => {
         if (document.querySelector("input[name=check_envio]:checked")) {
-            const id = document.querySelector("input[name=check_envio]:checked").id;
-            const enviar = envio.find(element => element._id === id);
-            dispatch(stepChange(3));
-            localStorage.setItem('step', 3);
-            navigate("/payment", {
-                state: {
-                    direccion: enviar,
-                    facturacion: facturacion
-                }
-            });
+            if (facturacion) {
+                const id = document.querySelector("input[name=check_envio]:checked").id;
+                const enviar = envio.find(element => element._id === id);
+                dispatch(stepChange(3));
+                localStorage.setItem('step', 3);
+                navigate("/payment", {
+                    state: {
+                        direccion: enviar,
+                        facturacion: facturacion
+                    }
+                });
+            } else {
+                Swal.fire('Error', "No ha elegido una dirección de facturación", 'error');
+            }
         } else {
             Swal.fire('Error', "No ha elegido una dirección de envío", 'error');
         }
@@ -105,7 +108,7 @@ export const ShippingList = () => {
                                         classNames="item"
                                     >
                                         <div className="row mt-1">
-                                            <div className="col-12 col-sm-8">
+                                            <div className="col-12 col-lg-8">
                                                 <ListGroup>
                                                     <ListGroup.Item className="border-0" action onClick={(e) => activar(direccion._id, e)}>
                                                         {
@@ -129,11 +132,11 @@ export const ShippingList = () => {
                                                                 style={{ "fontWeight": "bold", "pointerEvents": "none" }}
                                                             />
                                                         }
-                                                        <div className="mb-3">{direccion.direccion.calle} {direccion.direccion.numero}, {direccion.direccion.codigo}, {direccion.direccion.poblacion}, {direccion.direccion.provincia}, {direccion.direccion.pais}</div>
+                                                        <div className="mb-3">{direccion.direccion.calle}, {direccion.direccion.numero}, {direccion.direccion.codigo}, {direccion.direccion.poblacion}, {direccion.direccion.provincia}, {direccion.direccion.pais}</div>
                                                     </ListGroup.Item>
                                                 </ListGroup>
                                             </div>
-                                            <div className="col-12 col-sm-4 mb-4 mb-md-0" style={{ "display": "flex", "alignItems": "center" }}>
+                                            <div className="col-12 col-lg-4 mb-4 mb-lg-0" style={{ "display": "flex", "justifyContent": "right", "alignItems": "center" }}>
                                                 <Button
                                                     className="me-1"
                                                     style={{ "width": "80px" }}
@@ -144,6 +147,7 @@ export const ShippingList = () => {
                                                     Editar
                                                 </Button>
                                                 <Button
+                                                    className="me-3"
                                                     style={{ "width": "80px" }}
                                                     variant="outline-secondary"
                                                     size="sm"
@@ -161,7 +165,7 @@ export const ShippingList = () => {
                     </Form>
                     <Button
                         className="mt-2 mb-5"
-                        variant="outline-secondary"
+                        variant="primary"
                         onClick={() => {
                             dispatch(shippingModalElegir(true));
                             dispatch(shippingModalChange(true));
@@ -173,65 +177,71 @@ export const ShippingList = () => {
                                 : <div>Añadir otra dirección</div>
                         }
                     </Button>
-                    <h4>Dirección de facturación</h4>
-                    <TransitionGroup className="todo-list">
-                        <CSSTransition
-                            timeout={500}
-                            classNames="item"
-                        >
-                            {
-                                facturacion
-                                    ? <Form>
-                                        <div className="row mt-1">
-                                            <div className="col-8">
-                                                <ListGroup>
-                                                    <ListGroup.Item className="border-0" action onClick={(e) => activar(facturacion._id, e)}>
-                                                        <Form.Check
-                                                            defaultChecked
-                                                            type="radio"
-                                                            id={facturacion._id}
-                                                            label={nombre}
-                                                            name="check_facturacion"
-                                                            style={{ "fontWeight": "bold", "pointerEvents": "none" }}
-                                                        />
-                                                        <div className="mb-3">{facturacion.calle} {facturacion.numero}, {facturacion.codigo}, {facturacion.poblacion}, {facturacion.provincia}, {facturacion.pais}</div>
-                                                    </ListGroup.Item>
-                                                </ListGroup>
-                                            </div>
-                                            <div className="col-4 mb-5" style={{ "display": "flex", "alignItems": "center" }}>
-                                                <Button
-                                                    className="me-1"
-                                                    style={{ "width": "80px" }}
-                                                    variant="outline-secondary"
-                                                    size="sm"
-                                                    onClick={() => handleEdit()}
-                                                >
-                                                    Editar
-                                                </Button>
-                                                <Button
-                                                    style={{ "width": "80px" }}
-                                                    variant="outline-secondary"
-                                                    size="sm"
-                                                    onClick={() => handleDelete()}
-                                                >
-                                                    Eliminar
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    </Form>
-                                    : <Button
-                                        className="mt-2 mb-5"
-                                        variant="outline-secondary"
-                                        onClick={() => {
-                                            dispatch(shippingModalElegir(false));
-                                            dispatch(shippingModalChange(true));
-                                        }}
-                                    >
-                                        Añadir dirección
-                                    </Button>
-                            }
-                        </CSSTransition>
-                    </TransitionGroup>
+                    {
+                        envio.length !== 0 &&
+                        <>
+                            <h4>Dirección de facturación</h4>
+                            <TransitionGroup className="todo-list">
+                                <CSSTransition
+                                    timeout={500}
+                                    classNames="item"
+                                >
+                                    {
+                                        facturacion
+                                            ? <Form>
+                                                <div className="row mt-1">
+                                                    <div className="col-12 col-lg-8">
+                                                        <ListGroup>
+                                                            <ListGroup.Item className="border-0" action onClick={(e) => activar(facturacion._id, e)}>
+                                                                <Form.Check
+                                                                    defaultChecked
+                                                                    type="radio"
+                                                                    id={facturacion._id}
+                                                                    label={nombre}
+                                                                    name="check_facturacion"
+                                                                    style={{ "fontWeight": "bold", "pointerEvents": "none" }}
+                                                                />
+                                                                <div className="mb-3">{facturacion.calle}, {facturacion.numero}, {facturacion.codigo}, {facturacion.poblacion}, {facturacion.provincia}, {facturacion.pais}</div>
+                                                            </ListGroup.Item>
+                                                        </ListGroup>
+                                                    </div>
+                                                    <div className="col-12 col-lg-4 mb-4 mb-lg-0" style={{ "display": "flex", "justifyContent": "right", "alignItems": "center" }}>
+                                                        <Button
+                                                            className="me-1"
+                                                            style={{ "width": "80px" }}
+                                                            variant="outline-secondary"
+                                                            size="sm"
+                                                            onClick={() => handleEdit()}
+                                                        >
+                                                            Editar
+                                                        </Button>
+                                                        <Button
+                                                            className="me-3"
+                                                            style={{ "width": "80px" }}
+                                                            variant="outline-secondary"
+                                                            size="sm"
+                                                            onClick={() => handleDelete()}
+                                                        >
+                                                            Eliminar
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            </Form>
+                                            : <Button
+                                                className="mt-2 mb-5"
+                                                variant="primary"
+                                                onClick={() => {
+                                                    dispatch(shippingModalElegir(false));
+                                                    dispatch(shippingModalChange(true));
+                                                }}
+                                            >
+                                                Añadir dirección
+                                            </Button>
+                                    }
+                                </CSSTransition>
+                            </TransitionGroup>
+                        </>
+                    }
                 </div>
                 <div className="col-12 col-md-5 col-lg-4">
                     <Card>

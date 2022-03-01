@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Image, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { normalizeText } from 'normalize-text';
 
@@ -92,11 +92,11 @@ export const Orders = () => {
                                 {
                                     pedido.producto.map(p => (
                                         <Row className="align-items-center mb-3" key={p.producto._id}>
-                                            <Col xs={2} md={1}>
-                                                <Card.Img src={p.producto.img ? p.producto.img : "/assets/no-image.png"} />
+                                            <Col xs={2} md={1} className="text-center">
+                                                <Image src={p.producto.img ? p.producto.img : "/assets/no-image.png"} style={{ "maxHeight": "5rem" }} fluid />
                                             </Col>
                                             <Col xs={10} md={11}>
-                                                <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${normalizeText(p.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(p.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(p.producto.nombre.replace(/\s+/g, "-"))}`}>{p.producto.nombre}</Link>
+                                                <Link className="linkProducto" style={{ "fontSize": "18px" }} to={`/${normalizeText(p.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(p.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(p.producto.nombre.replace(/\s+/g, "-"))}`}>{p.producto.nombre}</Link>
                                                 <div style={{ "fontSize": "14px" }}>Cantidad: {p.unidades}</div>
                                             </Col>
                                         </Row>

@@ -7,7 +7,6 @@ import { shippingInit, shippingSetDefault, shippingStartAddBilling } from '../..
 
 
 export const Shipping = () => {
-    console.log('Shipping');
 
     const dispatch = useDispatch();
 

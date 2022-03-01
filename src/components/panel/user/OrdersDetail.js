@@ -82,11 +82,11 @@ export const OrdersDetail = () => {
                     <Card key={prod.producto._id} className="justify-content-center">
                         <Card.Body>
                             <Row className="align-items-center">
-                                <Col xs={3} sm={3} md={2}>
-                                    <Card.Img src={prod.producto.img ? prod.producto.img : "/assets/no-image.png"} fluid="true" />
+                                <Col xs={3} sm={3} md={2} className="text-center">
+                                    <Image src={prod.producto.img ? prod.producto.img : "/assets/no-image.png"} style={{ "maxHeight": "8rem" }} fluid />
                                 </Col>
                                 <Col xs={9} sm={9} md={5}>
-                                    <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${normalizeText(prod.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(prod.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(prod.producto.nombre.replace(/\s+/g, "-"))}`}>{prod.producto.nombre}</Link>
+                                    <Link className="linkProducto" style={{ "fontSize": "18px" }} to={`/${normalizeText(prod.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(prod.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(prod.producto.nombre.replace(/\s+/g, "-"))}`}>{prod.producto.nombre}</Link>
                                     <div style={{ "fontWeight": "normal", "fontSize": "14px" }}>Cantidad: {prod.unidades}</div>
                                     <b>{prod.producto.precio * prod.unidades} €</b>
                                 </Col>

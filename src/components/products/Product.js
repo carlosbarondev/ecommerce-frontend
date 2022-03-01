@@ -17,7 +17,7 @@ export const Product = (props) => {
                     <Image className="imagenCentrar" src={img ? img : "/assets/no-image.png"} fluid />
                 </div>
                 <Card.Body className="d-flex justify-content-center">
-                    <Card.Text className="cardName">{nombre.charAt(0).toUpperCase() + nombre.slice(1)}</Card.Text>
+                    <Card.Text className="cardName text-muted">{nombre.charAt(0).toUpperCase() + nombre.slice(1)}</Card.Text>
                     <Card.Title className="cardPrice"><b>{precio} €</b></Card.Title>
                 </Card.Body>
             </div>

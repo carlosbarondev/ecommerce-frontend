@@ -6,7 +6,6 @@ import { ShippingFormBilling } from './ShippingFormBilling';
 
 
 export const ShippingModal = (props) => {
-    console.log('ShippingModal');
 
     const { elegirShippingModal } = useSelector(state => state.ui);
 
@@ -19,7 +18,11 @@ export const ShippingModal = (props) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Añadir dirección de envío
+                    {
+                        elegirShippingModal
+                            ? "Añadir dirección de envío"
+                            : "Añadir dirección de facturación"
+                    }
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>

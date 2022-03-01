@@ -12,6 +12,7 @@ export const types = {
     authCheckingFinish: '[auth] Finish checking login state',
     authLogout: '[auth] Logout',
     changeName: '[auth] Change Name',
+    changeImage: '[auth] Change Image',
 
     cartInit: '[cart] Init cart',
     cartAdd: '[cart] Add cart',

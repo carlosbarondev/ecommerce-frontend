@@ -23,6 +23,7 @@ export const startLogin = (correo, password, navigate) => {
                 nombre: body.usuario.nombre,
                 correo: body.usuario.correo,
                 rol: body.usuario.rol,
+                img: body.usuario.img,
                 estado: body.usuario.estado
             }));
 
@@ -67,6 +68,7 @@ export const startRegister = (nombre, correo, password, navigate) => {
                     nombre: body.usuario.nombre,
                     correo: body.usuario.correo,
                     rol: body.usuario.rol,
+                    img: body.usuario.img,
                     estado: body.usuario.estado
                 }));
 
@@ -100,6 +102,7 @@ export const startChecking = () => {
                 nombre: body.nombre,
                 correo: body.correo,
                 rol: body.rol,
+                img: body.img,
                 estado: body.estado
             }));
         } else {
@@ -129,4 +132,9 @@ const logout = () => ({ type: types.authLogout })
 export const changeName = (nombre) => ({
     type: types.changeName,
     payload: nombre
+})
+
+export const changeImage = (img) => ({
+    type: types.changeImage,
+    payload: img
 })

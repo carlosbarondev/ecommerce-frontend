@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, ListGroup, Offcanvas } from "react-bootstrap";
+import ReactRoundedImage from "react-rounded-image";
 
 import { menuCanvasChange } from "../../actions/ui";
 import { startLogout } from "../../actions/auth";
@@ -12,7 +13,7 @@ export const MenuCanvas = () => {
     const navigate = useNavigate();
 
     const { menuCanvas } = useSelector(state => state.ui);
-    const { nombre, rol } = useSelector(state => state.auth);
+    const { nombre, rol, img } = useSelector(state => state.auth);
 
     const handleClose = () => dispatch(menuCanvasChange());
 
@@ -32,8 +33,34 @@ export const MenuCanvas = () => {
         >
             <Offcanvas.Header className="canvasCategoryTitle" closeButton closeVariant="white">
                 <Offcanvas.Title>
-                    <div>
-                        <i className="fa-solid fa-circle-user fa-xl ms-3 me-3"></i>{`Hola, ${nombre}`}
+                    <div className="d-flex align-items-center">
+                        {
+                            rol !== "ADMIN_ROLE"
+                                ? img
+                                    ? <div className="ms-2 me-3">
+                                        <ReactRoundedImage
+                                            image={img ? img : "/assets/no-image.png"}
+                                            roundedColor="#49c1e1"
+                                            imageWidth="50"
+                                            imageHeight="50"
+                                            roundedSize="2"
+                                            borderRadius="15"
+                                        />
+                                    </div>
+                                    : <i className="fa-solid fa-circle-user fa-xl ms-3 me-3"></i>
+                                : <i className="fa-solid fa-user-gear fa-xl ms-3 me-3"></i>
+                        }
+                        {
+                            nombre
+                                ? `Hola, ${nombre}`
+                                : <span
+                                    onClick={() => {
+                                        navigate("/login")
+                                        dispatch(menuCanvasChange())
+                                    }}>
+                                    Hola, Identifícate
+                                </span>
+                        }
                     </div>
                 </Offcanvas.Title>
             </Offcanvas.Header>
@@ -53,14 +80,14 @@ export const MenuCanvas = () => {
                                 </div>
                             </ListGroup.Item>
                             <ListGroup.Item className="border-0 canvasCategoryHover" action onClick={() => {
-                                navigate("/panel/deseos")
+                                navigate("/panel/pedidos")
                                 dispatch(menuCanvasChange())
                             }}>
                                 <div className="d-flex">
                                     <div style={{ "width": "35px" }}>
-                                        <i className="fa-solid fa-gifts fa-lg me-2"></i>
+                                        <i className="fa-solid fa-truck-fast fa-lg me-2"></i>
                                     </div>
-                                    Lista de deseos
+                                    Pedidos
                                 </div>
                             </ListGroup.Item>
                             <ListGroup.Item className="border-0 canvasCategoryHover" action onClick={() => {
@@ -75,14 +102,14 @@ export const MenuCanvas = () => {
                                 </div>
                             </ListGroup.Item>
                             <ListGroup.Item className="border-0 canvasCategoryHover" action onClick={() => {
-                                navigate("/panel/pedidos")
+                                navigate("/panel/deseos")
                                 dispatch(menuCanvasChange())
                             }}>
                                 <div className="d-flex">
                                     <div style={{ "width": "35px" }}>
-                                        <i className="fa-solid fa-truck-fast fa-lg me-2"></i>
+                                        <i className="fa-solid fa-gifts fa-lg me-2"></i>
                                     </div>
-                                    Pedidos
+                                    Lista de deseos
                                 </div>
                             </ListGroup.Item>
                         </ListGroup>

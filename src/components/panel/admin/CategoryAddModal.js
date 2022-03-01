@@ -74,8 +74,9 @@ export const CategoryAddModal = ({ categorias, setCategorias, setModalShow, ...p
             }}
             validationSchema={Yup.object({
                 nombre: Yup.string()
-                    .max(35, 'Must be 35 characters or less')
-                    .required('Requerido'),
+                    .min(2, '2 caracteres como mínimo')
+                    .max(23, '23 caracteres como máximo')
+                    .required('El nombre es obligatorio'),
             })}
             onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}
         >
@@ -95,6 +96,7 @@ export const CategoryAddModal = ({ categorias, setCategorias, setModalShow, ...p
                         <MyTextInput
                             label="Nombre"
                             name="nombre"
+                            placeholder="Nombre*"
                         />
                         <FormGroup id="fileUpload" controlId="formFile" className="mt-4">
                             <FormLabel style={{ "marginBottom": "-1px" }}><h5>Imagen</h5></FormLabel>

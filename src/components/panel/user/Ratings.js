@@ -106,8 +106,8 @@ export const Ratings = () => {
                                             <Row className="mt-4">
                                                 <Col xs={1} sm={1} md={1}>
                                                 </Col>
-                                                <Col xs={3} sm={3} md={2}>
-                                                    <Image src={op.img ? op.img : "/assets/no-image.png"} fluid />
+                                                <Col xs={3} sm={3} md={2} className="text-center">
+                                                    <Image src={op.img ? op.img : "/assets/no-image.png"} style={{ "maxHeight": "10rem" }} fluid />
                                                 </Col>
                                                 <Col xs={8} sm={8} md={9} className="d-flex flex-column align-self-center">
                                                     <Link className="linkProducto mb-1" style={{ "fontSize": "20px" }} to={`/${normalizeText(op.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(op.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(op.nombre.replace(/\s+/g, "-"))}`}>{op.nombre}</Link>
@@ -167,8 +167,8 @@ export const Ratings = () => {
                                             <Row className="mt-4 d-flex align-items-center">
                                                 <Col xs={1} sm={1} md={1}>
                                                 </Col>
-                                                <Col xs={3} sm={3} md={2}>
-                                                    <Image src={op.img ? op.img : "/assets/no-image.png"} fluid />
+                                                <Col xs={3} sm={3} md={2} className="text-center">
+                                                    <Image src={op.img ? op.img : "/assets/no-image.png"} style={{ "maxHeight": "10rem" }} fluid />
                                                 </Col>
                                                 <Col xs={8} sm={8} md={3}>
                                                     <div>

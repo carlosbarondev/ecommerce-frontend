@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ListGroup, Offcanvas } from "react-bootstrap";
 import { normalizeText } from 'normalize-text';
+import ReactRoundedImage from "react-rounded-image";
 
 import { categoryCanvasChange } from "../../actions/ui";
 import { fetchSinToken } from "../../helpers/fetch";
@@ -14,7 +15,7 @@ export const CategoryCanvas = () => {
     const dispatch = useDispatch();
 
     const { categoryCanvas, backdrop } = useSelector(state => state.ui);
-    const { nombre } = useSelector(state => state.auth);
+    const { nombre, rol, img } = useSelector(state => state.auth);
 
     const [categorias, setCategorias] = useState();
     const [menu, setMenu] = useState(1);
@@ -62,17 +63,33 @@ export const CategoryCanvas = () => {
         >
             <Offcanvas.Header className="canvasCategoryTitle" closeButton closeVariant="white">
                 <Offcanvas.Title>
-                    <div>
-                        <i className="fa-solid fa-circle-user fa-xl ms-3 me-3"></i>
-                        {nombre
-                            ? ` Hola, ${nombre}`
-                            : <span
-                                onClick={() => {
-                                    navigate("/login")
-                                    dispatch(categoryCanvasChange())
-                                }}>
-                                Hola, Identifícate
-                            </span>
+                    <div className="d-flex align-items-center">
+                        {
+                            rol !== "ADMIN_ROLE"
+                                ? img
+                                    ? <div className="ms-2 me-3">
+                                        <ReactRoundedImage
+                                            image={img ? img : "/assets/no-image.png"}
+                                            roundedColor="#49c1e1"
+                                            imageWidth="50"
+                                            imageHeight="50"
+                                            roundedSize="2"
+                                            borderRadius="15"
+                                        />
+                                    </div>
+                                    : <i className="fa-solid fa-circle-user fa-xl ms-3 me-3"></i>
+                                : <i className="fa-solid fa-user-gear fa-xl ms-3 me-3"></i>
+                        }
+                        {
+                            nombre
+                                ? `Hola, ${nombre}`
+                                : <span
+                                    onClick={() => {
+                                        navigate("/login")
+                                        dispatch(categoryCanvasChange())
+                                    }}>
+                                    Hola, Identifícate
+                                </span>
                         }
                     </div>
                 </Offcanvas.Title>

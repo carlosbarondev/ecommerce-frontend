@@ -65,11 +65,12 @@ export const CartCanvas = () => {
                         ?
                         carrito.map(cart => (
                             <div key={cart.producto._id} className="row d-flex align-items-center">
-                                <div className="col-4">
+                                <div className="col-4 text-center">
                                     <img
                                         src={cart.producto.img ? cart.producto.img : "/assets/no-image.png"}
                                         alt={cart.producto.nombre}
                                         className="img-thumbnail"
+                                        style={{ "maxHeight": "8rem" }}
                                     />
                                 </div>
                                 <div className="col-8">

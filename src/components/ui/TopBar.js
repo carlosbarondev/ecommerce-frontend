@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Container, Image, Navbar } from "react-bootstrap"
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
+import ReactRoundedImage from "react-rounded-image";
 
 import { MenuCanvas } from "./MenuCanvas";
 import { CartCanvas } from "./CartCanvas";
@@ -27,7 +28,7 @@ export const TopBar = () => {
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const { nombre, uid, rol } = useSelector(state => state.auth);
+    const { nombre, uid, rol, img } = useSelector(state => state.auth);
     const carro = useSelector(state => state.cart);
     const { carrito } = carro;
 
@@ -78,7 +79,14 @@ export const TopBar = () => {
                             <div key="in" className="d-flex align-items-center h-100 hoverFondo me-md-4 px-2 px-md-3" style={{ "cursor": "pointer" }} onClick={handleShowMenu}>
                                 {
                                     rol === "USER_ROLE"
-                                        ? <i className="fas fa-user" style={{ "fontSize": "30px" }}></i>
+                                        ? img ? <ReactRoundedImage
+                                            image={img ? img : "/assets/no-image.png"}
+                                            roundedColor="#49c1e1"
+                                            imageWidth="50"
+                                            imageHeight="50"
+                                            roundedSize="2"
+                                            borderRadius="15"
+                                        /> : <div><i className="fas fa-user" style={{ "fontSize": "30px" }}></i></div>
                                         : <i className="fa-solid fa-user-gear" style={{ "fontSize": "30px" }}></i>
                                 }
                                 <div className="navbarDisable ms-2">

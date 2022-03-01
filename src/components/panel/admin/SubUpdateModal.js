@@ -75,8 +75,9 @@ export const SubUpdateModal = ({ subcategoria, subcategorias, setSubCategorias, 
             }}
             validationSchema={Yup.object({
                 nombre: Yup.string()
-                    .max(1000, 'Must be 1000 characters or less')
-                    .required('Requerido'),
+                    .min(2, '2 caracteres como mínimo')
+                    .max(23, '23 caracteres como máximo')
+                    .required('El nombre es obligatorio'),
             })}
             onSubmit={handleSubmit}
         >

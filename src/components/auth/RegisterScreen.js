@@ -1,5 +1,5 @@
 import { Formik, Form, useField } from 'formik';
-import { Button, FormControl, FormGroup, FormLabel, FormText, Image } from 'react-bootstrap';
+import { Button, Col, FormControl, FormGroup, FormLabel, FormText, Image, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -21,7 +21,6 @@ const MyTextInput = ({ label, ...props }) => {
     );
 };
 
-
 export const RegisterScreen = () => {
 
     const dispatch = useDispatch();
@@ -36,6 +35,15 @@ export const RegisterScreen = () => {
             return Swal.fire('Error', 'Las contraseñas no coinciden', 'error');
         }
         dispatch(startRegister(nombre, email, password, navigate));
+    }
+
+    const handleShowPass = (name) => {
+        const x = document.querySelector(`input[name=${name}]`);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
     }
 
     return (
@@ -59,52 +67,67 @@ export const RegisterScreen = () => {
                 }}
                 validationSchema={Yup.object({
                     nombre: Yup.string()
-                        .max(15, 'Must be 15 characters or less')
+                        .min(2, '2 caracteres como mínimo')
+                        .max(20, '20 caracteres como máximo')
                         .required('El nombre es obligatorio'),
                     email: Yup.string()
-                        .email('El formato del correo es inválido')
+                        .email('El email es inválido')
                         .required('El email es obligatorio'),
                     password: Yup.string()
-                        .max(20, 'Must be 20 characters or less')
+                        .min(6, '6 caracteres como mínimo')
+                        .max(15, '15 caracteres como máximo')
                         .required('La contraseña es obligatoria'),
                     password2: Yup.string()
-                        .max(20, 'Must be 20 characters or less')
+                        .min(6, '6 caracteres como mínimo')
+                        .max(15, '15 caracteres como máximo')
                         .required('La contraseña es obligatoria'),
                 })}
                 onSubmit={handleRegister}
             >
-                <Form className="auth-box-container d-grid gap-2 mt-4 mb-5">
-
+                <Form className="d-grid gap-2 mt-4 mb-5">
                     <h1>Crear cuenta</h1>
-
                     <MyTextInput
                         label="Nombre"
                         name="nombre"
                         type="text"
                         placeholder="¿Cuál es tu nombre?"
                     />
-
                     <MyTextInput
                         label="E-mail"
                         name="email"
                         type="text"
                         placeholder="E-mail"
                     />
-
-                    <MyTextInput
-                        label="Contraseña"
-                        name="password"
-                        type="text"
-                        placeholder="Contraseña"
-                    />
-
-                    <MyTextInput
-                        label="Confirma tu contraseña"
-                        name="password2"
-                        type="text"
-                        placeholder="Contraseña"
-                    />
-
+                    <Row className='mb-3'>
+                        <Col xs={12} sm={6} className="mt-3 mt-sm-0">
+                            <MyTextInput
+                                label="Contraseña"
+                                name="password"
+                                type="password"
+                                placeholder="Contraseña"
+                            />
+                            <div className="form-check">
+                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => handleShowPass("password")} />
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
+                                    Mostrar contraseña
+                                </label>
+                            </div>
+                        </Col>
+                        <Col xs={12} sm={6} className="mt-3 mt-sm-0">
+                            <MyTextInput
+                                label="Confirma tu contraseña"
+                                name="password2"
+                                type="password"
+                                placeholder="Contraseña"
+                            />
+                            <div className="form-check">
+                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault2" onClick={() => handleShowPass("password2")} />
+                                <label className="form-check-label" htmlFor="flexCheckDefault2">
+                                    Mostrar contraseña
+                                </label>
+                            </div>
+                        </Col>
+                    </Row>
                     <Button type="submit" variant="primary" size="lg">Crear cuenta</Button>
                     <div className="position-relative my-2 text-center">
                         <hr />

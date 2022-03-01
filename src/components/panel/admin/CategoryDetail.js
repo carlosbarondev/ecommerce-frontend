@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import { Button, Col, FormControl, FormGroup, FormLabel, FormText, Image, ListGroup, Row } from 'react-bootstrap';
@@ -137,8 +137,9 @@ export const CategoryDetail = () => {
                 }}
                 validationSchema={Yup.object({
                     nombre: Yup.string()
-                        .max(1000, 'Must be 1000 characters or less')
-                        .required('Requerido'),
+                        .min(2, '2 caracteres como mínimo')
+                        .max(23, '23 caracteres como máximo')
+                        .required('El nombre es obligatorio'),
                 })}
                 onSubmit={handleSubmit}
             >
@@ -191,7 +192,11 @@ export const CategoryDetail = () => {
                                     <ListGroup.Item key={sub._id}>
                                         <Row>
                                             <Col xs={5} sm={5} md={4}>
-                                                {sub.nombre}
+                                                <Link
+                                                    className="linkProducto"
+                                                    to={`/${normalizeText(categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(sub.nombre.replace(/\s+/g, "-"))}`}>
+                                                    {sub.nombre}
+                                                </Link>
                                             </Col>
                                             <Col xs={0} sm={0} md={3} className="disable-card-header">
                                                 {

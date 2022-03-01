@@ -42,7 +42,9 @@ export const SubAddModal = ({ categoria, setCategoria, subcategorias, setSubCate
                 handleUploadImage(body.subcategoria._id, body.categoria, body.categoria.subcategorias);
                 resetForm();
                 setModalShowAdd("");
-                window.location.reload();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             }
         } catch (error) {
             console.log(error.message);
@@ -77,8 +79,9 @@ export const SubAddModal = ({ categoria, setCategoria, subcategorias, setSubCate
             }}
             validationSchema={Yup.object({
                 nombre: Yup.string()
-                    .max(35, 'Must be 35 characters or less')
-                    .required('Requerido'),
+                    .min(2, '2 caracteres como mínimo')
+                    .max(23, '23 caracteres como máximo')
+                    .required('El nombre es obligatorio'),
             })}
             onSubmit={(values, { resetForm }) => handleSubmit(values, resetForm)}
         >
@@ -90,7 +93,7 @@ export const SubAddModal = ({ categoria, setCategoria, subcategorias, setSubCate
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Crear Subategoría
+                        Crear Subcategoría
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -98,6 +101,7 @@ export const SubAddModal = ({ categoria, setCategoria, subcategorias, setSubCate
                         <MyTextInput
                             label="Nombre"
                             name="nombre"
+                            placeholder="Nombre*"
                         />
                         <FormGroup id="fileUpload" controlId="formFile" className="mt-4">
                             <FormLabel style={{ "marginBottom": "-1px" }}><h5>Imagen</h5></FormLabel>

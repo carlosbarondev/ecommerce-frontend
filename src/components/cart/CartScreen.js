@@ -104,8 +104,8 @@ export const CartScreen = () => {
                                     <Card>
                                         <Card.Body>
                                             <Row className="align-items-center">
-                                                <Col xs={2} sm={2} md={2}>
-                                                    <Image src={cart.producto.img ? cart.producto.img : "/assets/no-image.png"} fluid />
+                                                <Col xs={2} sm={2} md={2} className="text-center">
+                                                    <Image src={cart.producto.img ? cart.producto.img : "/assets/no-image.png"} style={{ "maxHeight": "8rem" }} fluid />
                                                 </Col>
                                                 <Col xs={10} sm={10} md={5}>
                                                     <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${normalizeText(cart.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(cart.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(cart.producto.nombre.replace(/\s+/g, "-"))}`}>{cart.producto.nombre}</Link>
@@ -131,15 +131,10 @@ export const CartScreen = () => {
                             ))
                         }
                     </TransitionGroup>
-                    <Row className="mt-3 mb-5">
-                        <Col xs={5} md={4}>
-                            <Button variant="outline-secondary" onClick={handleClear}><i className="fa-solid fa-trash"></i> Vaciar cesta</Button>
-                        </Col>
-                        <Col xs={2} md={4}></Col>
-                        <Col xs={5} md={4} className="d-flex justify-content-end">
-                            <Button variant="outline-secondary" onClick={() => navigate("/")}>Seguir comprando</Button>
-                        </Col>
-                    </Row>
+                    <div className="mt-3 mb-5">
+                        <Button variant="outline-secondary" onClick={handleClear}><i className="fa-solid fa-trash"></i> Vaciar cesta</Button>
+                        <Button variant="outline-secondary" onClick={() => navigate("/")} className="float-end">Seguir comprando</Button>
+                    </div>
                 </Col>
                 <Col md={12} lg={4}>
                     <Card className="mb-5">
