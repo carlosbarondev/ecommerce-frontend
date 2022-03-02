@@ -7,7 +7,4 @@ import 'animate.css';
 import { Ecommerce } from './Ecommerce';
 
 
-ReactDOM.render(
-    <Ecommerce />,
-    document.getElementById('root')
-);
+ReactDOM.render(<Ecommerce />, document.getElementById('root'));
