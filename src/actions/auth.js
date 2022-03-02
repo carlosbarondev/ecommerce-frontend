@@ -28,7 +28,7 @@ export const startLogin = (correo, password, navigate) => {
             }));
 
             const lastPath = localStorage.getItem('lastPath') || "/";
-            navigate(process.env.REACT_APP_REACT + lastPath, { replace: true });
+            navigate(lastPath, { replace: true });
 
         } else {
             Swal.fire('Error', body.msg, 'error');
@@ -73,7 +73,7 @@ export const startRegister = (nombre, correo, password, navigate) => {
                 }));
 
                 const lastPath = localStorage.getItem('lastPath') || "/";
-                navigate(process.env.REACT_APP_REACT + lastPath, { replace: true });
+                navigate(lastPath, { replace: true });
 
             } else {
                 Swal.fire('Error', body.msg, 'error');
