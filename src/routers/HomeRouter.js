@@ -53,6 +53,11 @@ export const HomeRouter = () => {
                     } />
 
                     <Route
+                        path="/cart/*"
+                        element={<Navigate to="/" />}
+                    />
+
+                    <Route
                         path="summary"
                         element={
                             <PrivateRoute isAuthenticated={!!uid}>

@@ -15,6 +15,7 @@ export const CartScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const { rol } = useSelector(state => state.auth);
     const { carrito } = useSelector(state => state.cart);
 
     const [total, setTotal] = useState(0);
@@ -53,9 +54,13 @@ export const CartScreen = () => {
     }
 
     const handleStart = () => {
-        dispatch(stepChange(2));
-        localStorage.setItem('step', 2);
-        navigate("/shipping");
+        if (rol !== "ADMIN_ROLE") {
+            dispatch(stepChange(2));
+            localStorage.setItem('step', 2);
+            navigate("/shipping");
+        } else {
+            Swal.fire('Login', "Debe cerrar la sesión de Administrador y acceder como cliente", 'info');
+        }
     }
 
     return (

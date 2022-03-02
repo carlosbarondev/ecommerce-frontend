@@ -83,6 +83,7 @@ export const PanelRouter = () => {
                                 path="/"
                                 element={<Navigate to="/panel/datos" />}
                             />
+                            <Route path="/*" element={<Navigate to="/" />} />
                         </Routes>
                         : <Routes>
                             <Route path="usuarios" element={
@@ -139,6 +140,7 @@ export const PanelRouter = () => {
                                 path="/"
                                 element={<Navigate to="/panel/usuarios" />}
                             />
+                            <Route path="/*" element={<Navigate to="/" />} />
                         </Routes>
                 }
 

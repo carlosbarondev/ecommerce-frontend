@@ -63,11 +63,6 @@ export const ShippingList = () => {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire(
-                    'Eliminada',
-                    'La dirección ha sido eliminada',
-                    'success'
-                )
                 if (idEnvio) {
                     dispatch(shippingStartDelete(idEnvio));
                 } else {

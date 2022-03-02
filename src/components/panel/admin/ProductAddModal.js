@@ -45,6 +45,7 @@ export const ProductAddModal = ({ categorias, setModalShow, ...props }) => {
             } else {
                 handleUploadImage(body._id);
                 setModalShow("");
+                window.location.reload();
             }
         } catch (error) {
             console.log(error.message);

@@ -168,7 +168,7 @@ export const Data = () => {
                         </Col>
                         <Col className="mt-auto">
                             <div className="d-grid">
-                                <Button onClick={() => handleDeleteImage()} disabled={img === "" ? true : false}>
+                                <Button onClick={() => handleDeleteImage()} disabled={img === "" || !img ? true : false}>
                                     Eliminar imagen
                                 </Button>
                             </div>

@@ -9,7 +9,7 @@ export const CarouselHome = () => {
             <Link to={`/${normalizeText("Electronica".replace(/\s+/g, '-'))}/${normalizeText("Tablets".replace(/\s+/g, '-'))}/${normalizeText("Samsung Galaxy Tab S8 Ultra".replace(/\s+/g, "-"))}`}>
                 <img
                     className="d-block w-100"
-                    src="/assets/samsungtab.jpeg"
+                    src="/assets/tab.jpeg"
                     alt="First slide"
                 />
             </Link>
@@ -18,16 +18,16 @@ export const CarouselHome = () => {
             <Link to={`/${normalizeText("Electronica".replace(/\s+/g, '-'))}/${normalizeText("Auriculares".replace(/\s+/g, '-'))}/${normalizeText("Apple AirPods (3.ª generación)".replace(/\s+/g, "-"))}`}>
                 <img
                     className="d-block w-100"
-                    src="/assets/airpodsb.jpg"
+                    src="/assets/airpods.jpg"
                     alt="Second slide"
                 />
             </Link>
         </Carousel.Item>
         <Carousel.Item>
-            <Link to={`/${normalizeText("Electronica".replace(/\s+/g, '-'))}/${normalizeText("Tablets".replace(/\s+/g, '-'))}/${normalizeText("Samsung Galaxy Tab S8 Ultra".replace(/\s+/g, "-"))}`}>
+            <Link to={`/${normalizeText("Informatica".replace(/\s+/g, '-'))}/${normalizeText("Portatiles".replace(/\s+/g, '-'))}/${normalizeText("Apple MacBook Pro".replace(/\s+/g, "-"))}`}>
                 <img
                     className="d-block w-100"
-                    src="/assets/lego.jpg"
+                    src="/assets/macbook.jpg"
                     alt="Third slide"
                 />
             </Link>

@@ -41,20 +41,21 @@ export const Search = () => {
     const handleOnSearch = (string, results) => {
         if (string !== "") {
             setAux(string);
+
             const input = document.querySelector('input');
+
             input.addEventListener("keyup", function (event) {
                 if (event.key === 'Enter') {
                     event.preventDefault();
                     event.target.blur();
                     setAux("");
-                    if (event.target.value) {
-                        navigate(`/buscar/${event.target.value}`, {
-                            state: {
-                                nombre: event.target.value,
-                                busqueda: results,
-                            }
-                        });
-                    }
+                    navigate(`/buscar/${string}`, {
+                        state: {
+                            nombre: string,
+                            busqueda: results,
+                        },
+                        replace: true
+                    });
                 }
             });
         }

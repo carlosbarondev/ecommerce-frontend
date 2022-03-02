@@ -47,10 +47,17 @@ export const Summary = () => {
                         Swal.fire('Error', bodyUsuario.msg, 'error');
                     } else {
 
+                        const productoEnviar = carrito.map(prod => {
+                            return {
+                                unidades: prod.unidades,
+                                producto: prod.producto._id
+                            }
+                        })
+
                         const pedido = await fetchConToken(`pedidos`, {
                             idPedido: searchParams.get("payment_intent"),
                             usuario: uid,
-                            producto: carrito,
+                            producto: productoEnviar,
                             fecha: new Date(bodyPago.paymentIntent.created * 1000),
                             direccionEnvio: bodyUsuario.customer.shipping,
                             direccionFacturacion: bodyUsuario.customer.address,
@@ -64,6 +71,8 @@ export const Summary = () => {
                         if (bodyPedido.msg) { // Si hay errores
                             Swal.fire('Error', bodyPedido.msg, 'error');
                         } else {
+                            console.log(bodyPedido);
+
                             setResumen(bodyPedido);
                             localStorage.removeItem("carrito");
                             dispatch(cartClear());

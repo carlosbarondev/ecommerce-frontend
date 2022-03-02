@@ -39,9 +39,7 @@ export const ShippingForm = () => {
             newEnvio = { direccion, nombre, telefono };
             await dispatch(shippingStartAddNew(newEnvio)).then((result) => {
                 predeterminado = result;
-                console.log("aqui: ", predeterminado);
             });
-            console.log("fuera: ", predeterminado);
         } else {
             const { _id } = activo;
             newEnvio = { _id, direccion, nombre, telefono };
@@ -50,8 +48,6 @@ export const ShippingForm = () => {
         }
 
         if (document.querySelector("input[name=checkbox1]:checked")) { // Marcar dirección de envío como predeterminada
-            console.log("pred:", predeterminado);
-
             dispatch(shippingSetDefault(predeterminado));
             newEnvio = { predeterminado }
             const resp = await fetchConToken(`usuarios/${uid}`, newEnvio, 'PUT');
@@ -60,7 +56,7 @@ export const ShippingForm = () => {
                 console.log('Hola Mundo');
                 Swal.fire('Error', body.msg, 'error');
             } else {
-                const enviar = body.envio.find(element => element._id === predeterminado);
+                const enviar = body.usuario.envio.find(element => element._id === predeterminado);
                 dispatch(shippingStartUpdate(enviar));
                 dispatch(shippingStartSort());
             }

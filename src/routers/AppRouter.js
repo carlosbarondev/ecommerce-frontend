@@ -44,11 +44,19 @@ export const AppRouter = () => {
                     }
                 />
                 <Route
+                    path="registro/*"
+                    element={<Navigate to="/" />}
+                />
+                <Route
                     path="login"
                     element=
                     {
                         <LoginScreen />
                     }
+                />
+                <Route
+                    path="/login/*"
+                    element={<Navigate to="/" />}
                 />
                 <Route
                     path="shipping"

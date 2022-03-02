@@ -13,7 +13,7 @@ export const ProductListBest = ({ categoria }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const resp = await fetchSinToken(`productos/mejor/?desde=0&limite=4&categoria=${categoria}&ordenar=${"-vendido"}`);
+                const resp = await fetchSinToken(`productos/mejor/?desde=0&limite=8&categoria=${categoria}&ordenar=${"-vendido"}`);
                 const body = await resp.json();
                 setProductos(body.productos);
                 setChecking(true);

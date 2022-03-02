@@ -22,20 +22,18 @@ export const Footer = () => {
             </div>
 
             <div className="col-4 col-lg-2 d-flex flex-column justify-content-center align-items-center">
-                <h5>Section</h5>
+                <h5>Documentación</h5>
                 <ul className="nav flex-column">
-                    <li className="nav-item mb-2"><a href="https://github.com/carlosbarondev" className="nav-link p-0 text-muted">Home</a></li>
-                    <li className="nav-item mb-2"><a href="https://github.com/carlosbarondev" className="nav-link p-0 text-muted">Features</a></li>
-                    <li className="nav-item mb-2"><a href="https://github.com/carlosbarondev" className="nav-link p-0 text-muted">Pricing</a></li>
+                    <li className="nav-item mb-2"><a href="https://github.com/carlosbarondev/ecommerce-backend" className="nav-link p-0 linkFooter text-muted">Backend</a></li>
+                    <li className="nav-item mb-2"><a href="https://github.com/carlosbarondev/ecommerce-frontend" className="nav-link p-0 linkFooter text-muted">Frontend</a></li>
                 </ul>
             </div>
 
             <div className="col-4 col-lg-2 d-flex flex-column justify-content-center align-items-center">
-                <h5>Section</h5>
+                <h5>Contacto</h5>
                 <ul className="nav flex-column">
-                    <li className="nav-item mb-2"><a href="https://github.com/carlosbarondev" className="nav-link p-0 text-muted">Pricing</a></li>
-                    <li className="nav-item mb-2"><a href="https://github.com/carlosbarondev" className="nav-link p-0 text-muted">FAQs</a></li>
-                    <li className="nav-item mb-2"><a href="https://github.com/carlosbarondev" className="nav-link p-0 text-muted">About</a></li>
+                    <li className="nav-item mb-2"><a href="mailto:carlosbarondev@gmail.com" className="nav-link p-0 linkFooter text-muted">Correo</a></li>
+                    <li className="nav-item mb-2"><a href="https://github.com/carlosbarondev" className="nav-link p-0 linkFooter text-muted">GitHub</a></li>
                 </ul>
             </div>
 

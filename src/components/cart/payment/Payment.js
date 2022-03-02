@@ -74,20 +74,20 @@ export const Payment = () => {
                                             </div>
                                             <div className='mt-2 ms-5'>
                                                 Número de tarjeta:
-                                                <span className="ms-4 float-end textClipboard">
+                                                <span className="ms-4 float-end text-primary">
                                                     4242 4242 4242 4242
                                                     <button className="ms-2 botonClipboard" onClick={() => copyText('4242 4242 4242 4242')}><i className="fa-solid fa-clipboard"></i></button>
                                                 </span>
                                             </div>
                                             <div className='ms-5'>
                                                 Caducidad:
-                                                <span className="float-end">
+                                                <span className="float-end text-primary">
                                                     Cualquier fecha futura
                                                 </span>
                                             </div>
                                             <div className='ms-5'>
                                                 CVC:
-                                                <span className="float-end">
+                                                <span className="float-end text-primary">
                                                     Cualquier número CVC aleatorio
                                                 </span>
                                             </div>
@@ -103,7 +103,6 @@ export const Payment = () => {
                                                 Número de tarjeta:
                                                 <span className="ms-4 float-end">
                                                     <span>4000 0025 0000 3155</span>
-                                                    <button className="ms-2 botonClipboard" onClick={() => copyText('4000 0025 0000 3155')}><i className="fa-solid fa-clipboard"></i></button>
                                                 </span>
                                             </div>
                                             <div className='ms-5'>Caducidad: <span className="float-end">Cualquier fecha futura</span></div>
@@ -120,7 +119,6 @@ export const Payment = () => {
                                                 Número de tarjeta:
                                                 <span className="ms-4 float-end">
                                                     4000 0000 0000 9995
-                                                    <button className="ms-2 botonClipboard" onClick={() => copyText('4000 0000 0000 9995')}><i className="fa-solid fa-clipboard"></i></button>
                                                 </span>
                                             </div>
                                             <div className='ms-5'>Caducidad: <span className="float-end">Cualquier fecha futura</span></div>
