@@ -13,7 +13,7 @@ import { fetchConToken } from "../../../helpers/fetch";
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 // This is your test publishable API key.
-const stripePromise = loadStripe("pk_test_51JjACUBNBMvlMZgl6YSlm52dTf2fLJ0doW3CJsCyC9EToMpj6ZuYcjrarK6T8gIh8cI5LX6dkUCRCl9AlMgdRaVi00bGKhZ0cO");
+const stripePromise = loadStripe("pk_test_51KZH9rK7t3f78Hp2q0mtyopW0RtVqrg0MxOhtmG7KCKeYZMyuEZjsrFrCcWEhSjB6rQY9EkAxBLoxB3fl6o0iMf400VxcbHZvO");
 
 
 export const Payment = () => {
