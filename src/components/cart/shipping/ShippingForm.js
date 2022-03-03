@@ -125,8 +125,8 @@ export const ShippingForm = () => {
         >
             {({ setFieldValue }) => (
                 <Form>
-                    <h4 style={{ "display": "inline" }}>Datos personales</h4>
                     <Button className='float-end' variant="warning" onClick={() => handleAuto(setFieldValue)}>Rellenar automáticamente</Button>
+                    <h4 style={{ "display": "inline" }}>Datos personales</h4>
                     <Row className='mt-2'>
                         <Col>
                             <MyTextInput

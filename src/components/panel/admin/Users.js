@@ -27,26 +27,30 @@ export const Users = () => {
         fetchData();
     }, []);
 
-    const handleDelete = async (id, estado) => {
-        try {
-            if (estado) {
-                const resp = await fetchConToken(`usuarios/${id}`, {}, 'DELETE');
-                const body = await resp.json();
-                const newUsuarios = [...usuarios];
-                newUsuarios[usuarios.findIndex(user => user._id === body.usuario._id)].estado = false;
-                setUsuarios(newUsuarios);
-                Swal.fire('Usuario deshabilitado', "", 'success');
-            } else {
-                const resp = await fetchConToken(`usuarios/${id}`, { estado: true }, 'PUT');
-                const body = await resp.json();
-                const newUsuarios = [...usuarios];
-                newUsuarios[usuarios.findIndex(user => user._id === body._id)].estado = true;
-                setUsuarios(newUsuarios);
-                Swal.fire('Usuario habilitado', "", 'success');
+    const handleDelete = async (id, estado, desactivar) => {
+        if (desactivar) {
+            try {
+                if (estado) {
+                    const resp = await fetchConToken(`usuarios/${id}`, {}, 'DELETE');
+                    const body = await resp.json();
+                    const newUsuarios = [...usuarios];
+                    newUsuarios[usuarios.findIndex(user => user._id === body.usuario._id)].estado = false;
+                    setUsuarios(newUsuarios);
+                    Swal.fire('Usuario deshabilitado', "", 'success');
+                } else {
+                    const resp = await fetchConToken(`usuarios/${id}`, { estado: true }, 'PUT');
+                    const body = await resp.json();
+                    const newUsuarios = [...usuarios];
+                    newUsuarios[usuarios.findIndex(user => user._id === body._id)].estado = true;
+                    setUsuarios(newUsuarios);
+                    Swal.fire('Usuario habilitado', "", 'success');
+                }
+            } catch (error) {
+                console.log(error.message);
+                return Swal.fire('Error', error.message, 'error');
             }
-        } catch (error) {
-            console.log(error.message);
-            return Swal.fire('Error', error.message, 'error');
+        } else {
+            Swal.fire('Usuario bloqueado', "El webmaster ha bloqueado este usuario", 'info');
         }
     }
 
@@ -99,7 +103,7 @@ export const Users = () => {
                                                 className="flex-grow-1"
                                                 variant={user.estado ? "outline-danger" : "outline-success"}
                                                 size="sm"
-                                                onClick={() => handleDelete(user._id, user.estado)}
+                                                onClick={() => handleDelete(user._id, user.estado, user.desactivar)}
                                             >
                                                 {
                                                     user.estado ? "Eliminar" : "Habilitar"

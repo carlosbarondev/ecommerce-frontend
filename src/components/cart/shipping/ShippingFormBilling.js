@@ -75,9 +75,9 @@ export const ShippingFormBilling = () => {
         >
             {({ setFieldValue }) => (
                 <Form>
-                    <h4 style={{ "display": "inline" }}>Dirección de envío</h4>
                     <Button className='float-end' variant="warning" onClick={() => handleAuto(setFieldValue)}>Rellenar automáticamente</Button>
-                    <Row className='mt-4'>
+                    <h4 style={{ "display": "inline" }}>Dirección de envío</h4>
+                    <Row className='mt-2'>
                         <Col>
                             <MyTextInput
                                 label="Dirección"

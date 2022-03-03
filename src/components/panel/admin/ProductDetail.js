@@ -56,19 +56,23 @@ export const ProductDetail = () => {
     }, [ProductoNombre]);
 
     const handleDelete = async () => {
-        try {
-            if (producto.estado) {
-                await fetchConToken(`productos/${producto._id}`, {}, 'DELETE');
-                setProducto(oldState => ({ ...oldState, estado: false }));
-                Swal.fire('Producto deshabilitado', "", 'success');
-            } else {
-                await fetchConToken(`productos/${producto._id}`, { estado: true }, 'PUT');
-                setProducto(oldState => ({ ...oldState, estado: true }));
-                Swal.fire('Producto habilitado', "", 'success');
+        if (producto.desactivar) {
+            try {
+                if (producto.estado) {
+                    await fetchConToken(`productos/${producto._id}`, {}, 'DELETE');
+                    setProducto(oldState => ({ ...oldState, estado: false }));
+                    Swal.fire('Producto deshabilitado', "", 'success');
+                } else {
+                    await fetchConToken(`productos/${producto._id}`, { estado: true }, 'PUT');
+                    setProducto(oldState => ({ ...oldState, estado: true }));
+                    Swal.fire('Producto habilitado', "", 'success');
+                }
+            } catch (error) {
+                console.log(error.message);
+                return Swal.fire('Error', error.message, 'error');
             }
-        } catch (error) {
-            console.log(error.message);
-            return Swal.fire('Error', error.message, 'error');
+        } else {
+            Swal.fire('Producto bloqueado', "El webmaster ha bloqueado este producto", 'info');
         }
     }
 

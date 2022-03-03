@@ -54,21 +54,25 @@ export const CategoryDetail = () => {
     }, [CategoriaNombre]);
 
     const handleDelete = async () => {
-        try {
-            if (categoria.estado) {
-                const resp = await fetchConToken(`categorias/${categoria._id}`, {}, 'DELETE');
-                const body = await resp.json();
-                setCategoria(body);
-                window.location.reload();
-            } else {
-                const resp = await fetchConToken(`categorias/${categoria._id}`, { estado: true }, 'PUT');
-                const body = await resp.json();
-                setCategoria(body);
-                window.location.reload();
+        if (categoria.desactivar) {
+            try {
+                if (categoria.estado) {
+                    const resp = await fetchConToken(`categorias/${categoria._id}`, {}, 'DELETE');
+                    const body = await resp.json();
+                    setCategoria(body);
+                    window.location.reload();
+                } else {
+                    const resp = await fetchConToken(`categorias/${categoria._id}`, { estado: true }, 'PUT');
+                    const body = await resp.json();
+                    setCategoria(body);
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.log(error);
+                return Swal.fire('Error', error.message, 'error');
             }
-        } catch (error) {
-            console.log(error);
-            return Swal.fire('Error', error.message, 'error');
+        } else {
+            Swal.fire('Categoría bloqueada', "El webmaster ha bloqueado esta categoría", 'info');
         }
     }
 
@@ -106,26 +110,30 @@ export const CategoryDetail = () => {
         }
     }
 
-    const handleSubDelete = async (id, estado) => {
-        try {
-            if (estado) {
-                const resp = await fetchConToken(`categorias/subcategoria/${id}`, {}, 'DELETE');
-                const body = await resp.json();
-                const newSub = [...subcategorias];
-                newSub[newSub.findIndex(sub => sub._id === body._id)].estado = false;
-                setSubCategorias(newSub);
-                window.location.reload();
-            } else {
-                const resp = await fetchConToken(`categorias/subcategoria/${id}`, { estado: true }, 'PUT');
-                const body = await resp.json();
-                const newSub = [...subcategorias];
-                newSub[newSub.findIndex(sub => sub._id === body._id)].estado = true;
-                setSubCategorias(newSub);
-                window.location.reload();
+    const handleSubDelete = async (id, estado, desactivar) => {
+        if (desactivar) {
+            try {
+                if (estado) {
+                    const resp = await fetchConToken(`categorias/subcategoria/${id}`, {}, 'DELETE');
+                    const body = await resp.json();
+                    const newSub = [...subcategorias];
+                    newSub[newSub.findIndex(sub => sub._id === body._id)].estado = false;
+                    setSubCategorias(newSub);
+                    window.location.reload();
+                } else {
+                    const resp = await fetchConToken(`categorias/subcategoria/${id}`, { estado: true }, 'PUT');
+                    const body = await resp.json();
+                    const newSub = [...subcategorias];
+                    newSub[newSub.findIndex(sub => sub._id === body._id)].estado = true;
+                    setSubCategorias(newSub);
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.log(error);
+                return Swal.fire('Error', error, 'error');
             }
-        } catch (error) {
-            console.log(error);
-            return Swal.fire('Error', error, 'error');
+        } else {
+            Swal.fire('Subcategoría bloqueada', "El webmaster ha bloqueado esta subcategoría", 'info');
         }
     }
 
@@ -217,7 +225,7 @@ export const CategoryDetail = () => {
                                                         className="flex-grow-1"
                                                         variant={sub.estado ? "outline-danger" : "outline-success"}
                                                         size="sm"
-                                                        onClick={() => handleSubDelete(sub._id, sub.estado)}
+                                                        onClick={() => handleSubDelete(sub._id, sub.estado, sub.desactivar)}
                                                     >
                                                         {
                                                             sub.estado ? "Eliminar" : "Habilitar"

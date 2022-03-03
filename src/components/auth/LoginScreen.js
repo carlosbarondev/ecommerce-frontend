@@ -59,12 +59,6 @@ export const LoginScreen = () => {
                     <h4 className='mt-5'>Usuarios disponibles</h4>
                     <ListGroup className='mt-3'>
                         <ListGroup.Item className='border-0'>
-                            <i className="fa-solid fa-user fa-xl"></i>
-                            <b> Usuario predefinido</b>
-                            <div className='mt-2 ms-4'>E-mail: <span className="text-primary">carlos@ecommerce.com</span></div>
-                            <div className='ms-4'>Contraseña: <span className="text-primary">123456</span></div>
-                        </ListGroup.Item>
-                        <ListGroup.Item className='border-0'>
                             <i className="fa-solid fa-user-gear fa-xl"></i>
                             <b> Administrador</b>
                             <div className='mt-2 ms-4'>E-mail: <span className="text-primary">admin@ecommerce.com</span></div>
@@ -72,8 +66,8 @@ export const LoginScreen = () => {
                         </ListGroup.Item>
                         <ListGroup.Item className='border-0'>
                             <i className="fa-solid fa-user-plus fa-xl"></i>
-                            <b> Nuevo usuario</b>
-                            <div className='mt-2 ms-2'>¡Crea un nuevo usuario desde cero!</div>
+                            <b> Cliente</b>
+                            <div className='mt-2 ms-2'>¡Crea un nuevo cliente desde cero!</div>
                         </ListGroup.Item>
                     </ListGroup>
                 </Col>
