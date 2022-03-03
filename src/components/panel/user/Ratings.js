@@ -39,7 +39,7 @@ export const Ratings = () => {
                 }
             } catch (error) {
                 console.log(error);
-                return Swal.fire('Error', error, 'error');
+                return Swal.fire('Error', error.message, 'error');
             }
         }
         fetchData();
