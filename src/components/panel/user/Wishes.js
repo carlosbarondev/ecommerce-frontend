@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, Form, Image, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, Image, Row } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { normalizeText } from 'normalize-text';
@@ -112,22 +112,25 @@ export const Wishes = () => {
                         <Button className="mt-3" variant="warning" onClick={() => navigate(`/`)}>Ver el catálogo</Button>
                     </div>
                     : <Form>
-                        <span className="d-flex mb-4">
-                            <h5 className="mt-auto mb-auto me-auto">Seleccionados: {seleccionados}</h5>
-                            <Button
-                                className="me-4"
-                                variant="outline-dark"
-                                onClick={handleAdd}
-                            >
-                                Añadir al carrito
-                            </Button>
-                            <Button
-                                variant="outline-dark"
-                                onClick={handleDelete}
-                            >
-                                Eliminar de la lista
-                            </Button>
-                        </span>
+                        <Row className="mb-4">
+                            <Col xs={12} sm={4} md={5} lg={7} xl={8} className="mb-4 mb-sm-0">
+                                <h5 className="mt-auto mb-auto me-auto">Seleccionados: {seleccionados}</h5>
+                            </Col>
+                            <Col xs={12} sm={8} md={7} lg={5} xl={4} className="d-flex justify-content-evenly">
+                                <Button
+                                    variant="outline-dark"
+                                    onClick={handleAdd}
+                                >
+                                    Añadir al carrito
+                                </Button>
+                                <Button
+                                    variant="outline-dark"
+                                    onClick={handleDelete}
+                                >
+                                    Eliminar de la lista
+                                </Button>
+                            </Col>
+                        </Row>
                         <Row xs={2} sm={2} md={3} lg={4} xl={4} className="g-0">
                             <TransitionGroup className="todo-list border" component={null}>
                                 {

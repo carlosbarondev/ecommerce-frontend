@@ -21,6 +21,10 @@ export const CartScreen = () => {
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         let cont = 0;
         carrito.map(producto => cont += producto.unidades);
         setTotal(cont);

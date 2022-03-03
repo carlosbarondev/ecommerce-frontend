@@ -101,7 +101,7 @@ export const Summary = () => {
                 </Card.Header>
                 <Card.Body>
                     <Row>
-                        <Col className="col-md-5">
+                        <Col xs={12} sm={5}>
                             <Card.Title>Dirección de envío</Card.Title>
                             <Card.Text>
                                 {resumen.direccionEnvio.name}
@@ -115,14 +115,14 @@ export const Summary = () => {
                                 {resumen.direccionEnvio.address.country}
                             </Card.Text>
                         </Col>
-                        <Col className="col-md-5">
+                        <Col xs={12} sm={5} className="mt-4 mt-sm-0">
                             <Card.Title>Método de pago</Card.Title>
                             <Card.Text>
                                 <Image className="mg-fluid" style={{ "height": "25px" }} src="https://images-na.ssl-images-amazon.com/images/G/30/checkout/payselect/card-logos-small/visa._CB658923706_.gif" />
                                 <span> **** {resumen.digitos}</span>
                             </Card.Text>
                         </Col>
-                        <Col className="col-md-2">
+                        <Col xs={12} sm={2} className="mt-4 mt-sm-0">
                             <Card.Title>Importe total:</Card.Title>
                             <Card.Text>
                                 <b>EUR {resumen.total / 100}</b>

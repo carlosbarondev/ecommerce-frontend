@@ -29,7 +29,7 @@ export const OrdersDetail = () => {
                 </Card.Header>
                 <Card.Body>
                     <Row>
-                        <Col sm={4} md={4}>
+                        <Col xs={12} sm={4}>
                             <Card.Title>Dirección de facturación</Card.Title>
                             <Card.Text>
                                 {nombre}
@@ -43,7 +43,7 @@ export const OrdersDetail = () => {
                                 {pedido.direccionFacturacion.country}
                             </Card.Text>
                         </Col>
-                        <Col sm={3} md={3}>
+                        <Col xs={12} sm={3} className="mt-4 mt-sm-0">
                             <Card.Title>Dirección de envío</Card.Title>
                             <Card.Text>
                                 {pedido.direccionEnvio.name}
@@ -57,7 +57,7 @@ export const OrdersDetail = () => {
                                 {pedido.direccionEnvio.address.country}
                             </Card.Text>
                         </Col>
-                        <Col sm={3} md={3}>
+                        <Col xs={12} sm={3} className="mt-4 mt-sm-0">
                             <Card.Title>Método de pago</Card.Title>
                             <Card.Text>
                                 <Image className="mg-fluid" style={{ "height": "25px" }} src="https://images-na.ssl-images-amazon.com/images/G/30/checkout/payselect/card-logos-small/visa._CB658923706_.gif" />
@@ -68,7 +68,7 @@ export const OrdersDetail = () => {
                                 {new Date(pedido.fecha).toLocaleDateString("es-ES", options)}
                             </Card.Text>
                         </Col>
-                        <Col sm={2} md={2}>
+                        <Col xs={12} sm={2} className="mt-4 mt-sm-0">
                             <Card.Title>Total:</Card.Title>
                             <Card.Text>
                                 <b>EUR {pedido.total / 100}</b>
