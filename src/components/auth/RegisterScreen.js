@@ -48,7 +48,7 @@ export const RegisterScreen = () => {
 
     return (
         <div className="d-flex flex-column align-items-center">
-            <div className="d-flex justify-content-center">
+            <div className="text-center">
                 <Image
                     src="/assets/logo_grande.png"
                     alt="logo"
@@ -84,7 +84,7 @@ export const RegisterScreen = () => {
                 })}
                 onSubmit={handleRegister}
             >
-                <Form className="d-grid gap-2 mt-4 mb-5">
+                <Form className="d-grid gap-2 mt-4 mb-5 mx-4">
                     <h1>Crear cuenta</h1>
                     <MyTextInput
                         label="Nombre"

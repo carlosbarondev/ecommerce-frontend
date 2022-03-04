@@ -14,7 +14,7 @@ export const Footer = () => {
                     <Image
                         src="/assets/logo_grande.png"
                         alt="logo"
-                        style={{ "cursor": "pointer", "maxWidth": "50%" }}
+                        style={{ "cursor": "pointer", "maxWidth": "40%" }}
                         onClick={() => navigate("/")}
                         fluid
                     />

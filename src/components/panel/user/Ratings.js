@@ -103,11 +103,11 @@ export const Ratings = () => {
                                             timeout={500}
                                             classNames="item"
                                         >
-                                            <Row className="mt-4">
+                                            <Row className="align-items-center mt-4">
                                                 <Col xs={1} sm={1} md={1}>
                                                 </Col>
-                                                <Col xs={3} sm={3} md={2} className="text-center">
-                                                    <Image src={op.img ? op.img : "/assets/no-image.png"} style={{ "maxHeight": "10rem" }} fluid />
+                                                <Col xs={3} sm={3} md={2} className="d-flex justify-content-center align-items-center" style={{ "height": "8rem" }}>
+                                                    <Image style={{ "maxHeight": "80%" }} src={op.img ? op.img : "/assets/no-image.png"} fluid />
                                                 </Col>
                                                 <Col xs={8} sm={8} md={9} className="d-flex flex-column align-self-center">
                                                     <Link className="linkProducto mb-1" style={{ "fontSize": "20px" }} to={`/${normalizeText(op.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(op.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(op.nombre.replace(/\s+/g, "-"))}`}>{op.nombre}</Link>
@@ -128,7 +128,8 @@ export const Ratings = () => {
                                                             size="sm"
                                                             onClick={() => setModalShowNoValorados(op._id)}
                                                         >
-                                                            Escribir una opinión sobre el producto
+                                                            <span className="disable-card-header">Escribir una opinión sobre el producto</span>
+                                                            <span className="enable-card-header">Valorar</span>
                                                         </Button>
                                                     </div>
                                                 </Col>
@@ -164,34 +165,38 @@ export const Ratings = () => {
                                             timeout={500}
                                             classNames="item"
                                         >
-                                            <Row className="mt-4 d-flex align-items-center">
-                                                <Col xs={1} sm={1} md={1}>
+                                            <Row className="align-items-center mt-4">
+                                                <Col xs={1} sm={1} md={1} lg={1} xl={1}>
                                                 </Col>
-                                                <Col xs={3} sm={3} md={2} className="text-center">
-                                                    <Image src={op.img ? op.img : "/assets/no-image.png"} style={{ "maxHeight": "10rem" }} fluid />
+                                                <Col xs={3} sm={3} md={3} lg={3} xl={2} className="d-flex justify-content-center align-items-center" style={{ "height": "8rem" }}>
+                                                    <Image style={{ "maxHeight": "80%" }} src={op.img ? op.img : "/assets/no-image.png"} fluid />
                                                 </Col>
-                                                <Col xs={8} sm={8} md={3}>
+                                                <Col xs={8} sm={8} md={8} lg={8} xl={3} className="d-flex flex-column">
                                                     <div>
                                                         <Link className="linkProducto mb-1" style={{ "fontSize": "20px" }} to={`/${normalizeText(op.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(op.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(op.nombre.replace(/\s+/g, "-"))}`}>{op.nombre}</Link>
                                                     </div>
-                                                    <Button
-                                                        className="mt-2"
-                                                        variant="outline-secondary"
-                                                        size="sm"
-                                                        onClick={() => setModalShowValorados(op._id)}
-                                                    >
-                                                        Editar opinión del producto
-                                                    </Button>
-                                                    <Button
-                                                        className="mt-3"
-                                                        variant="danger"
-                                                        size="sm"
-                                                        onClick={() => handleDelete(op._id, op.opinion[0]._id)}
-                                                    >
-                                                        Eliminar opinión
-                                                    </Button>
+                                                    <div>
+                                                        <Button
+                                                            className="mt-2"
+                                                            variant="outline-secondary"
+                                                            size="sm"
+                                                            onClick={() => setModalShowValorados(op._id)}
+                                                        >
+                                                            Editar opinión del producto
+                                                        </Button>
+                                                    </div>
+                                                    <div>
+                                                        <Button
+                                                            className="mt-3"
+                                                            variant="danger"
+                                                            size="sm"
+                                                            onClick={() => handleDelete(op._id, op.opinion[0]._id)}
+                                                        >
+                                                            Eliminar opinión
+                                                        </Button>
+                                                    </div>
                                                 </Col>
-                                                <Col xs={12} sm={12} md={6} className="mt-3">
+                                                <Col xs={12} sm={12} md={12} lg={12} xl={6} className="mt-3">
                                                     <div className="comentarios">
                                                         <Rating
                                                             style={{ "pointerEvents": "none", "marginRight": "8px" }}
