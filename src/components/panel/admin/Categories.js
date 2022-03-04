@@ -36,7 +36,7 @@ export const Categories = () => {
             <h3>Gestión de Categorías</h3>
             <Card className="mt-4">
                 <Card.Header>
-                    <Row>
+                    <Row className="align-items-center">
                         <Col xs={5} sm={4} md={4}>
                             Nombre
                         </Col>
@@ -54,7 +54,7 @@ export const Categories = () => {
                     {
                         categorias.map(cat =>
                             <ListGroup.Item key={cat._id}>
-                                <Row>
+                                <Row className="align-items-center">
                                     <Col xs={5} sm={4} md={4}>
                                         <Link
                                             className="linkProducto"

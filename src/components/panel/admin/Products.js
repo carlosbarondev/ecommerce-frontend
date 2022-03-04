@@ -40,7 +40,7 @@ export const Products = () => {
             <h3>Gestión de Productos</h3>
             <Card className="mt-4">
                 <Card.Header>
-                    <Row>
+                    <Row className="align-items-center">
                         <Col xs={5} sm={4} md={4}>
                             Nombre
                         </Col>
@@ -58,7 +58,7 @@ export const Products = () => {
                     {
                         productos.map(prod =>
                             <ListGroup.Item key={prod._id}>
-                                <Row>
+                                <Row className="align-items-center">
                                     <Col xs={5} sm={4} md={4}>
                                         <Link
                                             className="linkProducto"

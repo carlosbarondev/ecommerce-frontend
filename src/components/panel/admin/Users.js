@@ -59,7 +59,7 @@ export const Users = () => {
             <h3>Gestión de Usuarios</h3>
             <Card className="mt-4">
                 <Card.Header>
-                    <Row>
+                    <Row className="align-items-center">
                         <Col xs={6} sm={5} md={3}>
                             Correo
                         </Col>
@@ -77,7 +77,7 @@ export const Users = () => {
                     {
                         usuarios.map(user =>
                             <ListGroup.Item key={user._id}>
-                                <Row>
+                                <Row className="align-items-center">
                                     <Col xs={6} sm={5} md={3}>
                                         {user.correo}
                                     </Col>
