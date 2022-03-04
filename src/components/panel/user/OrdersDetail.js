@@ -79,11 +79,11 @@ export const OrdersDetail = () => {
             </Card>
             {
                 pedido.producto.map(prod => (
-                    <Card key={prod.producto._id} className="justify-content-center">
+                    <Card key={prod.producto._id}>
                         <Card.Body>
                             <Row className="align-items-center">
-                                <Col xs={3} sm={3} md={2} className="text-center">
-                                    <Image src={prod.producto.img ? prod.producto.img : "/assets/no-image.png"} style={{ "maxHeight": "8rem" }} fluid />
+                                <Col xs={3} sm={3} md={2} className="d-flex justify-content-center align-items-center" style={{ "height": "8rem" }}>
+                                    <Image style={{ "maxHeight": "70%" }} src={prod.producto.img ? prod.producto.img : "/assets/no-image.png"} fluid />
                                 </Col>
                                 <Col xs={9} sm={9} md={5}>
                                     <Link className="linkProducto" style={{ "fontSize": "18px" }} to={`/${normalizeText(prod.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(prod.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(prod.producto.nombre.replace(/\s+/g, "-"))}`}>{prod.producto.nombre}</Link>

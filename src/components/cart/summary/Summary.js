@@ -71,8 +71,6 @@ export const Summary = () => {
                         if (bodyPedido.msg) { // Si hay errores
                             Swal.fire('Error', bodyPedido.msg, 'error');
                         } else {
-                            console.log(bodyPedido);
-
                             setResumen(bodyPedido);
                             localStorage.removeItem("carrito");
                             dispatch(cartClear());
@@ -136,8 +134,8 @@ export const Summary = () => {
                     <Card key={prod.producto._id} className="justify-content-center">
                         <Card.Body>
                             <Row className="align-items-center">
-                                <Col xs={3} sm={3} md={2} className="text-center">
-                                    <Image style={{ "maxHeight": "8rem" }} src={prod.producto.img ? prod.producto.img : "/assets/no-image.png"} fluid />
+                                <Col xs={3} sm={3} md={2} className="d-flex justify-content-center align-items-center" style={{ "height": "8rem" }}>
+                                    <Image style={{ "maxHeight": "70%" }} src={prod.producto.img ? prod.producto.img : "/assets/no-image.png"} fluid />
                                 </Col>
                                 <Col xs={9} sm={9} md={4}>
                                     <Link className="linkProducto" style={{ "fontSize": "18px" }} to={`/${normalizeText(prod.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(prod.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(prod.producto.nombre.replace(/\s+/g, "-"))}`}>{prod.producto.nombre}</Link>

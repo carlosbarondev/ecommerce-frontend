@@ -21,10 +21,6 @@ export const CartScreen = () => {
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
-    useEffect(() => {
         let cont = 0;
         carrito.map(producto => cont += producto.unidades);
         setTotal(cont);
@@ -113,22 +109,22 @@ export const CartScreen = () => {
                                     <Card>
                                         <Card.Body>
                                             <Row className="align-items-center">
-                                                <Col xs={2} sm={2} md={2} className="text-center">
-                                                    <Image src={cart.producto.img ? cart.producto.img : "/assets/no-image.png"} style={{ "maxHeight": "8rem" }} fluid />
+                                                <Col xs={3} sm={3} md={2} className="d-flex justify-content-center align-items-center" style={{ "height": "6rem" }}>
+                                                    <Image style={{ "maxHeight": "70%" }} src={cart.producto.img ? cart.producto.img : "/assets/no-image.png"} fluid />
                                                 </Col>
-                                                <Col xs={10} sm={10} md={5}>
+                                                <Col xs={9} sm={9} md={5}>
                                                     <Link className="linkProducto" style={{ "fontSize": "20px" }} to={`/${normalizeText(cart.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(cart.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(cart.producto.nombre.replace(/\s+/g, "-"))}`}>{cart.producto.nombre}</Link>
                                                     <div>{cart.producto.precio} €</div>
                                                     <button className="botonLinkProducto mt-2" onClick={() => handleDelete(cart.producto._id)}>Eliminar</button>
                                                 </Col>
-                                                <Col xs={6} sm={8} md={3}>
+                                                <Col xs={7} sm={7} md={3}>
                                                     <div className="input-group mt-2">
                                                         <button onClick={() => handleSubtract(cart.producto, cart.unidades)} className="border" style={{ height: "30px", width: "30px", marginLeft: "auto" }}>-</button>
                                                         <input className="text-center border" type="text" value={cart.unidades} onChange={e => handleChange(parseInt(e.target.value), cart.producto)} style={{ height: "30px", width: "30px" }} />
                                                         <button onClick={() => handleAdd(cart.producto, cart.unidades)} className="border" style={{ height: "30px", width: "30px", marginRight: "auto" }}>+</button>
                                                     </div>
                                                 </Col>
-                                                <Col xs={6} sm={4} md={2} className="text-center">
+                                                <Col xs={5} sm={5} md={2} className="text-center">
                                                     <Card.Text className="mt-2">
                                                         <span className="enable-span">Total:&nbsp;</span>{(cart.producto.precio * cart.unidades).toFixed(2)} €
                                                     </Card.Text>

@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route, Navigate, useLocation } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
 import { RegisterScreen } from "../components/auth/RegisterScreen"
@@ -18,6 +18,7 @@ import { cartInit } from "../actions/cart"
 export const AppRouter = () => {
 
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const { checking, uid } = useSelector(state => state.auth);
     const { carrito } = useSelector(state => state.cart);
@@ -32,87 +33,89 @@ export const AppRouter = () => {
             dispatch(cartInit(oldCart));
     }, [dispatch]);
 
+    useEffect(() => { // Navega a la parte superior de la página en dispositivos móviles
+        window.scrollTo(0, 0);
+    }, [location]);
+
     return (
         !checking &&
-        <BrowserRouter>
-            <Routes>
-                <Route
-                    path="registro"
-                    element=
-                    {
-                        <RegisterScreen />
-                    }
-                />
-                <Route
-                    path="registro/*"
-                    element={<Navigate to="/" />}
-                />
-                <Route
-                    path="login"
-                    element=
-                    {
-                        <LoginScreen />
-                    }
-                />
-                <Route
-                    path="/login/*"
-                    element={<Navigate to="/" />}
-                />
-                <Route
-                    path="shipping"
-                    element=
-                    {
-                        <>
-                            <CartStepper />
+        <Routes>
+            <Route
+                path="registro"
+                element=
+                {
+                    <RegisterScreen />
+                }
+            />
+            <Route
+                path="registro/*"
+                element={<Navigate to="/" />}
+            />
+            <Route
+                path="login"
+                element=
+                {
+                    <LoginScreen />
+                }
+            />
+            <Route
+                path="/login/*"
+                element={<Navigate to="/" />}
+            />
+            <Route
+                path="shipping"
+                element=
+                {
+                    <>
+                        <CartStepper />
 
-                            <div className="container">
-                                <PrivateRoute isAuthenticated={!!uid}>
-                                    {
-                                        carrito.length > 0
-                                            ? <Shipping />
-                                            : <Navigate to="/" replace={true} />
-                                    }
-                                </PrivateRoute>
-                            </div>
-                        </>
-                    }
-                />
-                <Route
-                    path="payment"
-                    element=
-                    {
-                        <>
-                            <CartStepper />
+                        <div className="container">
+                            <PrivateRoute isAuthenticated={!!uid}>
+                                {
+                                    carrito.length > 0
+                                        ? <Shipping />
+                                        : <Navigate to="/" replace={true} />
+                                }
+                            </PrivateRoute>
+                        </div>
+                    </>
+                }
+            />
+            <Route
+                path="payment"
+                element=
+                {
+                    <>
+                        <CartStepper />
 
-                            <div className="container">
-                                <PrivateRoute isAuthenticated={!!uid}>
-                                    {
-                                        carrito.length > 0
-                                            ? <Payment />
-                                            : <Navigate to="/" replace={true} />
-                                    }
-                                </PrivateRoute>
-                            </div>
-                        </>
-                    }
-                />
-                <Route
-                    path="panel/*"
-                    element=
-                    {
-                        <PrivateRoute isAuthenticated={!!uid}>
-                            <PanelRouter />
-                        </PrivateRoute>
-                    }
-                />
-                <Route
-                    path="/*"
-                    element=
-                    {
-                        <HomeRouter />
-                    }
-                />
-            </Routes>
-        </BrowserRouter >
+                        <div className="container">
+                            <PrivateRoute isAuthenticated={!!uid}>
+                                {
+                                    carrito.length > 0
+                                        ? <Payment />
+                                        : <Navigate to="/" replace={true} />
+                                }
+                            </PrivateRoute>
+                        </div>
+                    </>
+                }
+            />
+            <Route
+                path="panel/*"
+                element=
+                {
+                    <PrivateRoute isAuthenticated={!!uid}>
+                        <PanelRouter />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/*"
+                element=
+                {
+                    <HomeRouter />
+                }
+            />
+        </Routes>
     )
 }

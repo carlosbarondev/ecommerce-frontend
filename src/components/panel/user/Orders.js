@@ -92,8 +92,8 @@ export const Orders = () => {
                                 {
                                     pedido.producto.map(p => (
                                         <Row className="align-items-center mb-3" key={p.producto._id}>
-                                            <Col xs={2} md={1} className="text-center">
-                                                <Image src={p.producto.img ? p.producto.img : "/assets/no-image.png"} style={{ "maxHeight": "5rem" }} fluid />
+                                            <Col xs={2} md={1} className="d-flex justify-content-center align-items-center" style={{ "height": "5rem" }}>
+                                                <Image style={{ "maxHeight": "70%" }} src={p.producto.img ? p.producto.img : "/assets/no-image.png"} fluid />
                                             </Col>
                                             <Col xs={10} md={11}>
                                                 <Link className="linkProducto" style={{ "fontSize": "18px" }} to={`/${normalizeText(p.producto.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(p.producto.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(p.producto.nombre.replace(/\s+/g, "-"))}`}>{p.producto.nombre}</Link>
