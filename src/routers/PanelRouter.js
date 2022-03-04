@@ -38,10 +38,10 @@ export const PanelRouter = () => {
                         ? <Routes>
                             <Route path="datos" element={
                                 <Row>
-                                    <Col md={2}>
+                                    <Col xs={12} lg={2}>
                                         <MenuPanel />
                                     </Col>
-                                    <Col md={10}>
+                                    <Col xs={12} lg={10}>
                                         <Data />
                                     </Col>
                                 </Row>
@@ -51,30 +51,30 @@ export const PanelRouter = () => {
                             } />
                             <Route path="valoraciones" element={
                                 <Row>
-                                    <Col md={2}>
+                                    <Col xs={12} lg={2}>
                                         <MenuPanel />
                                     </Col>
-                                    <Col md={10}>
+                                    <Col xs={12} lg={10}>
                                         <Ratings />
                                     </Col>
                                 </Row>
                             } />
                             <Route path="pedidos" element={
                                 <Row>
-                                    <Col md={2}>
+                                    <Col xs={12} lg={2}>
                                         <MenuPanel />
                                     </Col>
-                                    <Col md={10}>
+                                    <Col xs={12} lg={10}>
                                         <Orders />
                                     </Col>
                                 </Row>
                             } />
                             <Route path="pedidos/detalles" element={
                                 <Row>
-                                    <Col md={2}>
+                                    <Col xs={12} lg={2}>
                                         <MenuPanel />
                                     </Col>
-                                    <Col md={10}>
+                                    <Col xs={12} lg={10}>
                                         <OrdersDetail />
                                     </Col>
                                 </Row>
@@ -88,50 +88,50 @@ export const PanelRouter = () => {
                         : <Routes>
                             <Route path="usuarios" element={
                                 <Row>
-                                    <Col md={12} lg={2}>
+                                    <Col xs={12} lg={2}>
                                         <AdminPanel />
                                     </Col>
-                                    <Col md={12} lg={10}>
+                                    <Col xs={12} lg={10}>
                                         <Users />
                                     </Col>
                                 </Row>
                             } />
                             <Route path="categorias" element={
                                 <Row>
-                                    <Col md={12} lg={2}>
+                                    <Col xs={12} lg={2}>
                                         <AdminPanel />
                                     </Col>
-                                    <Col md={12} lg={10}>
+                                    <Col xs={12} lg={10}>
                                         <Categories />
                                     </Col>
                                 </Row>
                             } />
                             <Route path="categorias/:CategoriaNombre" element={
                                 <Row>
-                                    <Col md={12} lg={2}>
+                                    <Col xs={12} lg={2}>
                                         <AdminPanel />
                                     </Col>
-                                    <Col md={12} lg={10}>
+                                    <Col xs={12} lg={10}>
                                         <CategoryDetail />
                                     </Col>
                                 </Row>
                             } />
                             <Route path="productos" element={
                                 <Row>
-                                    <Col md={12} lg={2}>
+                                    <Col xs={12} lg={2}>
                                         <AdminPanel />
                                     </Col>
-                                    <Col md={12} lg={10}>
+                                    <Col xs={12} lg={10}>
                                         <Products />
                                     </Col>
                                 </Row>
                             } />
                             <Route path="productos/:ProductoNombre" element={
                                 <Row>
-                                    <Col md={12} lg={2}>
+                                    <Col xs={12} lg={2}>
                                         <AdminPanel />
                                     </Col>
-                                    <Col md={12} lg={10}>
+                                    <Col xs={12} lg={10}>
                                         <ProductDetail />
                                     </Col>
                                 </Row>

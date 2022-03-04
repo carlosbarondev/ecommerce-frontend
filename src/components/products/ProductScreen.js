@@ -128,7 +128,7 @@ export const ProductScreen = () => {
                     />
                 </div>
                 <div className="col-12 col-lg-7">
-                    <h3>{producto.nombre}</h3>
+                    <h3 className="px-0 mx-0">{producto.nombre}</h3>
                     <div className="d-flex align-items-center">
                         <Rating
                             className="me-2 mb-1"
@@ -211,12 +211,12 @@ export const ProductScreen = () => {
                     producto.opinion.map((op, index) => (
                         op.usuario.estado && <div className="row mt-2" key={op._id}>
                             <div className="col-sm-12 col-md-4">
-                                <div className="row">
-                                    <div className="col-2">
+                                <div className="row mb-2">
+                                    <div className="col-2 col-sm-2 col-md-4 col-lg-3 col-xl-2">
                                         {
                                             op.usuario.rol !== "ADMIN_ROLE"
                                                 ? op.usuario.img
-                                                    ? <div className="ms-2 me-3">
+                                                    ? <div className="ms-1">
                                                         <ReactRoundedImage
                                                             image={op.usuario.img ? op.usuario.img : "/assets/no-image.png"}
                                                             roundedColor="#49c1e1"
@@ -226,30 +226,31 @@ export const ProductScreen = () => {
                                                             borderRadius="15"
                                                         />
                                                     </div>
-                                                    : <div className="circulo ms-2 me-3">
+                                                    : <div className="circulo ms-1">
                                                         <i className="fa-solid fa-user fa-lg"></i>
                                                     </div>
-                                                : <div className="circulo ms-2 me-3">
+                                                : <div className="circulo ms-1">
                                                     <i className="fa-solid fa-user-gear fa-lg"></i>
                                                 </div>
                                         }
                                     </div>
-                                    <div className="col-10 d-flex align-items-center">
-                                        <div className="ms-2" style={{ "fontSize": "20px" }}>{`${op.usuario.nombre}`}</div>
+                                    <div className="col-10 col-sm-10 col-md-8 col-lg-9 col-xl-10 d-flex align-items-center">
+                                        <div style={{ "fontSize": "20px" }}>{`${op.usuario.nombre}`}</div>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-12 col-md-8 mt-sm-2 mt-md-0">
-                                <div className="comentarios">
+                                <div>
                                     <Rating
-                                        style={{ "pointerEvents": "none", "marginRight": "8px" }}
+                                        className="me-2"
+                                        style={{ "pointerEvents": "none", "marginBottom": "3px", "marginLeft": "-5px" }}
                                         size={20}
                                         ratingValue={op.rating}
                                         allowHover={false}
                                     />
-                                    <div style={{ "fontSize": "16px" }}><b>{`${op.titulo}`}</b></div>
+                                    <div className="fw-bold align-middle" style={{ "fontSize": "16px", "display": "inline" }}>{`${op.titulo}`}</div>
                                 </div>
-                                <div style={{ "fontSize": "14px" }}>{`${new Date(op.fecha).toLocaleDateString("es-ES", options)}`}</div>
+                                <div className="text-muted" style={{ "fontSize": "14px" }}>{`${new Date(op.fecha).toLocaleDateString("es-ES", options)}`}</div>
                                 <div className="mt-3" style={{ "whiteSpace": "pre-wrap" }}>{`${op.comentario}`}</div>
                             </div>
                             {

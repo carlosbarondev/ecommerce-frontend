@@ -165,13 +165,11 @@ export const Ratings = () => {
                                             timeout={500}
                                             classNames="item"
                                         >
-                                            <Row className="align-items-center mt-4">
-                                                <Col xs={1} sm={1} md={1} lg={1} xl={1}>
-                                                </Col>
+                                            <Row className="mt-4">
                                                 <Col xs={3} sm={3} md={3} lg={3} xl={2} className="d-flex justify-content-center align-items-center" style={{ "height": "8rem" }}>
                                                     <Image style={{ "maxHeight": "80%" }} src={op.img ? op.img : "/assets/no-image.png"} fluid />
                                                 </Col>
-                                                <Col xs={8} sm={8} md={8} lg={8} xl={3} className="d-flex flex-column">
+                                                <Col xs={9} sm={9} md={9} lg={9} xl={3} className="d-flex flex-column">
                                                     <div>
                                                         <Link className="linkProducto mb-1" style={{ "fontSize": "20px" }} to={`/${normalizeText(op.categoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(op.subcategoria.nombre.replace(/\s+/g, "-"))}/${normalizeText(op.nombre.replace(/\s+/g, "-"))}`}>{op.nombre}</Link>
                                                     </div>
@@ -196,17 +194,18 @@ export const Ratings = () => {
                                                         </Button>
                                                     </div>
                                                 </Col>
-                                                <Col xs={12} sm={12} md={12} lg={12} xl={6} className="mt-3">
-                                                    <div className="comentarios">
+                                                <Col xs={12} sm={12} md={12} lg={12} xl={7} className="mt-4 mt-xl-0">
+                                                    <div>
                                                         <Rating
-                                                            style={{ "pointerEvents": "none", "marginRight": "8px" }}
+                                                            className="me-2"
+                                                            style={{ "pointerEvents": "none", "marginBottom": "3px", "marginLeft": "-5px" }}
                                                             size={20}
                                                             ratingValue={op.opinion[0].rating}
                                                             allowHover={false}
                                                         />
-                                                        <div style={{ "fontSize": "18px" }}>{`${op.opinion[0].titulo}`}</div>
+                                                        <div className="fw-bold align-middle" style={{ "fontSize": "16px", "display": "inline" }}>{`${op.opinion[0].titulo}`}</div>
                                                     </div>
-                                                    <div style={{ "fontSize": "14px" }}>{`${new Date(op.opinion[0].fecha).toLocaleDateString("es-ES", options)}`}</div>
+                                                    <div className="text-muted" style={{ "fontSize": "14px" }}>{`${new Date(op.opinion[0].fecha).toLocaleDateString("es-ES", options)}`}</div>
                                                     <div className="mt-3" style={{ "whiteSpace": "pre-wrap" }}>{`${op.opinion[0].comentario}`}</div>
                                                 </Col>
                                                 <hr className="mt-5" />
@@ -227,6 +226,6 @@ export const Ratings = () => {
                     }
                 </Tab>
             </Tabs>
-        </div>
+        </div >
     );
 };
