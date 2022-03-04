@@ -60,10 +60,10 @@ export const SummaryModal = ({ id, setModalShow, oldTitulo, oldComentario, oldRa
             }}
             validationSchema={Yup.object({
                 titulo: Yup.string()
-                    .max(20, 'Must be 20 characters or less')
+                    .max(20, 'Must be 30 characters or less')
                     .required('Requerido'),
                 comentario: Yup.string()
-                    .max(1000, 'Must be 1000 characters or less')
+                    .max(1000, 'Must be 2000 characters or less')
                     .required('Requerido'),
             })}
             onSubmit={handleSubmit}
