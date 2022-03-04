@@ -60,9 +60,11 @@ export const SummaryModal = ({ id, setModalShow, oldTitulo, oldComentario, oldRa
             }}
             validationSchema={Yup.object({
                 titulo: Yup.string()
+                    .min(2, '2 caracteres como mínimo')
                     .max(30, '30 caracteres como máximo')
                     .required('Requerido'),
                 comentario: Yup.string()
+                    .min(2, '2 caracteres como mínimo')
                     .max(2000, '2000 caracteres como máximo')
                     .required('Requerido'),
             })}
@@ -96,7 +98,7 @@ export const SummaryModal = ({ id, setModalShow, oldTitulo, oldComentario, oldRa
                             label="Añadir una reseña escrita"
                             name="comentario"
                             type="textarea"
-                            rows="3"
+                            rows="6"
                             placeholder="¿Qué te ha gustado y qué no? ¿Para qué usaste este producto?"
                         />
                         <Button className="mt-4" type="submit" variant="primary" size="lg">Enviar</Button>

@@ -207,7 +207,7 @@ export const Ratings = () => {
                                                         <div style={{ "fontSize": "18px" }}>{`${op.opinion[0].titulo}`}</div>
                                                     </div>
                                                     <div style={{ "fontSize": "14px" }}>{`${new Date(op.opinion[0].fecha).toLocaleDateString("es-ES", options)}`}</div>
-                                                    <div className="mt-3">{`${op.opinion[0].comentario}`}</div>
+                                                    <div className="mt-3" style={{ "whiteSpace": "pre-wrap" }}>{`${op.opinion[0].comentario}`}</div>
                                                 </Col>
                                                 <hr className="mt-5" />
                                                 <SummaryModal

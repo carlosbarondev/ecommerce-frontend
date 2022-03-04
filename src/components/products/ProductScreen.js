@@ -250,7 +250,7 @@ export const ProductScreen = () => {
                                     <div style={{ "fontSize": "16px" }}><b>{`${op.titulo}`}</b></div>
                                 </div>
                                 <div style={{ "fontSize": "14px" }}>{`${new Date(op.fecha).toLocaleDateString("es-ES", options)}`}</div>
-                                <div className="mt-3">{`${op.comentario}`}</div>
+                                <div className="mt-3" style={{ "whiteSpace": "pre-wrap" }}>{`${op.comentario}`}</div>
                             </div>
                             {
                                 (index !== producto.opinion.length - 1) && <hr className="mt-4" />
