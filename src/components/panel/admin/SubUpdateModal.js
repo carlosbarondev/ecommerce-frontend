@@ -48,7 +48,9 @@ export const SubUpdateModal = ({ subcategoria, subcategorias, setSubCategorias, 
 
         setModalShow("");
 
-        window.location.reload();
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
 
     }
 
