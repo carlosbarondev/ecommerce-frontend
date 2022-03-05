@@ -8,7 +8,7 @@ Interfaz de usuario, de un e-commerce genérico, construido con React.
 
 [![Ecommerce](https://res.cloudinary.com/dyi0p8m1g/image/upload/v1646494792/ecommerce/principal_zjvrx0.png)](https://ecommerce-carlosbarondev.herokuapp.com/)
 
-[!Ecommerce](https://res.cloudinary.com/dyi0p8m1g/image/upload/v1646494792/ecommerce/admin_z4pykd.png)](https://ecommerce-carlosbarondev.herokuapp.com/)
+[![Ecommerce](https://res.cloudinary.com/dyi0p8m1g/image/upload/v1646494792/ecommerce/admin_z4pykd.png)](https://ecommerce-carlosbarondev.herokuapp.com/)
 
 ## Contenidos
 
