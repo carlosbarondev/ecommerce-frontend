@@ -3,15 +3,19 @@
 Interfaz de usuario, de un e-commerce genérico, construido con React.
 
 [VISTA PREVIA](https://ecommerce-carlosbarondev.herokuapp.com/)
-*El servidor arranca en 10 segundos aproximadamente*
 
 [Backend](https://github.com/carlosbarondev/ecommerce-backend)
 
+[![Ecommerce](https://res.cloudinary.com/dyi0p8m1g/image/upload/v1646494792/ecommerce/principal_zjvrx0.png)](https://ecommerce-carlosbarondev.herokuapp.com/)
+
+[!Ecommerce](https://res.cloudinary.com/dyi0p8m1g/image/upload/v1646494792/ecommerce/admin_z4pykd.png)](https://ecommerce-carlosbarondev.herokuapp.com/)
+
 ## Contenidos
 
-- [Características principales](#Características principales)
+- [Características-principales](#Características-principales)
 - [Instalación](#Instalación)
 - [Tecnologías](#Tecnologías)
+- [Links](#Links)
 
 ## Características principales
 
@@ -50,5 +54,5 @@ Interfaz de usuario, de un e-commerce genérico, construido con React.
 
 ## Links
 
-* [Web site](https://ecommerce-carlosbarondev.herokuapp.com/)
+* [Website](https://ecommerce-carlosbarondev.herokuapp.com/) *(El servidor arranca en 10 segundos aproximadamente)*
 * [Backend](https://github.com/carlosbarondev/ecommerce-backend)
