@@ -30,7 +30,7 @@ export const ImagesHome = () => {
                         fluid
                         style={{ "cursor": "pointer" }}
                         alt="smartwatch"
-                        onClick={() => navigate(`/${normalizeText("Electrónica".replace(/\s+/g, '-'))}/${normalizeText("Relojes Inteligentes".replace(/\s+/g, '-'))}`, {
+                        onClick={() => navigate(`/${normalizeText("Electrónica".replace(/\s+/g, '-'))}/${normalizeText("Smartwatches".replace(/\s+/g, '-'))}`, {
                             state: {
                                 nombreCat: "Electrónica",
                                 nombreSub: "Relojes Inteligentes"
