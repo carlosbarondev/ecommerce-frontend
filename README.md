@@ -2,7 +2,7 @@
 
 Interfaz de usuario, de un e-commerce genérico, construido con React.
 
-[VISTA PREVIA](https://ecommerce-carlosbarondev.herokuapp.com/)
+[VISTA PREVIA](https://ecommerce-carlosbarondev.herokuapp.com/) *(El servidor arranca en 10 segundos aproximadamente)*
 
 [Backend](https://github.com/carlosbarondev/ecommerce-backend)
 
@@ -19,7 +19,9 @@ Interfaz de usuario, de un e-commerce genérico, construido con React.
 
 ## Características principales
 
-* Autenticación segura mediante JWT.
+* Diseño responsive, adaptado a dispositivos móviles  y tablets
+* Autenticación segura mediante JWT
+* Contraseñas encriptadas
 * Cesta de la compra
 * Lista de deseos
 * Pasarela de pago
@@ -33,7 +35,7 @@ Interfaz de usuario, de un e-commerce genérico, construido con React.
     - CRUD Categorías
     - CRUD Productos
 * Productos ordenados por categorías
-* Sistema de ranking de los productos.
+* Sistema de ranking de los productos
     - Ordenación por mejor valorados
     - Ordenación por más vendidos
 
